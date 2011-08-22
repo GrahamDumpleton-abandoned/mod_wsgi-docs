@@ -1,0 +1,81 @@
+﻿#summary Software available for download.
+
+= Nothing In Life Is Free =
+
+A significant amount of time and effort has gone into producing this
+software, the documentation and in providing support to users. So, although
+you are free to download it and do with it as you wish, it is not free from
+cost.
+
+If you are using mod_wsgi, please consider making a
+[HowToContributeBack donation]. By giving a donation you help to ensure
+that mod_wsgi will continue to be developed and the documentation further
+improved.
+
+If you are philosophically against the idea of contributing back to Open
+Source projects in a monetary way and find it obnoxious that any Open
+Source project would solicit donations, then it is suggested that you use
+one of the alternatives to mod_wsgi such as
+[http://en.wikipedia.org/wiki/Common_Gateway_Interface CGI].
+
+= Source Code Downloads =
+
+The most up to date and recommended version of mod_wsgi is 3.3.
+
+  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-3.3.tar.gz mod_wsgi-3.3.tar.gz - Source Code]
+
+For a list of changes made in this version see:
+
+  * [ChangesInVersion0303 Changes In Version 3.3]
+
+For a list of changes in all versions of mod_wsgi see:
+
+  * [ChangesInAllVersions Changes In All Versions]
+
+For details on how to install from the source code see:
+
+  * [QuickInstallationGuide Quick Installation Guide]
+
+= Windows Binary Downloads =
+
+Variations of precompiled binaries currently available for Windows are as
+follows. You need to make sure you select the correct one for the version
+of Python and Apache that is being used:
+
+  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-win32-ap22py26-3.3.so mod_wsgi-win32-ap22py26-3.3.so - Apache 2.2 / Python 2.6]
+  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-win32-ap22py27-3.3.so mod_wsgi-win32-ap22py27-3.3.so - Apache 2.2 / Python 2.7]
+
+For details on how to install these files see:
+
+  * [InstallationOnWindows Installation On Windows]
+
+Note that these binaries will only work for 32 bit Python and 32 bit Apache.
+If you need to use 64 bit Python and 64 bit Apache and can't compile mod_wsgi
+yourself from source code, you may look at the Windows binaries available
+for [http://code.activestate.com/pypm/modwsgi-apache2.2/ ActivateState Python].
+It is presumed that you have to be using ActivateState Python installation
+for them to work. It is not known where you would however get 64 bit Apache
+from as believe ASF only provides a 32 bit installer.
+
+= MacOS X Binary Downloads =
+
+A precompiled binary is currently supplied for MacOS X 10.6 (Snow Leopard).
+This is specifically for the Apple supplied Apache 2.2.X and Python 2.6.X
+and should not be used with MacPort or fink Apache/Python packages, or self
+compiled Apache/Python packages.
+
+  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-macosx106-ap22py26-3.3.so mod_wsgi-macosx106-ap22py26-3.3.so - Apache 2.2 / Python 2.6]
+
+= Conference Presentations =
+
+The following presentations are also available.
+
+  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf PyCon Conference Slides - Sydney 2010]
+  * [http://pyconau.blip.tv/file/3840484/ PyCon Conference Video - Sydney 2010]
+
+= Other Available Downloads =
+
+For additional downloads see:
+
+  * [http://code.google.com/p/modwsgi/downloads/list List Of Current Downloads]
+  * [http://code.google.com/p/modwsgi/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount List All Available Downloads]
