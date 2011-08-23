@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 1
 
    release-notes/index
+   configuration-directives/index
 
    AccessControlMechanisms
    ApplicationIssues
