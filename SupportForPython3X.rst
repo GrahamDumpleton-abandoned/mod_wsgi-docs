@@ -1,15 +1,16 @@
-﻿#summary Support provided for Python 3.X.
 
-_*If you are using mod_wsgi, please consider making a
-[HowToContributeBack donation].*_
 
-= Support provided for Python 3.X =
+===============================
+Support provided for Python 3.X
+===============================
 
-== What Versions Support Python 3.X ==
+What Versions Support Python 3.X
+--------------------------------
 
 Only mod_wsgi version 3.0 and later supports Python 3.X.
 
-== Compatible Versions Of Python 3.X ==
+Compatible Versions Of Python 3.X
+---------------------------------
 
 Python 3.0 will not be supported, you will need to at least be using Python
 3.1 if you want to use Python 3.X at all. This is in part because it is
@@ -17,7 +18,8 @@ assumed the PSF itself would prefer people not to use Python 3.0, but also
 because code is relying on 'surrogateescape' mechanisms from PEP 383 and
 this was only added in Python 3.1.
 
-== WSGI Specification And Python 3.X ==
+WSGI Specification And Python 3.X
+---------------------------------
 
 *Note that Python 3 support in mod_wsgi is compatible with
 [http://www.python.org/dev/peps/pep-3333/ PEP 3333] except for the value
@@ -73,7 +75,8 @@ should be a byte string. Where native strings are unicode strings, a native
 string type can also be supplied, in which case it would be encoded as
 ISO-8859-1.
 
-== WSGI Interface Version Identifier ==
+WSGI Interface Version Identifier
+---------------------------------
 
 Note that at this time, for where either Python 2.X or 3.X is used,
 mod_wsgi 3.0 is defining the 'wsgi.version' tuple in the WSGI environment

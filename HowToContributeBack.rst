@@ -1,8 +1,10 @@
-﻿#summary How to contribute back to mod_wsgi.
 
-= How to contribute back =
+======================
+How to contribute back
+======================
 
-== Who Are The Developers ==
+Who Are The Developers
+----------------------
 
 The mod_wsgi package is a solo effort by
 [http://blog.dscpl.com.au Graham Dumpleton].
@@ -14,7 +16,8 @@ own needs. It is developed purely because it represents an interesting
 technical challenge and not because the author needs it himself to host a
 web site.
 
-== How To Make A Donation ==
+How To Make A Donation
+----------------------
 
 Donations can be made via
 [https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=636842 PayPal]
@@ -36,14 +39,16 @@ where your company spends ridiculous amounts of money on web hosting you
 can instead elect to donate something more within the range stated above
 rather than how much you actually spend on web hosting services.
 
-== How Are Donations Used ==
+How Are Donations Used
+----------------------
 
 Any monetary donations typically go towards buying clothes, toys, music,
 books and apps for the authors 3 year old daughter. Money has also been
 used in the past to pay for attending conferences and to buy computer
 hardware.
 
-== How Else Can You Donate ==
+How Else Can You Donate
+-----------------------
 
 By prior arrangement, the author is also happy to accept free access to VPS
 or cloud hosting services for testing and experimentation. In practice
@@ -64,7 +69,8 @@ ranking on
 [http://www.ohloh.net/accounts/5497/kudos Ohloh] by giving kudos or adding
 mod_wsgi to your Ohloh project stack.
 
-== What Do You Get In Return ==
+What Do You Get In Return
+-------------------------
 
 At the moment nothing extra can be offered in recognition of making a
 donation except the ability to ask questions related to a companies

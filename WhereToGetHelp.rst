@@ -1,15 +1,15 @@
-﻿#summary Where to get help on using mod_wsgi.
 
-_*If you are using mod_wsgi, please consider making a
-[HowToContributeBack donation].*_
 
-= Where To Get Help =
+=================
+Where To Get Help
+=================
 
 If you are having problems with installing or using mod_wsgi, then ensure
 you read this first. It will give you some pointers on what you can do to
 resolve the problem yourself.
 
-== Read The Documentation ==
+Read The Documentation
+----------------------
 
 First thing you should do is make sure you have read the actual mod_wsgi
 documentation on the mod_wsgi site. The documentation on the mod_wsgi site
@@ -47,7 +47,8 @@ For a lost of all available documentation see:
 
 Also check the authors [http://blog.dscpl.com.au/ blog site] as various useful posts have been made there which have never made there way back into the core documentation.
 
-== Hello World Program ==
+Hello World Program
+-------------------
 
 Second thing is that if your issue is arising from your very first attempt
 to setup mod_wsgi and you are trying to use a high level Python web
@@ -61,7 +62,9 @@ You can find a simple hello world program in:
 
   * [QuickConfigurationGuide Quick Configuration Guide]
 
-= Conference Presentations =
+========================
+Conference Presentations
+========================
 
 The author has also done a number of presentations in the past. The main one for which information is available online is as follows:.
 
@@ -70,7 +73,8 @@ The author has also done a number of presentations in the past. The main one for
 
 Ensure you watch the presentatIon as it details many of the common pitfalls for new users.
 
-== Asking Your Questions ==
+Asking Your Questions
+---------------------
 
 Finally, if you still can't find the answer, next step is to use the
 mod_wsgi mailing list to post your question. The mailing list is hosted by
@@ -164,7 +168,8 @@ message. Instead, also show the lines before and after that point. These
 other lines from the error logs may show supplemental error messages from
 Apache or mod_wsgi or provide Python traceback information.
 
-== Lodging Bug Reports ==
+Lodging Bug Reports
+-------------------
 
 If you believe you really have uncovered a bug in mod_wsgi code, and that has
 perhaps also been verfied through discussion on the mod_wsgi mailing list or
@@ -178,7 +183,8 @@ before lodging bug reports. The majority of issues lodged by non developers
 via the issue tracker are not actually bugs in mod_wsgi but due to external
 factors or simply a failure to read the documentation.
 
-== Contacting The Author ==
+Contacting The Author
+---------------------
 
 It would be prefered that you use the mod_wsgi mailing list to ask questions.
 If however it involves revealing information which is confidential then you

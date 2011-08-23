@@ -1,8 +1,10 @@
-﻿#summary Software available for download.
 
-= Download The Software =
+=====================
+Download The Software
+=====================
 
-== Nothing In Life Is Free ==
+Nothing In Life Is Free
+-----------------------
 
 A significant amount of time and effort has gone into producing this
 software, the documentation and in providing support to users. So, although
@@ -10,7 +12,6 @@ you are free to download it and do with it as you wish, it is not free from
 cost.
 
 If you are using mod_wsgi, please consider making a
-[HowToContributeBack donation]. By giving a donation you help to ensure
 that mod_wsgi will continue to be developed and the documentation further
 improved.
 
@@ -20,7 +21,8 @@ Source project would solicit donations, then it is suggested that you use
 one of the alternatives to mod_wsgi such as
 [http://en.wikipedia.org/wiki/Common_Gateway_Interface CGI].
 
-== Source Code Downloads ==
+Source Code Downloads
+---------------------
 
 The most up to date and recommended version of mod_wsgi is 3.3.
 
@@ -38,7 +40,8 @@ For details on how to install from the source code see:
 
   * [QuickInstallationGuide Quick Installation Guide]
 
-== Windows Binary Downloads ==
+Windows Binary Downloads
+------------------------
 
 Variations of precompiled binaries currently available for Windows are as
 follows. You need to make sure you select the correct one for the version
@@ -59,7 +62,8 @@ It is presumed that you have to be using ActivateState Python installation
 for them to work. It is not known where you would however get 64 bit Apache
 from as believe ASF only provides a 32 bit installer.
 
-== MacOS X Binary Downloads ==
+MacOS X Binary Downloads
+------------------------
 
 A precompiled binary is currently supplied for MacOS X 10.6 (Snow Leopard).
 This is specifically for the Apple supplied Apache 2.2.X and Python 2.6.X
@@ -68,14 +72,16 @@ compiled Apache/Python packages.
 
   * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-macosx106-ap22py26-3.3.so mod_wsgi-macosx106-ap22py26-3.3.so - Apache 2.2 / Python 2.6]
 
-== Conference Presentations ==
+Conference Presentations
+------------------------
 
 The following presentations are also available.
 
   * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf PyCon Conference Slides - Sydney 2010]
   * [http://pyconau.blip.tv/file/3840484/ PyCon Conference Video - Sydney 2010]
 
-== Other Available Downloads ==
+Other Available Downloads
+-------------------------
 
 For additional downloads see:
 
