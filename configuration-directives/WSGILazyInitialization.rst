@@ -5,14 +5,12 @@ WSGILazyInitialization
 +----------------+-----------------------------------------------------------+
 | Description    | Enable/disable lazy initialisation of Python.             |
 +----------------+-----------------------------------------------------------+
-| Syntax (3.0+)  | ``WSGILazyInitialization On|Off``                         |
+| Syntax         | ``WSGILazyInitialization On|Off``                         |
 +----------------+-----------------------------------------------------------+
-| Default (3.0+) | ``WSGILazyInitialization On``                             |
+| Default        | ``WSGILazyInitialization On``                             |
 +----------------+-----------------------------------------------------------+
 | Context        | server config                                             |
 +----------------+-----------------------------------------------------------+
-
-**Note: This directive was only added in mod_wsgi version 3.0.**
 
 The WSGILazyInitialization directives sets whether or not the Python
 interpreter is preinitialised within the Apache parent process or whether
