@@ -15,7 +15,6 @@ Configuration Directives
    WSGIDaemonProcess
    WSGIImportScript
    WSGILazyInitialization
-   WSGIOutputBuffering
    WSGIPassAuthorization
    WSGIProcessGroup
    WSGIPythonEggs
