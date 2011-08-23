@@ -2,15 +2,10 @@
 WSGIRestrictStdin
 =================
 
-+----------------+-----------------------------------------------------------+
-| Description    | Enable restrictions on use of STDIN.                      |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIRestrictStdin On|Off``                              |
-+----------------+-----------------------------------------------------------+
-| Default        | ``WSGIRestrictStdin On``                                  |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Enable restrictions on use of STDIN.
+:Syntax: ``WSGIRestrictStdin On|Off``
+:Default: ``WSGIRestrictStdin On``
+:Context: server config
 
 A well behaved Python WSGI application should never attempt to read any
 input directly from ``sys.stdin``. This is because ways of hosting WSGI

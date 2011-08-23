@@ -19,7 +19,6 @@ Configuration Directives
    WSGIPassAuthorization
    WSGIProcessGroup
    WSGIPythonEggs
-   WSGIPythonExecutable
    WSGIPythonHome
    WSGIPythonOptimize
    WSGIPythonPath

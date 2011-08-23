@@ -2,15 +2,10 @@
 WSGIRestrictEmbedded
 ====================
 
-+----------------+-----------------------------------------------------------+
-| Description    | Enable restrictions on use of embedded mode.              |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIRestrictEmbedded On|Off``                           |
-+----------------+-----------------------------------------------------------+
-| Default        | ``WSGIRestrictEmbedded Off``                              |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Enable restrictions on use of embedded mode.
+:Syntax: ``WSGIRestrictEmbedded On|Off``
+:Default: ``WSGIRestrictEmbedded Off``
+:Context: server config
 
 The WSGIRestrictEmbedded directive determines whether mod_wsgi embedded
 mode is enabled or not. If set to 'On' and the restriction on embedded mode

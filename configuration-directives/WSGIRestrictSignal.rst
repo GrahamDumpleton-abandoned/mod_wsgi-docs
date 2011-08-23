@@ -2,15 +2,10 @@
 WSGIRestrictSignal
 ==================
 
-+----------------+-----------------------------------------------------------+
-| Description    | Enable restrictions on use of signal().                   |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIRestrictSignal On|Off``                             |
-+----------------+-----------------------------------------------------------+
-| Default        | ``WSGIRestrictSignal On``                                 |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Enable restrictions on use of signal().
+:Syntax: ``WSGIRestrictSignal On|Off``
+:Default: ``WSGIRestrictSignal On``
+:Context: server config
 
 A well behaved Python WSGI application should not in general register any
 signal handlers of its own using ``signal.signal()``. The reason for this

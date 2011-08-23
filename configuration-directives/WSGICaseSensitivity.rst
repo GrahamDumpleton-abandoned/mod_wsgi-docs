@@ -2,13 +2,9 @@
 WSGICaseSensitivity
 ===================
 
-+----------------+-----------------------------------------------------------+
-| Description    | Define whether file system is case sensitive.             |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGICaseSensitivity On|Off``                            |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Define whether file system is case sensitive.
+:Syntax: ``WSGICaseSensitivity On|Off``
+:Context: server config
 
 When mod_wsgi is used on the Windows and MacOS X platforms, it will assume
 that the filesystem in use is case insensitive. This is necessary to ensure

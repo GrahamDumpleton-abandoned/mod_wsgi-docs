@@ -2,15 +2,10 @@
 WSGIAccessScript
 ================
 
-+----------------+-----------------------------------------------------------+
-| Description    | Specify script implementing host access controls          |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIAccessScript`` *path* ``[`` *options* ``]``         |
-+----------------+-----------------------------------------------------------+
-| Context        | directory, .htaccess                                      |
-+----------------+-----------------------------------------------------------+
-| Override       | ``AuthConfig``                                            |
-+----------------+-----------------------------------------------------------+
+:Description: Specify script implementing host access controls.
+:Syntax: ``WSGIAccessScript`` *path* ``[`` *options* ``]``
+:Context: directory, .htaccess
+:Override: ``AuthConfig``
 
 The WSGIAccessScript directive provides a mechanism for implementing host
 access controls.
@@ -20,7 +15,7 @@ found in :doc:`../AccessControlMechanisms`.
 
 The options which can be supplied to the WSGIAccessScript directive are:
 
-*application-group=name*
+**application-group=name**
     Specifies the name of the application group within the specified
     process for which the script file will be loaded.
 

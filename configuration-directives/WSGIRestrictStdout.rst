@@ -2,15 +2,10 @@
 WSGIRestrictStdout
 ==================
 
-+----------------+-----------------------------------------------------------+
-| Description    | Enable restrictions on use of STDOUT.                     |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIRestrictStdout On|Off``                             |
-+----------------+-----------------------------------------------------------+
-| Default        | ``WSGIRestrictStdout On``                                 |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Enable restrictions on use of STDOUT.
+:Syntax: ``WSGIRestrictStdout On|Off``
+:Default: ``WSGIRestrictStdout On``
+:Context: server config
 
 A well behaved Python WSGI application should never attempt to write any
 data directly to ``sys.stdout`` or use the ``print`` statement without

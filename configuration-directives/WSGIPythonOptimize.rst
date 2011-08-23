@@ -2,15 +2,10 @@
 WSGIPythonOptimize
 ==================
 
-+----------------+-----------------------------------------------------------+
-| Description    | Enables basic Python optimisation features.               |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIPythonOptimize [0|1|2]``                            |
-+----------------+-----------------------------------------------------------+
-| Default        | ``WSGIPythonOptimize 0``                                  |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Enables basic Python optimisation features.
+:Syntax: ``WSGIPythonOptimize [0|1|2]``
+:Default: ``WSGIPythonOptimize 0``
+:Context: server config
 
 Sets the level of Python compiler optimisations. The default is '0' which
 means no optimisations are applied.

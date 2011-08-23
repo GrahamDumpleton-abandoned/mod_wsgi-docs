@@ -2,17 +2,11 @@
 WSGIScriptReloading
 ===================
 
-+----------------+-----------------------------------------------------------+
-| Description    | Enable/Disable detection of WSGI script file changes.     |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIScriptReloading On|Off``                            |
-+----------------+-----------------------------------------------------------+
-| Default        | ``WSGIScriptReloading On``                                |
-+----------------+-----------------------------------------------------------+
-| Context        | server config, virtual host, directory, .htaccess         |
-+----------------+-----------------------------------------------------------+
-| Override       | ``FileInfo``                                              |
-+----------------+-----------------------------------------------------------+
+:Description: Enable/Disable detection of WSGI script file changes.
+:Syntax: ``WSGIScriptReloading On|Off``
+:Default: ``WSGIScriptReloading On``
+:Context: server config, virtual host, directory, .htaccess
+:Override: ``FileInfo``
 
 The WSGIScriptReloading directive can be used to control whether changes to
 WSGI script files trigger the reloading mechanism. By default script

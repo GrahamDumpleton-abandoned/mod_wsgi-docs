@@ -2,15 +2,10 @@
 WSGIAcceptMutex
 ===============
 
-+----------------+-----------------------------------------------------------+
-| Description    | Specify type of accept mutex used by daemon processes.    |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIAcceptMutex Default|method``                        |
-+----------------+-----------------------------------------------------------+
-| Default        | ``WSGIAcceptMutex Default``                               |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Specify type of accept mutex used by daemon processes.
+:Syntax: ``WSGIAcceptMutex Default|method``
+:Default: ``WSGIAcceptMutex Default``
+:Context: server config
 
 The WSGIAcceptMutex directive sets the method that mod_wsgi will use to
 serialize multiple daemon processes in a process group accepting requests

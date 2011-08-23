@@ -2,13 +2,9 @@
 WSGIPythonHome
 ==============
 
-+----------------+-----------------------------------------------------------+
-| Description    | Absolute path to Python prefix/exec_prefix directories.   |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIPythonHome`` *prefix|prefix:exec_prefix*            |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Absolute path to Python prefix/exec_prefix directories.
+:Syntax: ``WSGIPythonHome`` *prefix|prefix:exec_prefix*
+:Context: server config
 
 Used to indicate to Python when it is initialised where its library files
 are installed. This should be defined where the Python executable is not in

@@ -2,13 +2,9 @@
 WSGIPythonPath
 ==============
 
-+----------------+-----------------------------------------------------------+
-| Description    | Additional directories to search for Python modules.      |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIPythonPath`` *directory|directory-1:...*            |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Additional directories to search for Python modules.
+:Syntax: ``WSGIPythonPath`` *directory|directory-1:directory-2:...*
+:Context: server config
 
 Used to specify additional directories to search for Python modules. If
 multiple directories are specified they should be separated by a ':' if

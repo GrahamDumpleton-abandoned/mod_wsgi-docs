@@ -2,13 +2,9 @@
 WSGIPythonEggs
 ==============
 
-+----------------+-----------------------------------------------------------+
-| Description    | Directory to use for Python eggs cache.                   |
-+----------------+-----------------------------------------------------------+
-| Syntax         | ``WSGIPythonEggs`` *directory*                            |
-+----------------+-----------------------------------------------------------+
-| Context        | server config                                             |
-+----------------+-----------------------------------------------------------+
+:Description: Directory to use for Python eggs cache.
+:Syntax: ``WSGIPythonEggs`` *directory*
+:Context: server config
 
 Used to specify the directory to be used as the Python eggs cache directory
 for all sub interpreters created within embedded mode. This directive
