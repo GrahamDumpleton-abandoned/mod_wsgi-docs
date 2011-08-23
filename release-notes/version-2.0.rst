@@ -1,5 +1,3 @@
-
-
 ======================
 Changes In Version 2.0
 ======================
@@ -8,16 +6,17 @@ Version 2.0 of mod_wsgi can be obtained from:
 
   http://modwsgi.googlecode.com/files/mod_wsgi-2.0.tar.gz
 
+Note that mod_wsgi 2.0 was originally derived from mod_wsgi 1.0. It has
+though all changes from later releases in the 1.X branch. Thus also see:
+
+* :doc:`version-1.1`
+* :doc:`version-1.2`
+* :doc:`version-1.3`
+
 Bug Fixes
 ---------
 
-1. Bug fixes from version [ChangesInVersion0101 1.1] of mod_wsgi.
-
-2. Bug fixes from version [ChangesInVersion0102 1.2] of mod_wsgi.
-
-3. Bug fixes from version [ChangesInVersion0103 1.3] of mod_wsgi.
-
-4. Work around bug in Apache where '100 Continue' response was sent as
+1. Work around bug in Apache where '100 Continue' response was sent as
 part of response content if no attempt to read request input before headers
 and response were generated.
 
@@ -72,8 +71,9 @@ If this option is specified for WSGI application run in embedded mode
 within Apache child processes, the existing default behaviour of reloading
 just the script file will apply.
 
-For more details see documentation on
-[ReloadingSourceCode Reloading Source Code]
+For more details see:
+
+* :doc:`../ReloadingSourceCode`
 
 2. When application is running in embedded mode, and WSGIApacheExtensions
 directive is set to On, then a Python CObject reference is added to the
@@ -96,15 +96,12 @@ at:
   http://modwsgi.googlecode.com/svn/sandbox/ap_swig_py
 
 With the SWIG binding for the Apache API, the intention is that many of
-the internal features of Apache would then be available. For example:
+the internal features of Apache would then be available. For example::
 
-::
-
-    import apache.httpd, apache.http_core
-    
-    req = apache.httpd.request_rec(environ["apache.request_rec"])
-    root = apache.http_core.ap_document_root(req)
-
+  import apache.httpd, apache.http_core
+  
+  req = apache.httpd.request_rec(environ["apache.request_rec"])
+  root = apache.http_core.ap_document_root(req)
 
 Note that this feature is experimental and may be removed from a future
 version if insufficient interest in it or in developing SWIG bindings.
@@ -118,71 +115,56 @@ run in the context of the Apache child processes and can not be delegated
 to a distinct daemon process.
 
 Apache configuration for defining an auth provider for Basic authentication
-when using Apache 2.2 would be:
+when using Apache 2.2 would be::
 
-::
+  AuthType Basic
+  AuthName "Top Secret"
+  AuthBasicProvider wsgi
+  WSGIAuthUserScript /usr/local/wsgi/scripts/auth.wsgi
+  Require valid-user
 
-    AuthType Basic
-    AuthName "Top Secret"
-    AuthBasicProvider wsgi
-    WSGIAuthUserScript /usr/local/wsgi/scripts/auth.wsgi
-    Require valid-user
+For Apache 2.0 it would be::
 
-
-For Apache 2.0 it would be:
-
-::
-
-    AuthType Basic
-    AuthName "Top Secret"
-    WSGIAuthUserScript /usr/local/wsgi/scripts/auth.wsgi
-    AuthAuthoritative Off
-    Require valid-user
-
+  AuthType Basic
+  AuthName "Top Secret"
+  WSGIAuthUserScript /usr/local/wsgi/scripts/auth.wsgi
+  AuthAuthoritative Off
+  Require valid-user
 
 The 'auth.wsgi' script would then need to contain a 'check_password()'
-function with a sample as shown below.
+function with a sample as shown below::
 
-::
-
-    def check_password(environ, user, password):
-        if user == 'spy':
-            if password == 'secret':
-                return True
-            return False
-        return None
-
+  def check_password(environ, user, password):
+      if user == 'spy':
+          if password == 'secret':
+              return True
+          return False
+      return None
 
 If using Apache 2.2 and Digest authentication support is built into Apache,
-then that also may be used.
+then that also may be used::
 
-::
-
-    AuthType Digest
-    AuthName "Top Secret"
-    AuthDigestProvider wsgi
-    WSGIAuthUserScript /usr/local/wsgi/scripts/auth.wsgi
-    Require valid-user
-
+  AuthType Digest
+  AuthName "Top Secret"
+  AuthDigestProvider wsgi
+  WSGIAuthUserScript /usr/local/wsgi/scripts/auth.wsgi
+  Require valid-user
 
 The name of the required authentication function for Digest authentication
 is 'get_realm_hash()'. The result of the function must be 'None' if the
 user doesn't exist, or a hash string encoding the user name, authentication
-realm and password.
+realm and password::
 
-::
-
-    import md5
-    
-    def get_realm_hash(environ, user, realm):
-        if user == 'spy':
-            value = md5.new()
-            # user:realm:password
-            value.update('%s:%s:%s' % (user, realm, 'secret'))
-            hash = value.hexdigest()
-            return hash
-        return None
-
+  import md5
+  
+  def get_realm_hash(environ, user, realm):
+      if user == 'spy':
+          value = md5.new()
+          # user:realm:password
+          value.update('%s:%s:%s' % (user, realm, 'secret'))
+          hash = value.hexdigest()
+          return hash
+      return None
 
 By default the auth providers are executed in context of first interpreter
 created by Python. This can be overridden using the 'application-group'
@@ -190,59 +172,53 @@ option to the script directive. The namespace for authentication groups is
 shared with that for application groups defined by WSGIApplicationGroup.
 
 If mod_authn_alias is being loaded into Apache, then an aliased auth
-provider can also be defined.
+provider can also be defined::
 
-::
+  <AuthnProviderAlias wsgi django>
+  WSGIAuthUserScript /usr/local/django/mysite/apache/auth.wsgi \
+   application-group=django
+  </AuthnProviderAlias>
 
-    <AuthnProviderAlias wsgi django>
-    WSGIAuthUserScript /usr/local/django/mysite/apache/auth.wsgi \
-     application-group=django
-    </AuthnProviderAlias>
-    
-    WSGIScriptAlias / /usr/local/django/mysite/apache/django.wsgi
-    
-    <Directory /usr/local/django/mysite/apache>
-    Order deny,allow
-    Allow from all
-    
-    WSGIApplicationGroup django
-    
-    AuthType Basic
-    AuthName "Django Site"
-    AuthBasicProvider django
-    Require valid-user
-    </Directory>
+  WSGIScriptAlias / /usr/local/django/mysite/apache/django.wsgi
 
+  <Directory /usr/local/django/mysite/apache>
+  Order deny,allow
+  Allow from all
 
-An authentication script for Django might then be something like:
+  WSGIApplicationGroup django
 
-::
+  AuthType Basic
+  AuthName "Django Site"
+  AuthBasicProvider django
+  Require valid-user
+  </Directory>
 
-    import os, sys
-    sys.path.append('/usr/local/django')
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings' 
-    
-    from django.contrib.auth.models import User 
-    from django import db 
-    
-    def check_password(environ, user, password): 
-        db.reset_queries() 
-    
-        kwargs = {'username': user, 'is_active': True} 
-    
-        try: 
-            try: 
-                user = User.objects.get(**kwargs) 
-            except User.DoesNotExist: 
-                return None
-    
-            if user.check_password(password): 
-                return True
-            else: 
-                return False
-        finally: 
-            db.connection.close() 
+An authentication script for Django might then be something like::
 
+  import os, sys
+  sys.path.append('/usr/local/django')
+  os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings' 
+  
+  from django.contrib.auth.models import User 
+  from django import db 
+  
+  def check_password(environ, user, password): 
+      db.reset_queries() 
+  
+      kwargs = {'username': user, 'is_active': True} 
+  
+      try: 
+          try: 
+              user = User.objects.get(**kwargs) 
+          except User.DoesNotExist: 
+              return None
+  
+          if user.check_password(password): 
+              return True
+          else: 
+              return False
+      finally: 
+          db.connection.close() 
 
 If the WSGIApacheExtensions directive is set to On then 'apache.request_rec'
 will be passed in 'environ' to the auth provider functions. This may be used
@@ -254,51 +230,46 @@ in a daemon process.
 
 A further example where this can be useful is where which daemon process
 is used is dependent on some attribute of the user. For example, if using
-the Apache configuration:
+the Apache configuration::
 
-::
-
-    WSGIDaemonProcess django-admin
-    WSGIDaemonProcess django-users
-    
-    WSGIProcessGroup %{ENV:PROCESS_GROUP}
-
+  WSGIDaemonProcess django-admin
+  WSGIDaemonProcess django-users
+  
+  WSGIProcessGroup %{ENV:PROCESS_GROUP}
 
 which daemon process the request is delegated to can be controlled from
-the auth provider.
+the auth provider::
 
-::
+  import apache.httpd
+  
+  def check_password(environ, user, password): 
+      db.reset_queries() 
+  
+      kwargs = {'username': user, 'is_active': True} 
+  
+      try: 
+          try: 
+              user = User.objects.get(**kwargs) 
+          except User.DoesNotExist: 
+              return None
+  
+          if user.check_password(password): 
+              req = apache.httpd.request_rec(environ["apache.request_rec"])
+  
+              if user.is_staff:
+                  req.subprocess_env["PROCESS_GROUP"] = 'django-admin'
+              else:
+                  req.subprocess_env["PROCESS_GROUP"] = 'django-users'
+  
+              return True
+          else: 
+              return False
+      finally: 
+          db.connection.close() 
 
-    import apache.httpd
-    
-    def check_password(environ, user, password): 
-        db.reset_queries() 
-    
-        kwargs = {'username': user, 'is_active': True} 
-    
-        try: 
-            try: 
-                user = User.objects.get(**kwargs) 
-            except User.DoesNotExist: 
-                return None
-    
-            if user.check_password(password): 
-                req = apache.httpd.request_rec(environ["apache.request_rec"])
-    
-                if user.is_staff:
-                    req.subprocess_env["PROCESS_GROUP"] = 'django-admin'
-                else:
-                    req.subprocess_env["PROCESS_GROUP"] = 'django-users'
-    
-                return True
-            else: 
-                return False
-        finally: 
-            db.connection.close() 
+For more details see:
 
-
-For more details see documentation on
-[AccessControlMechanisms Access Control Mechanisms]
+* :doc:`../AccessControlMechanisms`
 
 4. When Apache 2.2 is being used, now possible to provide a script file
 containing a callable which returns the groups that a user is a member of.
@@ -307,55 +278,47 @@ This can be used in conjunction with a 'group' option to the Apache
 'wsgi-group'.
 
 Apache configuration for defining an auth provider for Basic authentication
-and subsequent group authorisation would be:
+and subsequent group authorisation would be::
 
-::
-
-    AuthType Basic
-    AuthName "Top Secret"
-    AuthBasicProvider wsgi
-    WSGIAuthUserScript /usr/local/wsgi/scripts/auth.wsgi
-    WSGIAuthGroupScript /usr/local/wsgi/scripts/auth.wsgi
-    Require group secret-agents
-    Require valid-user
-
+  AuthType Basic
+  AuthName "Top Secret"
+  AuthBasicProvider wsgi
+  WSGIAuthUserScript /usr/local/wsgi/scripts/auth.wsgi
+  WSGIAuthGroupScript /usr/local/wsgi/scripts/auth.wsgi
+  Require group secret-agents
+  Require valid-user
 
 The 'auth.wsgi' script would then need to contain a 'check_password()'
-and 'groups_for_user()' function with a sample as shown below.
+and 'groups_for_user()' function with a sample as shown below::
 
-::
+  def check_password(environ, user, password):
+      if user == 'spy':
+          if password == 'secret':
+              return True
+          return False
+      return None
+  
+  def groups_for_user(environ, user):
+      if user == 'spy':
+          return ['secret-agents']
+      return ['']
 
-    def check_password(environ, user, password):
-        if user == 'spy':
-            if password == 'secret':
-                return True
-            return False
-        return None
-    
-    def groups_for_user(environ, user):
-        if user == 'spy':
-            return ['secret-agents']
-        return ['']
+For more details see:
 
-
-For more details see documentation on
-[AccessControlMechanisms Access Control Mechanisms]
+* :doc:`../AccessControlMechanisms`
 
 5. Implemented WSGIDispatchScript directive. This directive can be used
 to designate a script file in which can be optionally defined any of the
-functions:
+functions::
 
-::
-
-    def process_group(environ):
-        return "%{GLOBAL}"
-    
-    def application_group(environ):
-        return "%{GLOBAL}"
-    
-    def callable_object(environ):
-        return "application"
-
+  def process_group(environ):
+      return "%{GLOBAL}"
+  
+  def application_group(environ):
+      return "%{GLOBAL}"
+  
+  def callable_object(environ):
+      return "application"
 
 This allows for the process group, application group and callable object
 name for a WSGI application to be programmatically defined rather than be
@@ -377,13 +340,10 @@ across a number of daemon process groups, but always directing requests from
 a specific user to the same daemon process.
 
 6. Implemented inactivity-timeout option for WSGIDaemonProcess directive.
-For example:
+For example::
 
-::
-
-    WSGIDaemonProcess trac processes=1 threads=15 \
-      maximum-requests=1000 inactivity-timeout=300
-
+  WSGIDaemonProcess trac processes=1 threads=15 \
+    maximum-requests=1000 inactivity-timeout=300
 
 When this option is used, the daemon process will be shutdown, and thence
 restarted, after no request activity for the defined period (in seconds).
@@ -428,27 +388,21 @@ running in a VPS provided by a web hosting company, where they for some
 reason seem to take into consideration the virtual memory size as well as
 the resident memory size when calculating your process limits, it is better
 to drop the per thread stack size down to a value closer to 512KB. For
-example:
+example::
 
-::
-
-    WSGIDaemonProcess example processes=2 threads=25 stack-size=524288
-
+  WSGIDaemonProcess example processes=2 threads=25 stack-size=524288
 
 10. Added some direct support into mod_wsgi for virtual environments for
 Python such as virtualenv and workingenv.
 
 The first approach to configuration is to use WSGIPythonPath directive at
-global scope in apache configuration. For example:
+global scope in apache configuration. For example::
 
-::
-
-    # workingenv
-    WSGIPythonPath /some/path/env/lib/python2.3
-    
-    # virtualenv
-    WSGIPythonPath /some/path/env/lib/python2.3/site-packages
-
+  # workingenv
+  WSGIPythonPath /some/path/env/lib/python2.3
+  
+  # virtualenv
+  WSGIPythonPath /some/path/env/lib/python2.3/site-packages
 
 The path you have to specify is slightly different depending on whether you
 use workingenv or virtualenv packages.
@@ -463,20 +417,17 @@ Note that directories added with WSGIPythonPath only apply to applications
 running in embedded mode.
 
 If you want to specify directories for daemon processes, you can use the
-'python-path' option to WSGIDaemonProcess. For example:
+'python-path' option to WSGIDaemonProcess. For example::
 
-::
-
-    WSGIDaemonProcess turbogears processes=5 threads=1 \
-      user=site1 group=site1 maximum-requests=1000 \
-      python-path=/some/path/env/lib/python2.3/site-packages
-    
-    WSGIScriptAlias / /some/path/scripts/turbogears.wsgi
-    
-    WSGIProcessGroup turbogears
-    WSGIApplicationGroup %{GLOBAL}
-    WSGIReloadMechanism Process
-
+  WSGIDaemonProcess turbogears processes=5 threads=1 \
+    user=site1 group=site1 maximum-requests=1000 \
+    python-path=/some/path/env/lib/python2.3/site-packages
+  
+  WSGIScriptAlias / /some/path/scripts/turbogears.wsgi
+  
+  WSGIProcessGroup turbogears
+  WSGIApplicationGroup %{GLOBAL}
+  WSGIReloadMechanism Process
 
 Do note that anything defined in the standard Python site-packages
 directories takes precedence over directories added using the mechanisms
@@ -491,8 +442,9 @@ different daemon process groups using different Python virtual
 environments without any fiddles having to be done in the WSGI script
 file itself. 
 
-For more details see documentation on
-[VirtualEnvironments Virtual Environments]
+For more details see:
+
+* :doc:`../VirtualEnvironments`
 
 11. Added WSGIPythonEggs directive and corresponding 'python-eggs' option
 for WSGIDaemonProcess directive. These allow the location of the Python
@@ -508,33 +460,24 @@ value for the timeout is 300 seconds.
 13. Added support for providing an access control script. This equates to
 the access handler phase of Apache and would be use to deny access to a
 subset of URLs based on the details of the remote client. The path to the
-script is defined using the WSGIAccessScript directive.
+script is defined using the WSGIAccessScript directive::
 
-::
-
-    WSGIAccessScript /usr/local/wsgi/script/access.wsgi
-
+  WSGIAccessScript /usr/local/wsgi/script/access.wsgi
 
 The name of the function that must exist in the script file is 'allow_access()'.
-It must return True or False.
+It must return True or False::
 
-::
-
-    def allow_access(environ, host):
-        return host in ['localhost', '::1']
-
+  def allow_access(environ, host):
+      return host in ['localhost', '::1']
 
 This function will always be executed in the context of the Apache child
 processes even if it is controlling access to a WSGI application which has
 been delegated to a daemon process. By default the function will be executed
 in the context of the main Python interpreter, ie., '%{GLOBAL}'. This can
 be overridden by using the 'application-group' option to the WSGIAccessScript
-directive.
+directive::
 
-::
-
-    WSGIAccessScript /usr/local/wsgi/script/access.wsgi application-group=admin
-
+  WSGIAccessScript /usr/local/wsgi/script/access.wsgi application-group=admin
 
 For more details see documentation on
 [AccessControlMechanisms Access Control Mechanisms]
@@ -547,13 +490,10 @@ the first request arrives for that application.
 The directive for designating the script to load is WSGIImportScript. The
 directive can only be used at global scope within the Apache configuration.
 It is necessary to designate both the application group, and if dameon mode
-support is available, the process group.
+support is available, the process group::
 
-::
-
-    WSGIImportScript /usr/local/wsgi/script/import.wsgi \
-     process-group=%{GLOBAL} application-group=django
-
+  WSGIImportScript /usr/local/wsgi/script/import.wsgi \
+   process-group=%{GLOBAL} application-group=django
 
 14. Add "--disable-embedded" option to "configure" script so that ability
 to run a WSGI application in embedded mode can be disabled completely.

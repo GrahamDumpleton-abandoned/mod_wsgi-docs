@@ -8,9 +8,11 @@ Version 2.3 of mod_wsgi can be obtained from:
 
   http://modwsgi.googlecode.com/files/mod_wsgi-2.3.tar.gz
 
-*Note that this is a quick followup to version 2.2 of mod_wsgi to rectify
+**Note that this is a quick followup to version 2.2 of mod_wsgi to rectify
 significant problem introduced by that release. You should therefore also
-refer to [ChangesInVersion0202 change notes] for version 2.2 of mod_wsgi.*
+refer to:**
+
+* :doc:`version-2.2`
 
 Bug Fixes
 ---------

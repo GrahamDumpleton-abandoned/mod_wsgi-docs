@@ -1,26 +1,19 @@
-
-
 ======================
 Changes In Version 4.0
 ======================
 
 Working version of mod_wsgi 4.0 can currently only be obtained by checking
 it out from the source code repository. The Mercurial command you should
-use is:
+use is::
 
-::
-
-    hg clone http://modwsgi.googlecode.com/hg/ mod_wsgi-4.X
-
+  hg clone http://modwsgi.googlecode.com/hg/ mod_wsgi-4.X
 
 Note that mod_wsgi 4.0 was originally derived from mod_wsgi 3.1. It has
 though all changes from later releases in the 3.X branch. Thus also see:
 
-1. Changes in version [ChangesInVersion0302 3.2] of mod_wsgi.
-
-2. Changes in version [ChangesInVersion0303 3.3] of mod_wsgi.
-
-3. Changes in version [ChangesInVersion0304 3.4] of mod_wsgi.
+* :doc:`version-3.2`
+* :doc:`version-3.3`
+* :doc:`version-3.4`
 
 Bugs Fixed
 ----------
@@ -33,7 +26,7 @@ prior to registering signal handler.
 2. Python doesn't initialise codes in sub interpreters automatically which
 in some cases could cause code running in WSGI script to fail due to lack
 of encoding for Unicode strings when converting them. The error message
-in this case was:
+in this case was::
 
   LookupError: no codec search functions registered: can't find encoding
 

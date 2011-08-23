@@ -1,5 +1,3 @@
-
-
 ======================
 Changes In Version 3.3
 ======================
@@ -52,6 +50,6 @@ as script. See issue:
 wsgi.errors. The Python documentation says 'If a file-like object is not
 associated with a real file, this method should not be implemented'. That
 however is ambiguous as to whether one can omit it, or whether one should
-raise an !NotImplementedError exception. Either way, various code doesn't
+raise an NotImplementedError exception. Either way, various code doesn't
 cope with isatty() not existing or failing, so implement it and have it
 return False to be safe.

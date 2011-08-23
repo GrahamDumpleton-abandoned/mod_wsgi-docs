@@ -1,5 +1,3 @@
-
-
 ======================
 Changes In Version 3.0
 ======================
@@ -16,19 +14,13 @@ available from:
 Note that mod_wsgi 3.0 was originally derived from mod_wsgi 2.0. It has
 though all changes from later releases in the 2.X branch. Thus also see:
 
-1. Changes in version [ChangesInVersion0201 2.1] of mod_wsgi.
-
-2. Changes in version [ChangesInVersion0202 2.2] of mod_wsgi.
-
-3. Changes in version [ChangesInVersion0203 2.3] of mod_wsgi.
-
-4. Changes in version [ChangesInVersion0204 2.4] of mod_wsgi.
-
-5. Changes in version [ChangesInVersion0205 2.5] of mod_wsgi.
-
-6. Changes in version [ChangesInVersion0206 2.6] of mod_wsgi.
-
-7. Changes in version [ChangesInVersion0207 2.7] of mod_wsgi.
+* :doc:`version-2.1`
+* :doc:`version-2.2`
+* :doc:`version-2.3`
+* :doc:`version-2.4`
+* :doc:`version-2.5`
+* :doc:`version-2.6`
+* :doc:`version-2.7`
 
 Bug Fixes
 ---------
@@ -134,7 +126,7 @@ Features Added
 
 What constitutes support for Python 3.X is described in:
 
-  * [SupportForPython3X Support For Python 3.X]
+* :doc:`../SupportForPython3X`
 
 Note that Python 3.0 is not supported and cannot be used. You must use
 Python 3.1 or later as mod_wsgi relies on features only added in Python 3.1.
@@ -147,13 +139,10 @@ occurs then mod_wsgi may need to stop claiming to be WSGI compliant.
 2. It is now possible to supply 'process-group', 'application-group',
 'callable-object' and 'pass-authorization' configuration options to the
 WSGIScriptAlias and WSGIScriptAliasMatch directives after the location of
-the WSGI script file parameter. For example:
-
-::
+the WSGI script file parameter. For example::
 
     WSGIScriptAlias /trac /var/trac/apache/trac.wsgi \
      process-group=trac-projects application-group=%{GLOBAL}
-
 
 Where the options are provided, these will take precedence over any which
 apply to the application as defined in Location or Directory configuration
@@ -168,9 +157,7 @@ request for application arrives.
 
 Preloading of the WSGI script is performed in the same way as when using
 the WSGIImportScript directive. The above configuration is therefore
-equivalent to existing, but longer way of doing it, as shown below:
-
-::
+equivalent to existing, but longer way of doing it, as shown below::
 
     WSGIScriptAlias /trac /var/trac/apache/trac.wsgi
     
@@ -181,7 +168,6 @@ equivalent to existing, but longer way of doing it, as shown below:
     WSGIProcessGroup trac-projects
     WSGIApplicationGroup %{GLOBAL}
     </Directory>
-
 
 Note that the WSGIDaemonProcess directive defining the daemon process group
 being referred to by the process-group option must preceed the WSGIScriptAlias
@@ -198,7 +184,7 @@ For where write() being called a Python exception still has to be raised
 and whether that results in any message being logged depends on what the
 WSGI application does.
 
-End result is that for normal case where !LogLevel wouldn't be set to debug,
+End result is that for normal case where LogLevel wouldn't be set to debug,
 the log file will not fill up with messages where client prematurely closes
 connection.
 
@@ -215,16 +201,13 @@ same location as that which Apache/mod_wsgi is running.
 
 Note that the WSGI application code and any files it require have to be
 located within the chroot directory structure. In configuring mod_wsgi
-reference is then made to the WSGI application at that location. Thus:
-
-::
+reference is then made to the WSGI application at that location. Thus::
 
     WSGIDaemonProcess choot-1 user=grahamd group=staff display-name=%{GROUP} \
         root=/some/path/chroot-1
     
     WSGIScriptAlias /app /some/path/chroot-1/var/www/app/scripts/app.wsgi \
         process-group=chroot-1
-
 
 Normally this would result in Apache generating SCRIPT_FILENAME as the
 path as second argument to WSGIScriptAlias, but mod_wsgi, knowing it is a
@@ -251,12 +234,9 @@ For details on this change also see:
   http://code.google.com/p/modwsgi/issues/detail?id=106
 
 5. Added WSGIPy3kWarningFlag directive when Python 2.6 being used. This should
-be at server scope outside of any !VirtualHost and will apply to whole server.
-
-::
+be at server scope outside of any VirtualHost and will apply to whole server::
 
     WSGIPy3kWarningFlag On
-
 
 This should have same affect as -3 option to 'python' executable. For more
 details see:
@@ -274,7 +254,7 @@ available for reading by WSGI application. See:
 
   http://code.google.com/p/modwsgi/issues/detail?id=1
 
-To enable this feature, you must use:
+To enable this feature, you must use::
 
   WSGIChunkedRequest On
 
@@ -391,21 +371,15 @@ See:
 15. Implement WSGIPythonWarnings directive as equivalent to the 'python'
 executable '-W' option. The directive can be used at global scope in Apache
 configuration to provide warning control strings to disable messages produced
-by the warnings module. For example:
+by the warnings module. For example::
 
-::
+  # Ignore everything.
+  WSGIPythonWarnings ignore
 
-    # Ignore everything.
-    WSGIPythonWarnings ignore
+or::
 
-
-or:
-
-::
-
-    # Ignore only DeprecationWarning.
-    WSGIPythonWarnings ignore::DeprecationWarning::
-
+  # Ignore only DeprecationWarning.
+  WSGIPythonWarnings ignore::DeprecationWarning::
 
 For more details see:
 
@@ -431,19 +405,16 @@ details see:
 
 18. Added WSGIHandlerScript directive. This allows one to nominate a WSGI
 script file that should be executed as a handler for a specific file type
-as configured within Apache. For example:
+as configured within Apache. For example::
 
-::
-
-    <Files *.bobo>
-    WSGIProcessGroup bobo
-    WSGIApplicationGroup %{GLOBAL}
-    MultiViewsMatch Handlers
-    Options +ExecCGI
-    </Files>
-    AddHandler bobo-script .bobo
-    WSGIHandlerScript bobo-script /some/path/bobo-handler/handler.wsgi
-
+  <Files *.bobo>
+  WSGIProcessGroup bobo
+  WSGIApplicationGroup %{GLOBAL}
+  MultiViewsMatch Handlers
+  Options +ExecCGI
+  </Files>
+  AddHandler bobo-script .bobo
+  WSGIHandlerScript bobo-script /some/path/bobo-handler/handler.wsgi
 
 For this example, the application within the WSGI script file will be
 invoked whenever a URL maps to a file with '.bobo' extension. The name of

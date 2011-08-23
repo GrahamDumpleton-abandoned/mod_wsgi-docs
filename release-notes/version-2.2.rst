@@ -1,5 +1,3 @@
-
-
 ======================
 Changes In Version 2.2
 ======================
@@ -8,8 +6,8 @@ Version 2.2 of mod_wsgi can be obtained from:
 
   http://modwsgi.googlecode.com/files/mod_wsgi-2.2.tar.gz
 
-*Note: This version was quickly superseded by version 2.3 of mod_wsgi.
-Version 2.2 should not be used.*
+**Note: This version was quickly superseded by version 2.3 of mod_wsgi.
+Version 2.2 should not be used.**
 
 Features Changed
 ----------------

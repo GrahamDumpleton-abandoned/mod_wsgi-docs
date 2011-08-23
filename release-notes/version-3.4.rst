@@ -1,16 +1,12 @@
-
-
 ======================
 Changes In Version 3.4
 ======================
 
 Working version of mod_wsgi 3.4 can currently only be obtained by checking
 it out from the source code repository. The Mercurial command you should
-use is:
+use is::
 
-::
-
-    hg clone -b mod_wsgi-3.X http://modwsgi.googlecode.com/hg/ mod_wsgi-3.X
+  hg clone -b mod_wsgi-3.X http://modwsgi.googlecode.com/hg/ mod_wsgi-3.X
 
 
 Bugs Fixed

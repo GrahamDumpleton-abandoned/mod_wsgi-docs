@@ -1,5 +1,3 @@
-
-
 ======================
 Changes In Version 3.1
 ======================
@@ -10,7 +8,7 @@ Version 3.1 of mod_wsgi can be obtained from:
 
 As this version follows on quickly from mod_wsgi 3.0, ensure you read:
 
-1. Changes in version [ChangesInVersion0300 3.0] of mod_wsgi.
+* :doc:`version-3.0`
 
 Bug Fixes
 ---------
