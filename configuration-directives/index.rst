@@ -23,7 +23,6 @@ Configuration Directives
    WSGIPythonHome
    WSGIPythonOptimize
    WSGIPythonPath
-   WSGIReloadMechanism
    WSGIRestrictEmbedded
    WSGIRestrictProcess
    WSGIRestrictSignal
