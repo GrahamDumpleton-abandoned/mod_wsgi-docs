@@ -39,6 +39,10 @@ You will find pointers to documentation in there about how mod_wsgi
 processes and threading works, use of virtual environments, source code
 reloading and much more.
 
+For a lost of all available documentation see:
+
+* :doc:`TableOfContents`
+
 Also check the authors `blog site <http://blog.dscpl.com.au/>`_ as various
 useful posts have been made there which have never made there way back into
 the core documentation.
@@ -130,38 +134,38 @@ No matter which forum you use, when asking questions, it is always helpful
 to detail the following:
 
 1. Which version of mod_wsgi you are using and if using a packaged
-distribution, who provided the distribution.
-
-If you are not using the latest version, then upgrade first and verify the
-problem still occurs with the latest version.
+   distribution, who provided the distribution.
+   
+   If you are not using the latest version, then upgrade first and verify
+   the problem still occurs with the latest version.
 
 2. Which version of Python you are using and if using a packaged
-distribution, who provided the distribution.
+   distribution, who provided the distribution.
 
 3. Which version of Apache you are using and if using a packaged
-distribution, who provided the distribution.
-
-If not using latest patch revision of Apache 2.2, then consider
-upgrading and trying again.
+   distribution, who provided the distribution.
+   
+   If not using latest patch revision of Apache 2.2, then consider
+   upgrading and trying again.
 
 4. What operating system you are using.
 
 5. Details on any third party packages being used and what versions of
-those packages.
+   those packages.
 
 6. The mod_wsgi configuration you are using from Apache configuration files.
 
-In particular you should indicate whether you are using mod_wsgi embedded
-mode or daemon mode. Also can be helpful to indicate what MPM Apache has
-been compiled for and whether mod_php or mod_python are being loaded into
-the same Apache instance.
+   In particular you should indicate whether you are using mod_wsgi
+   embedded mode or daemon mode. Also can be helpful to indicate what MPM
+   Apache has been compiled for and whether mod_php or mod_python are being
+   loaded into the same Apache instance.
 
 7. Relevant error messages from the Apache error logs.
 
-Specifically, don't just quote the single line you think shows the error
-message. Instead, also show the lines before and after that point. These
-other lines from the error logs may show supplemental error messages from
-Apache or mod_wsgi or provide Python traceback information.
+   Specifically, don't just quote the single line you think shows the error
+   message. Instead, also show the lines before and after that point. These
+   other lines from the error logs may show supplemental error messages
+   from Apache or mod_wsgi or provide Python traceback information.
 
 Lodging Bug Reports
 -------------------
