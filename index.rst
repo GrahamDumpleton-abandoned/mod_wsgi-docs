@@ -1,7 +1,7 @@
 Apache/mod_wsgi
 ===============
 
-.. include:: WhereToGetHelp.rst
+.. include:: where-to-get-help.rst
 
 Indices and tables
 ==================

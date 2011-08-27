@@ -20,7 +20,7 @@ Contents:
    DownloadTheSoftware
    FileWrapperExtension
    FrequentlyAskedQuestions
-   HowToContributeBack
+   how-to-contribute-back
    InstallationInstructions
    InstallationIssues
    InstallationOnFreeBSD
@@ -49,4 +49,4 @@ Contents:
    SupportForPython3X
    TipsAndTricks
    VirtualEnvironments
-   WhereToGetHelp
+   where-to-get-help

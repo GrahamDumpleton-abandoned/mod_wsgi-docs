@@ -39,9 +39,9 @@ You will find pointers to documentation in there about how mod_wsgi
 processes and threading works, use of virtual environments, source code
 reloading and much more.
 
-For a lost of all available documentation see:
+For a list of all available documentation see:
 
-* :doc:`TableOfContents`
+* :doc:`table-of-contents`
 
 Also check the authors `blog site <http://blog.dscpl.com.au/>`_ as various
 useful posts have been made there which have never made there way back into
@@ -124,9 +124,9 @@ Source software, it is highly recommended you have a read of.
   http://www.catb.org/esr/faqs/smart-questions.html
 
 This will help you to ensure you have exhausted all possibilities as to
-where to find information and try and solve the problem yourself, as well
-as assist you in framing your question the best way so as to get the best
-response possible. Remember that people on the mailing list are
+where to find information and for trying to solve the problem yourself, as
+well as assist you in framing your question the best way so as to get the
+best response possible. Remember that people on the mailing list are
 volunteering their time to help and don't get paid for answering questions.
 Thus, it is in your interest not to annoy them too much.
 
@@ -193,4 +193,4 @@ really should be a last resort.
 If the question doesn't seem to warrant personal contact being made, you will
 be told to use the mod_wsgi mailing list like everyone else. That will be
 reconsidered if you want to pay some sort of support money for mod_wsgi or
-give a generous :doc:`HowToContributeBack`.
+give a generous :doc:`donation <how-to-contribute-back>`.

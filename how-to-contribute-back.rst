@@ -60,13 +60,11 @@ reference.
 
 Hardware can also be donated and at the moment the author is keen to get an
 Apple Mac Mini or two, plus wireless keyboards and mice to go with them.
-These would be used as a home entertainment system and software build
-server.
+These would be used as software build servers and testing.
 
 At the minimum, at least consider helping to push up the author's kudos
-ranking on
-`Ohloh <http://www.ohloh.net/accounts/5497/kudos>`_ by giving kudos or adding
-mod_wsgi to your Ohloh project stack.
+ranking on `Ohloh <http://www.ohloh.net/accounts/5497/kudos>`_
+by giving kudos or adding mod_wsgi to your Ohloh project stack.
 
 What Do You Get In Return
 -------------------------
