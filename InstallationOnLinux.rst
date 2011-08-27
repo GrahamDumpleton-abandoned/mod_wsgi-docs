@@ -1,5 +1,3 @@
-
-
 =====================
 Installation On Linux
 =====================
@@ -8,7 +6,7 @@ If using a Linux system, mod_wsgi can be installed direct from source code.
 
 For descriptions of general problems that may be encountered during
 installation on Linux, see the documentation on
-"[InstallationIssues Installation Issues]".
+:doc:`InstallationIssues`.
 
 If however you prefer to use packages specific to your Linux distribution,
 details of known packages are listed given below.
@@ -89,32 +87,23 @@ necessary to always use the operating system specific mechanism to start,
 stop or restart Apache.
 
 An example of an error which may occur when trying to restart Apache using
-'apachectl' on such a system is:
-
-::
+'apachectl' on such a system is::
 
     httpd (pid 22361?) not running
     (98)Address already in use: make_sock: could not bind to address 0.0.0.0:80
     no listening sockets available, shutting down
     Unable to open logs
 
-
 Because the exact mechanism used to manage services can differ between
 Linux operating system variants, you should consult the documentation for
 the prepackage version of Apache, or that for the operating system itself.
 
-One approach used requires that the 'init.d' script be used directly.
-
-::
+One approach used requires that the 'init.d' script be used directly::
 
     /etc/init.d/apache2 stop
     /etc/init.d/apache2 start
 
-
 Another is to use an intermediary management script, which in turns executes
-the appropriate 'init.d' script:
-
-::
+the appropriate 'init.d' script::
 
     invoke-rc.d apache2 reload
-

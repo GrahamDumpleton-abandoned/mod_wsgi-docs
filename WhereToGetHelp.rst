@@ -1,5 +1,3 @@
-
-
 =================
 Where To Get Help
 =================
@@ -21,7 +19,7 @@ frameworks are quite sparse and in some cases inaccurate or incomplete.
 
 The key document you should start with is:
 
-  * [InstallationInstructions Installation Instructions]
+* :doc:`InstallationInstructions`
 
 This has pointers to other documents covering installation, configuration
 and subsequent setup issues. Also references documents on how to go about
@@ -31,7 +29,7 @@ If you have been successful in getting mod_wsgi running and your questions
 are more about how mod_wsgi works or how more complicated features are used,
 then you should start with:
 
-  * [DeveloperGuidelines Developer Guidelines]
+* :doc:`DeveloperGuidelines`
 
 Although this is labelled as being for developers, that is referring to you
 as a user of mod_wsgi and a developer of your own web application. It isn't
@@ -41,11 +39,9 @@ You will find pointers to documentation in there about how mod_wsgi
 processes and threading works, use of virtual environments, source code
 reloading and much more.
 
-For a lost of all available documentation see:
-
-  * [http://code.google.com/p/modwsgi/w/list Documentation Index]
-
-Also check the authors [http://blog.dscpl.com.au/ blog site] as various useful posts have been made there which have never made there way back into the core documentation.
+Also check the authors `blog site <http://blog.dscpl.com.au/>`_ as various
+useful posts have been made there which have never made there way back into
+the core documentation.
 
 Hello World Program
 -------------------
@@ -60,16 +56,15 @@ complicate matters by introducing some third party software into the picture.
 
 You can find a simple hello world program in:
 
-  * [QuickConfigurationGuide Quick Configuration Guide]
+* :doc:`QuickConfigurationGuide`
 
-========================
 Conference Presentations
-========================
+------------------------
 
 The author has also done a number of presentations in the past. The main one for which information is available online is as follows:.
 
-  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf PyCon Conference Slides - Sydney 2010]
-  * [http://pyconau.blip.tv/file/3840484/ PyCon Conference Video - Sydney 2010]
+* `PyCon Conference Slides - Sydney 2010 <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf>`_
+* `PyCon Conference Video - Sydney 2010 <[http://pyconau.blip.tv/file/3840484/>`_
 
 Ensure you watch the presentatIon as it details many of the common pitfalls for new users.
 
@@ -104,8 +99,8 @@ frameworks and applications in the integration guides provided on the
 mod_wsgi site.
 
 A further option is to ask your question on
-[http://stackoverflow.com/ StackOverflow], if a programming question, or
-[http://serverfault.com/ ServerFault], if an administration issue. These
+`StackOverflow <http://stackoverflow.com/>`_, if a programming question, or
+`ServerFault <http://serverfault.com/>`_, if an administration issue. These
 sites allow a broad range of questions about many topics with quite a large
 user base of sometimes knowledgeable people. You might also try IRC
 channels related to any third party package or the more general #wsgi and
@@ -113,7 +108,7 @@ channels related to any third party package or the more general #wsgi and
 
 Do be aware though that the only forum that is now monitored by mod_wsgi
 developers is the mod_wsgi mailing list. Questions about mod_wsgi will no
-longer be answered on sites such as !StackOverflow and !ServerFault, on
+longer be answered on sites such as StackOverflow and ServerFault, on
 IRC, or even mailing lists for other packages. So, it is much preferable to
 use the mod_wsgi mailing list if you want an informed answer for a mod_wsgi
 specific question.
@@ -194,4 +189,4 @@ really should be a last resort.
 If the question doesn't seem to warrant personal contact being made, you will
 be told to use the mod_wsgi mailing list like everyone else. That will be
 reconsidered if you want to pay some sort of support money for mod_wsgi or
-give a generous [HowToContributeBack donation].
+give a generous :doc:`HowToContributeBack`.

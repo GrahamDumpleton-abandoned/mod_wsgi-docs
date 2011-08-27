@@ -1,5 +1,3 @@
-
-
 ===============================
 Support provided for Python 3.X
 ===============================
@@ -21,12 +19,12 @@ this was only added in Python 3.1.
 WSGI Specification And Python 3.X
 ---------------------------------
 
-*Note that Python 3 support in mod_wsgi is compatible with
-[http://www.python.org/dev/peps/pep-3333/ PEP 3333] except for the value
+Note that Python 3 support in mod_wsgi is compatible with
+`PEP 3333 <http://www.python.org/dev/peps/pep-3333/>`_ except for the value
 of 'wsgi.version'. Apache/mod_wsgi also allows some responses which PEP 3333
 forbids. So long as you code to PEP 3333 the latter should not be an issue.
 The next major version of Apache/mod_wsgi will be stricter on what it
-allows to ensure people write portable code for Python 3.*
+allows to ensure people write portable code for Python 3.
 
 There is as yet still no official update to the WSGI specification
 indicating how Python 3.X should implement it. A defacto definition of what

@@ -1,5 +1,3 @@
-
-
 ==================
 Application Issues
 ==================
@@ -26,8 +24,8 @@ the problems by using daemon mode.
 If you are having a problem which doesn't seem to be covered by this
 document, also make sure you see:
 
-  * [InstallationIssues Installation Issues]
-  * [ConfigurationIssues Configuration Issues]
+* :doc:`InstallationIssues`
+* :doc:`ConfigurationIssues`
 
 Access Rights Of Apache User
 ----------------------------
@@ -50,13 +48,10 @@ group that the Apache child processes run as will be inherited by the
 application. To determine which user and group would be used the main
 Apache configuration files should be consulted. The particular
 configuration directives which control this are ``User`` and ``Group``.
-For example:
-
-::
+For example::
 
     User www
     Group www
-
 
 Because this user is non privileged and will generally be different to the
 user that owns the files for a specific WSGI application, it is important
@@ -84,36 +79,30 @@ zipped up form rather than their unpacked form.
 
 If your WSGI application is affected by this problem in relation to Python
 eggs, you would generally see a Python exception similar to the following
-occuring and being logged in the Apache error logs.
-
-::
+occuring and being logged in the Apache error logs::
 
     ExtractionError: Can't extract file(s) to egg cache
-    
+
     The following error occurred while trying to extract file(s) to the
     Python egg cache:
-    
+
     [Errno 13] Permission denied: '/var/www/.python-eggs'
-    
+
     The Python egg cache directory is currently set to:
-    
+
       /var/www/.python-eggs
-    
+
     Perhaps your account does not have write access to this directory?
     You can change the cache directory by setting the PYTHON_EGG_CACHE
     environment variable to point to an accessible directory.
 
-
 To avoid this particular problem you can set the 'PYTHON_EGG_CACHE' cache
 environment variable at the start of the WSGI application script file. The
 environment variable should be set to a directory which is owned and/or
-writable by the user that Apache runs as.
-
-::
+writable by the user that Apache runs as::
 
     import os
     os.environ['PYTHON_EGG_CACHE'] = '/usr/local/pylons/python-eggs'
-
 
 Alternatively, if using mod_wsgi 2.0, one could also use the WSGIPythonEggs
 directive for applications running in embedded mode, or the 'python-eggs'
@@ -141,7 +130,7 @@ Secure Variants Of UNIX
 In addition to the constraints imposed by Apache running as a distinct
 user, some variants of UNIX have features whereby access privileges for
 a specific user may be even further restricted. One example of such a system
-is [http://en.wikipedia.org/wiki/SELinux SELinux]. In such a system, the
+is `SELinux <http://en.wikipedia.org/wiki/SELinux>`_. In such a system, the
 user that Apache runs as is typically restricted to only being able to
 access quite specific parts of the file system as well as possibly other
 resources or operating system library features.
@@ -152,41 +141,38 @@ required.
 
 As an example, the extra security checks of such a system may present
 problems if the version of Python you are using only provides a static
-library and not a shared library. If you experience an error similar to:
-
-::
+library and not a shared library. If you experience an error similar to::
 
     Cannot load /etc/httpd/modules/mod_wsgi.so into server: \
      /etc/httpd/modules/mod_wsgi.so: cannot restore segment prot after reloc: \
      Permission denied
-
 
 you will either need to configure the security system appropriately to
 allow that memory relocations in static code to work, or you would need to
 make sure that you reinstall Python such that it provides a shared library
 and rebuild mod_wsgi. Other issues around only having a static variant of
 the Python library available are described in section 'Lack Of Python
-Shared Library' of [InstallationIssues Installation Issues].
+Shared Library' of :doc:`InstallationIssues`.
 
 Even where a shared library is used, SELinux has also resulted in similar
 memory related errors when loading C extension modules at run time for
-Python:
-
-::
+Python::
 
     ImportError: /opt/python2.6/lib/python2.6/lib-dynload/itertools.so: \
      failed to map segment from shared object: Permission denied
-
 
 All up, configuring SELinux is a bit of a black art and so you are wise
 to do your research.
 
 For some information about using mod_wsgi in a SELinux enabled environment
 check out
-[http://www.packtpub.com/article/selinux-secured-web-hosting-python-based-web-applications SELinux - Highly Secured Web Hosting for Python-based Web Applications] and
-[http://www.globalherald.net/jb01/weblog/21.html Python SELinux Redux],
+`SELinux - Highly Secured Web Hosting for Python-based Web Applications
+<http://www.packtpub.com/article/selinux-secured-web-hosting-python-based-web-applications>`_ and
+`Python SELinux Redux <http://www.globalherald.net/jb01/weblog/21.html>`_
 both by Joshua Kramer, and
-[http://blog.endpoint.com/2010/02/selinux-httpd-modwsgi-26-rhel-centos-5.html Red Hat SELinux policy for mod_wsgi] by Adam Vollrath.
+`Red Hat SELinux policy for mod_wsgi
+<http://blog.endpoint.com/2010/02/selinux-httpd-modwsgi-26-rhel-centos-5.html>`_
+by Adam Vollrath.
 
 Overall, if you don't have a specific need for SELinux, it is suggested
 you consider disabling it if it gives you problems.
@@ -369,16 +355,13 @@ Unfortunately, parts of the Python standard library do use the 'HOME'
 environment variable as an authoritative source of information. In
 particular, the 'os.expanduser()' function gives precedence to the value of
 the 'HOME' environment variable over the home directory as obtained from
-the user password database entry.
-
-::
+the user password database entry::
 
     if 'HOME' not in os.environ:
         import pwd
         userhome = pwd.getpwuid(os.getuid()).pw_dir
     else:
         userhome = os.environ['HOME']
-
 
 That the 'os.expanduser()' function does this means it can yield incorrect
 results. Since the 'setuptools' package uses 'os.expanduser()' on UNIX
@@ -387,13 +370,10 @@ use can change based on who started Apache and how.
 
 The only way to guarantee that the 'HOME' environment variable is set to a
 sensible value is for it to be set explicitly at the start of the WSGI
-script file before anything else is done.
-
-::
+script file before anything else is done::
 
     import os, pwd
     os.environ["HOME"] = pwd.getpwuid(os.getuid()).pw_dir
-
 
 In mod_wsgi 2.0, if using daemon mode the value of the 'HOME' environment
 variable will be automatically reset to correspond to the home directory of
@@ -463,39 +443,30 @@ rely on it being done.
 In order to highlight non portable WSGI application components which write
 to or use standard output in some way, mod_wsgi prior to version 3.0
 replaced ``sys.stdout`` with an object which will raise an exception when
-any attempt is made to write to or make use of standard output.
-
-::
+any attempt is made to write to or make use of standard output::
 
     IOError: sys.stdout access restricted by mod_wsgi
-
 
 If the WSGI application you are using fails due to use of standard output
 being restricted and you cannot change the application or configure it
 to behave differently, you have one of two options. The first option is to
 replace ``sys.stdout`` with ``sys.stderr`` at the start of your WSGI
-application script file.
-
-::
+application script file::
 
     import sys
     sys.stdout = sys.stderr
-
 
 This will have the affect of directing any data written to standard output
 to standard error. Such data sent to standard error is then directed through
 the Apache logging system and will appear in the main Apache error log file.
 
 The second option is to remove the restriction on using standard output
-imposed by mod_wsgi using a configuration directive.
-
-::
+imposed by mod_wsgi using a configuration directive::
 
     WSGIRestrictStdout Off
 
-
 This configuration directive must appear at global scope within the Apache
-configuration file outside of any !VirtualHost container directives. It
+configuration file outside of any VirtualHost container directives. It
 will remove the restriction on using standard output from all Python sub
 interpreters that mod_wsgi creates. There is no way using the configuration
 directive to remove the restriction from only one Python sub interpreter.
@@ -506,16 +477,13 @@ the main Apache error log file.
 
 Ideally though, code should never use the 'print' statement without
 redirecting the output to 'sys.stderr'. Thus if the code can be changed,
-then it should be made to use something like:
-
-::
+then it should be made to use something like::
 
     import sys
     
     def function():
         print >> sys.stderr, "application debug"
     	...
-
 
 Also, note that code should ideally not be making assumptions about the
 environment it is executing in, eg., whether it is running in an
@@ -527,10 +495,10 @@ magic to determine whether that is the case or not.
 
 For further information about options for logging error messages and other
 debugging information from a WSGI application running under mod_wsgi see
-section 'Apache Error Log Files' of [DebuggingTechniques Debugging Techniques].
+section 'Apache Error Log Files' of :doc:`DebuggingTechniques`.
 
 WSGI applications which are known to write data to standard output in their
-default configuration are !CherryPy and !TurboGears. Some plugins for Trac
+default configuration are CherryPy and TurboGears. Some plugins for Trac
 also have this problem. Thus one of these two techniques described above to
 remove the restriction, should be used in conjunction with these WSGI
 applications. Alternatively, those applications will need to be configured
@@ -566,12 +534,9 @@ In order to highlight non portable WSGI application components which try
 and read from or otherwise use standard input, mod_wsgi prior to version
 3.0 replaced ``sys.stdin`` with an object which will raise an exception
 when any attempt is made to read from standard input or otherwise
-manipulate or reference the object.
-
-::
+manipulate or reference the object::
 
     IOError: sys.stdin access restricted by mod_wsgi
-
 
 This restriction on standard input will however prevent the use of
 interactive debuggers for Python such as ``pdb``. It can also interfere
@@ -581,15 +546,12 @@ session.
 
 If it is required to be able to run such debuggers or other code which
 requires interactive input, the restriction on using standard input can be
-removed using a configuration directive.
-
-::
+removed using a configuration directive::
 
     WSGIRestrictStdin Off
 
-
 This configuration directive must appear at global scope within the Apache
-configuration file outside of any !VirtualHost container directives. It
+configuration file outside of any VirtualHost container directives. It
 will remove the restriction on using standard input from all Python sub
 interpreters that mod_wsgi creates. There is no way using the configuration
 directive to remove the restriction from only one Python sub interpreter.
@@ -601,15 +563,12 @@ standard input to prevent any process trying to read from standard input.
 
 To run Apache in single process debug mode and thus allow an interactive
 Python debugger such as ``pdb`` to be used, your Apache instance should
-be shutdown and then the ``httpd`` program run explicitly.
-
-::
+be shutdown and then the ``httpd`` program run explicitly::
 
     httpd -X
 
-
 For more details on using interactive debuggers in the context of mod_wsgi
-see documentation on "[DebuggingTechniques Debugging Techniques]".
+see documentation on :doc:`DebuggingTechniques`.
 
 Note that the restrictions on reading from stdin were removed in mod_wsgi
 3.0 because it was found that people couldn't be bothered to fix their
@@ -636,30 +595,24 @@ attempt to register its own signal handlers.
 In order to actually enforce this, mod_wsgi will intercept all attempts
 to register signal handlers and cause the registration to be ignored.
 As warning that this is being done, a message will be logged to the Apache
-error log file of the form:
-
-::
+error log file of the form::
 
     mod_wsgi (pid=123): Callback registration for signal 1 ignored.
 
-
 If there is some very good reason that this feature should be disabled and
 signal handler registrations honoured, then the behaviour can be reversed
-using a configuration directive.
-
-::
+using a configuration directive::
 
     WSGIRestrictSignal Off
 
-
 This configuration directive must appear at global scope within the Apache
-configuration file outside of any !VirtualHost container directives. It
+configuration file outside of any VirtualHost container directives. It
 will remove the restriction on signal handlers from all Python sub
 interpreters that mod_wsgi creates. There is no way using the configuration
 directive to remove the restriction from only one Python sub interpreter.
 
 WSGI applications which are known to register conflicting signal handlers
-are !CherryPy and !TurboGears. If the ability to use signal handlers is
+are CherryPy and TurboGears. If the ability to use signal handlers is
 reenabled when using these packages it prevents the shutdown and restart
 sequence of Apache from working properly and the main Apache process is
 forced to explicitly terminate the Apache child processes rather than
@@ -688,10 +641,10 @@ defined code associated with it.
 
 The technical reasons for the limitations in the use of the "pickle" module
 in conjunction with WSGI application script files are further discussed in
-the document "[IssuesWithPickleModule Issues With Pickle Module]". Note
-that the limitations do not apply to standard Python modules and packages
-imported from within a WSGI application script file from directories on the
-standard Python module search path.
+the document :doc:`IssuesWithPickleModule`. Note that the limitations do
+not apply to standard Python modules and packages imported from within a
+WSGI application script file from directories on the standard Python module
+search path.
 
 Expat Shared Library Conflicts
 ------------------------------
@@ -718,7 +671,7 @@ problem.
 
 For further technical discussion of this issue and how to determine which
 version of the 'expat' library both Apache and Python use, see the document
-"[IssuesWithExpatLibrary Issues With Expat Library]".
+:doc:`IssuesWithExpatLibrary`.
 
 MySQL Shared Library Conflicts
 ------------------------------
@@ -735,20 +688,17 @@ To ascertain if there is a conflict, you need to determine which versions
 of the shared library each package is attempting to use. This can be done
 by running, on Linux, the 'ldd' command to list the library dependencies.
 This should be done on any Apache modules that are being loaded, any PHP
-modules and the Python ``_mysql`` C extension module.
-
-::
+modules and the Python ``_mysql`` C extension module::
 
     $ ldd /usr/lib/python2.3/site-packages/_mysql.so | grep mysql
         libmysqlclient_r.so.15 => /usr/lib/libmysqlclient_r.so.15 (0xb7d52000)
-    
+
     $ ldd /usr/lib/httpd/modules/mod_*.so | grep mysql
         libmysqlclient.so.12 => /usr/lib/libmysqlclient.so.12 (0xb7f00000)
-    
+
     $ ldd /usr/lib/php4/*.so | grep mysql
     /usr/lib/php4/mysql.so:
         libmysqlclient.so.10 => /usr/lib/mysql/libmysqlclient.so.10 (0xb7f6e000)
-
 
 If there is a difference in the version of the MySQL client library, or
 one version is reentrant and the other isn't, you will need to recompile
@@ -764,13 +714,10 @@ compiled it will be statically linked into the actual Apache executable. To
 determine if the SSL code is static rather than dynamically loaded from a
 shared library, on Linux, the 'ldd' command can be used to list the library
 dependencies. If an SSL library is listed, then code will not be statically
-compiled into Apache.
-
-::
+compiled into Apache::
 
     $ ldd /usr/local/apache/bin/httpd | grep ssl
         libssl.so.0.9.8 => /usr/lib/i686/cmov/libssl.so.0.9.8 (0xb79ab000)
-
 
 Where a Python module now uses a SSL library, such as a database client
 library with SSL support, they would typically always obtain SSL code from
@@ -790,18 +737,15 @@ extension module called ``_hashlib`` because of the conflict. That
 ``_hashlib`` module couldn't be loaded is however not raised as an
 exception, and instead the code will fallback to attempting to load the
 older ``_md5`` module. In Python 2.5 however, this older ``_md5``
-module is not generally compiled and so the following error will occur:
-
-::
+module is not generally compiled and so the following error will occur::
 
     ImportError: No module named _md5
-
 
 To resolve this problem it would be necessary to rebuild Apache and use the
 '--with-ssl' option to 'configure' to specify the location of the distinct
 SSL library that is being used by the Python modules.
 
-Note that it has also been suggested that the !ImportError above can also
+Note that it has also been suggested that the ImportError above can also
 be caused due to the 'python-hashlib' package not being installed. This
 might be the case on Linux systems where this module was separated from the
 main Python package.
@@ -822,7 +766,7 @@ matter what the input data, or an incorrect or random value can be returned
 even for the same data. In the worst case scenario the process may crash.
 
 As might be expected this can cause session based login schemes such as
-commonly employed by Python web frameworks such as Django, !TurboGears or
+commonly employed by Python web frameworks such as Django, TurboGears or
 Trac to fail in strange ways.
 
 The underlying trigger for all these problems appears to be a clash between
@@ -834,9 +778,7 @@ This clash has come about because because md5 source code in Python was
 replaced with an alternate version when it was packaged for Debian. This
 version did not include in the "md5.h" header file some preprocessor
 defines to rename the md5 functions with a namespace prefix specific to
-Python.
-
-::
+Python::
 
     #define MD5Init _PyDFSG_MD5Init
     #define MD5Update _PyDFSG_MD5Update
@@ -847,10 +789,7 @@ Python.
     void MD5Update(struct MD5Context *context, md5byte const *buf, unsigned len);
     void MD5Final(unsigned char digest[16], struct MD5Context *context);
 
-
-As a result, the symbols in the md5 module ended up being:
-
-::
+As a result, the symbols in the md5 module ended up being::
 
     $ nm -D /usr/lib/python2.4/lib-dynload/md5.so | grep MD5
     0000000000001b30 T MD5Final
@@ -858,18 +797,14 @@ As a result, the symbols in the md5 module ended up being:
     00000000000013b0 T MD5Transform
     0000000000001c10 T MD5Update
 
-
 The symbols then clashed directly with the non namespaced symbols present
-in the 'libmhash2' library.
-
-::
+in the 'libmhash2' library::
 
     $ nm -D /usr/lib/libmhash.so.2 | grep MD5
     00000000000069b0 T MD5Final
     0000000000006200 T MD5Init
     0000000000006230 T MD5Transform
     0000000000006a80 T MD5Update
-
 
 In Python 2.5 the md5 module is implemented in a different way and thus
 this problem should only occur with older versions of Python. For those
@@ -881,8 +816,8 @@ into PHP may cause some PHP programs which rely on them to fail.
 
 The actual cause of this problem having now been identified a patch has been
 produced and is recorded in Debian ticket
-[http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=440272 #440272]. It isn't
-know when an updated Debian package for Python may be produced.
+`#440272 <http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=440272>`_.
+It isn't know when an updated Debian package for Python may be produced.
 
 Python 'pysqlite' Symbol Conflict
 ---------------------------------
@@ -891,19 +826,15 @@ Certain versions of 'pysqlite' module defined a global symbol 'cache_init'.
 This symbol clashes with a similarly named symbol present in the Apache
 mod_cache module. As a result of the clash, the two modules being loaded at
 the same time can cause the Apache process to crash or the following Python
-exception to be raised:
-
-::
+exception to be raised::
 
     SystemError: NULL result without error in PyObject_Call
 
-
 This problem is mentioned in pysqlite ticket
-[http://www.initd.org/tracker/pysqlite/ticket/174 #174] and the release
+`#174 <http://www.initd.org/tracker/pysqlite/ticket/174>` and the release
 notes for version
-[http://www.initd.org/tracker/pysqlite/wiki/2.3.3_Changelog 2.3.3] of
-pysqlite
-To avoid the problem upgrade to pysqlite 2.3.3 or later.
+`2.3.3 <http://www.initd.org/tracker/pysqlite/wiki/2.3.3_Changelog 2.3.3>`_
+of pysqlite To avoid the problem upgrade to pysqlite 2.3.3 or later.
 
 Python Simplified GIL State API
 -------------------------------
@@ -930,18 +861,15 @@ Python is initialised.
 
 To force a specific WSGI application to be run within the very first Python
 sub interpreter created when Python is initialised, the WSGIApplicationGroup
-directive should be used and the group set to '%{GLOBAL}'.
-
-::
+directive should be used and the group set to '%{GLOBAL}'::
 
     WSGIApplicationGroup %{GLOBAL}
-
 
 Extension modules for which this is known to be necessary are any which
 have been developed using SWIG and for which the '-threads' option was
 supplied to 'swig' when the bindings were generated. One example of this is
 the 'dbxml' module, a Python wrapper for the Berkeley Database, previously
-developed by !SleepyCat Software, but now managed by Oracle. Another package
+developed by SleepyCat Software, but now managed by Oracle. Another package
 believed to have this problem in certain use cases is Xapian.
 
 There is also a bit of a question mark over the Python Subversion bindings.
@@ -967,22 +895,19 @@ requests being handled within other threads in different sub interpreters.
 Reloading Python Interpreters
 -----------------------------
 
-*Note: The "Interpreter" reload mechanism has been removed in mod_wsgi
+**Note: The "Interpreter" reload mechanism has been removed in mod_wsgi
 version 2.0. This is because the problems with third party modules didn't
 make it a viable option. Its continued presence was simply complicating the
 addition of new features. As an alternative, daemon mode of mod_wsgi should
-be used and the "Process" reload mechanism added with mod_wsgi 2.0.*
+be used and the "Process" reload mechanism added with mod_wsgi 2.0.**
 
 To make it possible to modify a WSGI application and have the whole
 application reloaded without restarting the Apache web server, mod_wsgi
 provides an interpreter reloading feature. This specific feature is enabled
 using the WSGIReloadMechanism directive, setting it to the value
-'Interpreter' instead of its default value of 'Module'.
-
-::
+'Interpreter' instead of its default value of 'Module'::
 
     WSGIReloadMechanism Interpreter
-
 
 When this option is selected and script reloading is also enabled, when the
 WSGI application script file is modified, the next request which arrives
@@ -1020,11 +945,11 @@ accessing it or using it will likely cause the process to crash at some
 point.
 
 A few examples of Python modules which exhibit one or more of these problems
-are psycopg2, !PyProtocols and lxml. In the case of !PyProtocols, because this
-module is used by !TurboGears and sometimes used indirectly by Pylons
+are psycopg2, PyProtocols and lxml. In the case of PyProtocols, because this
+module is used by TurboGears and sometimes used indirectly by Pylons
 applications, it means that the interpreter reloading mechanism can not be
 used with either of these packages. The reason for the problems with
-!PyProtocols appear to stem from its use of Pyrex generated code. The lxml
+PyProtocols appear to stem from its use of Pyrex generated code. The lxml
 package similarly uses Pyrex and is thus afflicted.
 
 In general it is probably inadvisable to use the interpreter reload
@@ -1060,20 +985,14 @@ A more concrete outcome of such a mixing of code and data from multiple
 sub interpreters is where a file object from one sub interpreter is used
 within a different sub interpreter. In this sort of situation a Python
 exception will occur as Python will detect in certain cases that the object
-didn't belong to that interpreter.
-
-::
+didn't belong to that interpreter::
 
     exceptions.IOError: file() constructor not accessible in restricted mode
-
 
 Problems with code being executed in restricted mode can also occur when
 the Python code and data marshalling features are used:
 
-::
-
     exceptions.RuntimeError: cannot unmarshal code objects in restricted execution mode
-
 
 A further case is where the cached object is a class object and that object
 is used to create instances of that type of object for different sub
@@ -1086,7 +1005,7 @@ An example of a Python module which fails in this way is psycopg2, which
 caches an instance of the 'decimal.Decimal' type and uses it to create
 object instances for all sub interpreters. This particular problem in
 psycopg2 has been reported in psycopg2 ticket
-[http://www.initd.org/tracker/psycopg/ticket/192 #192] and has been fixed
+`#192 <http://www.initd.org/tracker/psycopg/ticket/192>`_ and has been fixed
 in pyscopg2 source code. It isn't known however which version of psycopg2
 this fix may have been released with. Another package believed to have this
 problem in certain use cases is lxml.
@@ -1099,12 +1018,9 @@ first interpreter instance created by Python.
 
 To force a specific WSGI application to be run within the very first Python
 sub interpreter created when Python is initialised, the WSGIApplicationGroup
-directive should be used and the group set to '%{GLOBAL}'.
-
-::
+directive should be used and the group set to '%{GLOBAL}'::
 
     WSGIApplicationGroup %{GLOBAL}
-
 
 If it is not feasible to force all WSGI applications to run in the same
 interpreter, then daemon mode of mod_wsgi should be used to assign
@@ -1119,18 +1035,18 @@ Virtual Private Server (VPS) systems typically always have constraints
 imposed on them in regard to the amount of memory or resources they are
 able to use. Various limits and related counts are described below:
 
-|| *Memory Limit* || Maximum virtual memory size a VPS/context can allocate. ||
-|| *Used Memory* || Virtual memory size used by a running VPS/context. ||
-|| *Max Total Memory* || Maximum virtual memory usage by VPS/context. ||
-|| *Context RSS Limit* || Maximum resident memory size a VPS/context can allocate. If limit is exceeded, VPS starts to use the host's SWAP. ||
-|| *Context RSS* || Resident memory size used by a running VPS/context. ||
-|| *Max RSS Memory*  || Maximum resident memory usage by VPS/context. ||
-|| *Disk Limit* || Maximum disk space that can be used by VPS (calculated for the entire VPS file tree). ||
-|| *Used Disk Memory* || Disk space used by a VPS file tree. ||
-|| *Files Limit* || Maximum number of files that can be switched to a VPS/context. || 
-|| *Used Files* || Number of files used in a VPS/context. ||
-|| *TCP Sockets Limit* || Limit on the number of established connections in a virtual server. ||
-|| *Established Sockets* || Number of established connections in a virtual server. ||
+:Memory Limit: Maximum virtual memory size a VPS/context can allocate.
+:Used Memory: Virtual memory size used by a running VPS/context.
+:Max Total Memory: Maximum virtual memory usage by VPS/context.
+:Context RSS Limit: Maximum resident memory size a VPS/context can allocate. If limit is exceeded, VPS starts to use the host's SWAP.
+:Context RSS: Resident memory size used by a running VPS/context.
+:Max RSS Memory: Maximum resident memory usage by VPS/context.
+:Disk Limit: Maximum disk space that can be used by VPS (calculated for the entire VPS file tree).
+:Used Disk Memory: Disk space used by a VPS file tree.
+:Files Limit: Maximum number of files that can be switched to a VPS/context.
+:Used Files: Number of files used in a VPS/context.
+:TCP Sockets Limit: Limit on the number of established connections in a virtual server.
+:Established Sockets: Number of established connections in a virtual server.
 
 In respect of the limits, when summary virtual memory size used by the
 VPS exceeds Memory Limit, processes can't allocate the required memory and
@@ -1161,13 +1077,10 @@ stack size as used by Linux.
 
 If you are using the Apache worker MPM, you will need to upgrade to Apache
 2.2 if you are not already running it. Having done that you should then use
-the Apache directive !ThreadStackSize to lower the per thread stack size
-for threads created by Apache for the Apache child processes.
-
-::
+the Apache directive ThreadStackSize to lower the per thread stack size
+for threads created by Apache for the Apache child processes::
 
     ThreadStackSize 524288
-
 
 This should drop the amount of virtual memory being set aside by Apache for
 its child process and thus any WSGI application running under embedded
@@ -1176,33 +1089,24 @@ mode.
 If a WSGI application creates its own threads for performing background
 activities, it is also preferable that they also override the stack size
 set aside for that thread. For that you will need to be using at least
-Python 2.5. The WSGI application should be ammended to execute:
-
-::
+Python 2.5. The WSGI application should be ammended to execute::
 
     import thread 
     thread.stack_size(524288) 
 
-
 If using mod_wsgi daemon mode, you will need to use mod_wsgi 2.0 and
 override the per thread stack size using the 'stack-size' option to the
-WSGIDaemonProcess directive.
-
-::
+WSGIDaemonProcess directive::
 
     WSGIDaemonProcess example stack-size=524288
-
 
 If you are unable to upgrade to Apache 2.2 and/or mod_wsgi 2.0, the only
 other option you have for affecting the amount of virtual memory set aside
 for the stack of each thread is to override the process stack size. If you are
 using a standard Apache distribution, this can be done by adding to the
-'envvars' file for the Apache installation:
-
-::
+'envvars' file for the Apache installation::
 
     ulimit -s 512
-
 
 If using a customised Apache installation, such as on RedHat, the 'envvars'
 file may not exist. In this case you would need to add this into the actual
@@ -1241,30 +1145,21 @@ process group from the normal Apache 'httpd' processes.
 The mod_wsgi package accepts the magic string '%{GROUP}' as value to the
 WSGIDaemonProcess directive to indicate that mod_wsgi should construct the
 name of the processes based on the name of the process group. Specifically,
-if you have:
-
-::
+if you have::
 
     WSGIDaemonprocess mygroup display-name=%{GROUP}
 
-
 then the name of the processes in that process group would be set to the
-value:
-
-::
+value::
 
     (wsgi:mygroup)
-
 
 This generally works fine, however causes a problem when the WSGI
 application makes use of the 'cx_Oracle' module for wrapping Oracle client
 libraries in Python. Specifically, Oracle client libraries can produce the
-error:
-
-::
+error::
 
     ORA-06413: Connection not open.
-
 
 This appears to be caused by the use of brackets, ie., '()' in the name of
 the process. It is therefore recommended that you explicitly provide the
@@ -1296,12 +1191,9 @@ this is actually the norm as the default mode of operation is that code is
 lazily loaded only when the first request arrives which requires it.
 
 A classic example of the sorts of problems use of this function causes is the
-error:
-
-::
+error::
 
     ImportError: Failed to import _strptime because the import lock is held by another thread.
-
 
 This particular error occurs when 'time.strptime()' is called for the first
 time and it so happens that another thread is in the process of doing a
@@ -1332,12 +1224,9 @@ The only work around for the problem is to ensure that all module imports
 related to modules on which the PyImport_ImportModuleNoBlock() function is
 used be done explicitly or indirectly when the WSGI script file is loaded.
 Thus, to get around the specific case above, add the following into the
-WSGI script file.
-
-::
+WSGI script file::
 
     import _strptime
-
 
 There is nothing that can be done in mod_wsgi to fix this properly as the
 set of modules that might have to be forceably imported is unknown. Having

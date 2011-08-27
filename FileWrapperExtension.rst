@@ -1,12 +1,10 @@
-
-
 ===============================
 Platform Specific File Handling
 ===============================
 
 The WSGI specification supports an optional feature that can be implemented
 by WSGI adapters for
-[http://www.python.org/dev/peps/pep-0333/#optional-platform-specific-file-handling platform specific file handling].
+`platform specific file handling <http://www.python.org/dev/peps/pep-0333/#optional-platform-specific-file-handling>`_.
 
 What this allows is for a WSGI application to return a special object type
 which wraps a Python file like object. If that file like object statisfies
@@ -50,23 +48,20 @@ any specific WSGI adapter, any user code should be coded so as to be able
 to cope with it not existing.
 
 Using the snippet as described in the WSGI specification as guide, the
-WSGI application would be written as follows.
-
-::
+WSGI application would be written as follows::
 
     def application(environ, start_response):
         status = '200 OK'
         response_headers = [('Content-type', 'text/plain')]
         start_response(status, response_headers)
-    
+
         filelike = file('usr/share/dict/words', 'rb')
         block_size = 4096
-    
+
         if 'wsgi.file_wrapper' in environ:
     	    return environ['wsgi.file_wrapper'](filelike, block_size)
         else:
             return iter(lambda: filelike.read(block_size), '')
-
 
 Note that the file must always be opened in binary mode. If this isn't done
 then on platforms which do CR/LF translation automatically then the
@@ -121,15 +116,12 @@ specified by the 'Content-Length' response header if supplied.
 
 Not only is this statement in the WSGI specification arguably wrong, the
 example snippet of code which shows how to implement a fallback where the
-'wsgi.file_wrapper' is not present, ie.,
-
-::
+'wsgi.file_wrapper' is not present, ie.::
 
     if 'wsgi.file_wrapper' in environ:
         return environ['wsgi.file_wrapper'](filelike, block_size)
     else:
         return iter(lambda: filelike.read(block_size), '')
-
 
 is also wrong. This is because it doesn't restrict the amount of bytes
 returned to that specified by 'Content-Length'.
@@ -209,7 +201,7 @@ This is because in order to interject the cleanup actions triggered on the
 iterable object with another which wraps the first, with the outer
 providing its own 'close()' method. An example of a middleware which
 replaces the 'close()' method in this way can be found in
-[RegisteringCleanupCode Registering Cleanup Code].
+:doc:`RegisteringCleanupCode`.
 
 It is thus quite easy for a WSGI application stack to inadvertantly defeat
 completely any attempts to return file contents in an optimised way using

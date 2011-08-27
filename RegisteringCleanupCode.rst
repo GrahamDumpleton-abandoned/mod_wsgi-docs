@@ -1,5 +1,3 @@
-
-
 ========================
 Registering Cleanup Code
 ========================
@@ -14,20 +12,18 @@ Cleanup At End Of Request
 To perform a cleanup task at the end of a request a couple of different
 approaches can be used dependent on the requirements. The first approach
 entails wrapping the calling of a WSGI application within a Python 'try'
-block, with the cleanup code being triggered from the 'finally' block.
-
-::
+block, with the cleanup code being triggered from the 'finally' block::
 
     def _application(environ, start_response):
-        status = '200 OK' 
+        status = '200 OK'
         output = 'Hello World!'
-    
+
         response_headers = [('Content-type', 'text/plain'),
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
+
         return [output]
-    
+
     def application(environ, start_response):
         try:
             return _application(environ, start_response)
@@ -35,10 +31,7 @@ block, with the cleanup code being triggered from the 'finally' block.
             # Perform required cleanup task.
             ...
 
-
-This might even be factored into a convenient WSGI middleware component.
-
-::
+This might even be factored into a convenient WSGI middleware component::
 
     class ExecuteOnCompletion1:
         def __init__(self, application, callback):
@@ -50,7 +43,6 @@ This might even be factored into a convenient WSGI middleware component.
             finally:
                 self.__callback(environ)
 
-
 The WSGI environment passed in the 'environ' argument to the application
 could even be supplied to the cleanup callback as shown in case it needed
 to look at any configuration information or information passed back in the
@@ -58,15 +50,13 @@ environment from the application.
 
 The application would then be replaced with an instance of this class
 initialised with a reference to the original application and a suitable
-cleanup function.
+cleanup function::
 
-``           
-def cleanup(environ):
-    # Perform required cleanup task.
-    ...
-    
-application = ExecuteOnCompletion1(_application, cleanup)
-``
+    def cleanup(environ):
+        # Perform required cleanup task.
+        ...
+
+    application = ExecuteOnCompletion1(_application, cleanup)
 
 Using this approach, the cleanup function will actually be called prior to
 the response content being consumed by mod_wsgi and written back to the
@@ -83,9 +73,7 @@ application within an instance of a purpose built generator like object.
 This object needs to yield each item from the response in turn, and when
 this object is cleaned up by virtue of the 'close()' method being called,
 it should in turn call 'close()' on the result returned from the application
-if necessary, and then call the supplied cleanup callback.
-
-::
+if necessary, and then call the supplied cleanup callback::
 
     class Generator2:
         def __init__(self, iterable, callback, environ):
@@ -101,7 +89,7 @@ if necessary, and then call the supplied cleanup callback.
                     self.__iterable.close()
             finally:
                 self.__callback(self.__environ)
-    
+
     class ExecuteOnCompletion2:
         def __init__(self, application, callback):
             self.__application = application
@@ -113,7 +101,6 @@ if necessary, and then call the supplied cleanup callback.
                 self.__callback(environ)
                 raise
             return Generator2(result, self.__callback, environ)
-
 
 Note that for a successfully completed request, since the cleanup task will
 be executed after the complete response has been written back to the
@@ -130,18 +117,15 @@ Cleanup On Process Shutdown
 
 To perform a cleanup task on shutdown of either an Apache child process
 when using 'embedded' mode of mod_wsgi, or of a daemon process when using
-'daemon' mode of mod_wsgi, the standard Python 'atexit' module can be used.
-
-::
+'daemon' mode of mod_wsgi, the standard Python 'atexit' module can be used::
 
     import atexit
-    
+
     def cleanup():
         # Perform required cleanup task.
         ...
-    
-    atexit.register(cleanup)
 
+    atexit.register(cleanup)
 
 Such a registered cleanup function will also be called if the 'Interpreter'
 reload mechanism is enabled and the Python sub interpreter in which the
@@ -152,7 +136,7 @@ using the 'atexit' module will be called correctly, this solution may not
 be portable to all WSGI hosting solutions. In particular, mod_python does
 not currently ensure that cleanup functions registered using the 'atexit'
 module are called. This shortcoming of mod_python is recorded in ticket
-[http://issues.apache.org/jira/browse/MODPYTHON-109 #109] in the mod_python
+`#109 <http://issues.apache.org/jira/browse/MODPYTHON-109>`_ in the mod_python
 issue tracking system.
 
 Also be aware that although one can register a cleanup function to be

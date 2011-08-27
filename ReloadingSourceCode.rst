@@ -1,5 +1,3 @@
-
-
 =====================
 Reloading Source Code
 =====================
@@ -8,11 +6,11 @@ This document contains information about mechanisms available in mod_wsgi
 for automatic reloading of source code when an application is changed and
 any issues related to those mechanisms.
 
-_Note: How source code reloading has been handled has changed between
+Note: How source code reloading has been handled has changed between
 mod_wsgi 1.X and mod_wsgi 2.X. This document has been updated so as to
 no longer refer to mod_wsgi 1.X. Thus, ensure you are running the most up
 to date version of mod_wsgi 2.X otherwise you may find that some of what is
-described here will not work as you expect._
+described here will not work as you expect.
 
 Embedded Mode Vs Daemon Mode
 ----------------------------
@@ -39,25 +37,22 @@ application to a mod_wsgi daemon mode process, then you will be using
 embedded mode.
 
 If you are not sure whether you are using embedded mode or daemon mode,
-then substitute your WSGI application entry point with:
-
-::
+then substitute your WSGI application entry point with::
 
     def application(environ, start_response):
         status = '200 OK'
-    
+
         if not environ['mod_wsgi.process_group']:
           output = 'EMBEDDED MODE'
         else:
           output = 'DAEMON MODE'
-    
+
         response_headers = [('Content-Type', 'text/plain'),
                             ('Content-Length', str(len(output)))]
-    
-        start_response(status, response_headers)
-    
-        return [output]
 
+        start_response(status, response_headers)
+
+        return [output]
 
 If your WSGI application is running in embedded mode, this will output to
 the browser 'EMBEDDED MODE'. If your WSGI application is running in daemon
@@ -97,23 +92,17 @@ changes are additive, checks should first be made to ensure that the change
 has not already been made, else duplicate data will be added every time the
 script file is reloaded.
 
-This means that when updating ``sys.path``, instead of using:
-
-::
+This means that when updating ``sys.path``, instead of using::
 
     import sys
     sys.path.append('/usr/local/wsgi/modules')
 
-
-the more correct way would be to use:
-
-::
+the more correct way would be to use::
 
     import sys
     path = '/usr/local/wsgi/modules'
     if path not in sys.path:
         sys.path.append(path)
-
 
 This will ensure that the path doesn't get added multiple times.
 
@@ -173,12 +162,9 @@ To enable this, you need to modify the value of the !MaxRequestsPerChild
 directive in the Apache configuration. Normally this would be set to a
 value of '0', indicating that the process should never be restarted as a
 result of the number of requests processed. To have it restart a process
-after every request, set it to the value '1' instead.
-
-::
+after every request, set it to the value '1' instead::
 
     MaxRequestsPerChild 1
-
 
 Do note however that this will cause the process to be restarted after any
 request. That is, the process will even be restarted if the request was for
@@ -242,14 +228,11 @@ child processes, as sending such a signal within a child process may
 interfere with the operation of Apache. That the code is executing within a
 daemon process can be determined by checking the 'mod_wsgi.process_group'
 variable in the WSGI environment passed to the application. The value will
-be non empty if a daemon process.
-
-::
+be non empty if a daemon process::
 
     if environ['mod_wsgi.process_group'] != '':
         import signal, os
         os.kill(os.getpid(), signal.SIGINT)
-
 
 This will cause the daemon process your application is in to shutdown. The
 Apache process supervisor will then automatically restart your process
@@ -285,9 +268,7 @@ which periodically looks to see if file timestamps have changed and trigger
 a restart if they have.
 
 Example code for such an automatic restart mechanism which is compatible
-with how mod_wsgi works is shown below.
-
-::
+with how mod_wsgi works is shown below::
 
     import os
     import sys
@@ -296,22 +277,22 @@ with how mod_wsgi works is shown below.
     import threading
     import atexit
     import Queue
-    
+
     _interval = 1.0
     _times = {}
     _files = []
-    
+
     _running = False
     _queue = Queue.Queue()
     _lock = threading.Lock()
-    
+
     def _restart(path):
         _queue.put(True)
         prefix = 'monitor (pid=%d):' % os.getpid()
         print >> sys.stderr, '%s Change detected to \'%s\'.' % (prefix, path)
         print >> sys.stderr, '%s Triggering process restart.' % prefix
         os.kill(os.getpid(), signal.SIGINT)
-    
+
     def _modified(path):
         try:
     	# If path doesn't denote a file and were previously
@@ -320,34 +301,34 @@ with how mod_wsgi works is shown below.
     	# tracking the file then we can ignore it as probably
             # pseudo reference such as when file extracted from a
             # collection of modules contained in a zip file.
-    
+
             if not os.path.isfile(path):
                 return path in _times
-    
+
             # Check for when file last modified.
-    
+
             mtime = os.stat(path).st_mtime
             if path not in _times:
                 _times[path] = mtime
-    
+
             # Force restart when modification time has changed, even
             # if time now older, as that could indicate older file
             # has been restored.
-    
+
             if mtime != _times[path]:
                 return True
         except:
             # If any exception occured, likely that file has been
             # been removed just before stat(), so force a restart.
-    
+
             return True
-    
+
         return False
-    
+
     def _monitor():
         while 1:
             # Check modification times on all files in sys.modules.
-    
+
             for module in sys.modules.values():
                 if not hasattr(module, '__file__'):
                     continue
@@ -358,42 +339,42 @@ with how mod_wsgi works is shown below.
                     path = path[:-1]
                 if _modified(path):
                     return _restart(path)
-    
+
     	# Check modification times on files which have
     	# specifically been registered for monitoring.
-    
+
             for path in _files:
                 if _modified(path):
                     return _restart(path)
-    
+
             # Go to sleep for specified interval.
-    
+
             try:
                 return _queue.get(timeout=_interval)
             except:
                 pass
-    
+
     _thread = threading.Thread(target=_monitor)
     _thread.setDaemon(True)
-    
+
     def _exiting():
         try:
             _queue.put(True)
         except:
             pass
         _thread.join()
-    
+
     atexit.register(_exiting)
-    
+
     def track(path):
         if not path in _files:
             _files.append(path)
-    
+
     def start(interval=1.0):
         global _interval
         if interval < _interval:
             _interval = interval
-    
+
         global _running
         _lock.acquire()
         if not _running:
@@ -403,22 +384,18 @@ with how mod_wsgi works is shown below.
             _thread.start()
         _lock.release()
 
-
 This would be used by importing into the script file the Python module
 containing the above code, starting the monitoring system and adding any
-additional non Python files which should be tracked.
-
-::
+additional non Python files which should be tracked::
 
     import os
-    
+
     import monitor
     monitor.start(interval=1.0)
     monitor.track(os.path.join(os.path.dirname(__file__), 'site.cf'))
-    
+
     def application(environ, start_response):
         ...
-
 
 Where needing to add many non Python files in a directory hierarchy, such
 as template files which would otherwise be cached within the running
@@ -494,9 +471,7 @@ a special internal Apache function which is available in the Windows version
 of Apache called 'ap_signal_parent()'.
 
 The required change to get this to work is to replace the restart
-function in the previous code with the following:
-
-::
+function in the previous code with the following::
 
     def _restart(path):
         _queue.put(True)
@@ -505,7 +480,6 @@ function in the previous code with the following:
         print >> sys.stderr, '%s Triggering Apache restart.' % prefix
         import ctypes
         ctypes.windll.libhttpd.ap_signal_parent(1)
-
 
 Other than that, the prior code would be used exactly as before. Now when
 any change is made to Python code used by the application or any other

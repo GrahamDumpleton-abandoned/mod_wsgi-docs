@@ -1,5 +1,3 @@
-
-
 ====================
 Developer Guidelines
 ====================
@@ -34,21 +32,21 @@ rather than the WSGI specification or mod_wsgi.
 If on the other hand your problems do appear to relate more to mod_wsgi,
 first off ensure that you read the following documents.
 
-  * [InstallationIssues Installation Issues]
-  * [ConfigurationIssues Configuration Issues]
-  * [ApplicationIssues Application Issues]
+* :doc:`InstallationIssues`
+* :doc:`ConfigurationIssues`
+* :doc:`ApplicationIssues`
 
 If none of the common issues match up with the problem you are seeing and
 you have the need to perform more low level debugging, check out the
 following documents.
 
-  * [DebuggingTechniques Debugging Techniques]
+* :doc:`DebuggingTechniques`
 
 You can also do some basic checking of your installation and configuration
 to validate that how it is setup is how you expect it to be. See the
 following documents.
 
-  * [CheckingYourInstallation Checking Your Installation]
+* :doc:`CheckingYourInstallation`
 
 If you are still having no joy and need further assistance then ask any
 questions you have on the mod_wsgi mailing list at:
@@ -59,20 +57,20 @@ If you want to know more about some of the inner workings of mod_wsgi,
 how it is implemented and how it interacts with Apache read the following
 documents.
 
-  * [ProcessesAndThreading Processes And Threading]
-  * [VirtualEnvironments Virtual Environments]
+* :doc:`ProcessesAndThreading`
+* :doc:`VirtualEnvironments`
 
-  * [ReloadingSourceCode Reloading Source Code]
-  * [RegisteringCleanupCode Registering Cleanup Code]
+* :doc:`ReloadingSourceCode`
+* :doc:`RegisteringCleanupCode`
 
-  * [FileWrapperExtension File Wrapper Extension]
-  * [AccessControlMechanisms Access Control Mechanisms]
+* :doc:`FileWrapperExtension`
+* :doc:`AccessControlMechanisms`
 
-  * [TipsAndTricks Miscellaneous Tips And Tricks]
+* :doc:`TipsAndTricks`
 
 If you want to know more detail about some of the problems that can arise
 when running WSGI applications on top of mod_wsgi read the following
 documents.
 
-  * [IssuesWithExpatLibrary Issues With Expat Library]
-  * [IssuesWithPickleModule Issues With Pickle Module]
+* :doc:`IssuesWithExpatLibrary`
+* :doc:`IssuesWithPickleModule`

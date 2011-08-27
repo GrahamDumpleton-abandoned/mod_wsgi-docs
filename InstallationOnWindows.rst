@@ -1,5 +1,3 @@
-
-
 =======================
 Installation On Windows
 =======================
@@ -13,12 +11,9 @@ Module Installation
 
 The appropriate ``mod_wsgi.so`` file for the version of Python and Apache
 being used should be copied into the Apache modules directory. For Apache
-2.2, this would typically be directory:
-
-::
+2.2, this would typically be directory::
 
     /Program Files/Apache Software Foundation/Apache22/modules
-
 
 Ensure first that this is actually the location where Apache has been
 installed in case it is different for your platform. Also ensure that the
@@ -26,9 +21,9 @@ file when installed has access permissions such that the user that the
 Apache service runs as will be able to read it.
 
 To configure Apache to make use of mod_wsgi, follow the instructions for
-loading mod_wsgi in the [QuickInstallationGuide Quick Installation Guide].
-Also refer to the [QuickConfigurationGuide Quick Configuration Guide] and
-[ConfigurationGuidelines Configuration Guidelines].
+loading mod_wsgi in the :doc:`QuickInstallationGuide`.
+Also refer to the :doc:`QuickConfigurationGuide` and
+:doc:`ConfigurationGuidelines`.
 
 Note that the binaries from this site aren't actually called 'mod_wsgi.so'.
 You should rename the file to 'mod_wsgi.so' when it is placed into the
@@ -59,29 +54,20 @@ You can obtain this version of the Microsoft C/C++ compiler from:
 Once you have unpacked the mod_wsgi source code, you should open up the
 Visual Studio developer command shell and change to the directory where you
 unpacked the source code. If you have Apache 2.2 and Python 2.6 installed,
-run:
-
-::
+run::
 
     nmake -f win32-ap22py26.mk
 
-
-If you have Apache 2.2 and Python 3.1 installed, run:
-
-::
+If you have Apache 2.2 and Python 3.1 installed, run::
 
     nmake -f win32-ap22py31.mk
-
 
 The result of this will be a 'mod_wsgi.so' file. This will need to be
 copied into the Apache modules directory by hand.
 
-To clean up, run:
-
-::
+To clean up, run::
 
     nmake -f win32-ap22py26.mk clean
-
 
 If needing to use other versions of Apache or Python you will need to copy
 the makefiles and modify as appropriate, remembering that for older versions

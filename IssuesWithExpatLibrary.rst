@@ -1,5 +1,3 @@
-
-
 ==========================
 Expat Causing Apache Crash
 ==========================
@@ -22,12 +20,9 @@ When moving beyond creating simple WSGI applications to more complicated
 tasks, one can unexpectedly be confronted with Apache crashing. This
 generally manifests in no response being returned to the browser when a
 request is made. Upon further investigation of the Apache error log file, a
-message similar to the following message is found:
-
-::
+message similar to the following message is found::
 
     [notice] child pid 3238 exit signal Segmentation fault (11)
-
 
 The change which causes this is the explicit addition of code to import the
 Python module "pyexpat", or the importing of any Python module which
@@ -41,30 +36,25 @@ Verifying Expat Is The Problem
 ------------------------------
 
 To verify that the "pyexpat" module is the trigger for the problem,
-construct a simple WSGI application script file containing:
-
-::
+construct a simple WSGI application script file containing::
 
     def application(environ, start_response):
         status = '200 OK'
         output = 'without expat\n' 
-    
+
         response_headers = [('Content-type', 'text/plain'), 
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
-        return [output]
 
+        return [output]
 
 Verify that this handler works and the browser receives the response
 "without pyepxat". Now modify the handler such that the "pyexpat" module is
 being imported. Also change the response so that it is clear that the
-modified handler is being used:
-
-::
+modified handler is being used::
 
     import pyexpat
-    
+
     def application(environ, start_response):
         status = '200 OK'
         output = 'with expat\n' 
@@ -72,9 +62,8 @@ modified handler is being used:
         response_headers = [('Content-type', 'text/plain'), 
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
-        return [output]
 
+        return [output]
 
 Presuming that script reloading is enabled, if now upon a request being
 received by the WSGI application a succesful response of "with pyexpat" is
@@ -124,13 +113,10 @@ that an application is linked against. To determine where the "expat"
 library being used by Apache is located, it is necessary to run the "ldd"
 program on the "httpd" program. On a Linux system, the "httpd" program is
 normally located in "/usr/sbin". Because we are only interested in the
-"expat" library, we can ignore anything but the reference to that library.
-
-::
+"expat" library, we can ignore anything but the reference to that library::
 
     [grahamd@dscpl grahamd]$ ldd /usr/sbin/httpd | grep expat
             libexpat.so.0 => /usr/lib/libexpat.so.0 (0xb7e8c000)
-
 
 From this output it can be seen that the "httpd" program appears to be
 using "/usr/lib/libexpat.so.0". Although some operating systems embed in
@@ -139,13 +125,10 @@ generally indicate the true version of the code base which made up the
 library. To obtain this, it is necessary to extract the version information
 out of the library. For the "expat" library this can be determined by
 searching within the strings contained in the library for a version string
-starting with "expat_".
-
-::
+starting with "expat\_"::
 
     [grahamd@dscpl grahamd]$ strings /usr/lib/libexpat.so.0 | grep expat_
     expat_1.95.8
-
 
 The version of the "expat" library would therefore appear to be "1.95.8".
 Unfortunately though, many operating systems allow the library search path
@@ -160,22 +143,19 @@ this can be determined using the "lsof" command. If this program doesn't
 exist, an alternate program which may be available is "ofiles". Either of
 these should be run against one of the active Apache processes. If Apache
 was originally started as root, the command will also need to be run as
-root.
-
-::
+root::
 
     [grahamd@dscpl grahamd]$ ps aux | grep http | head -3
     root      3625  0.0  0.6 31068 12836 ?       SN   Sep25   0:08 /usr/sbin/httpd
     apache   24814  0.0  0.7 34196 15604 ?       SN   04:11   0:00 /usr/sbin/httpd
     apache   24815  0.0  0.7 33924 15916 ?       SN   04:11   0:00 /usr/sbin/httpd
-    
+
     [grahamd@dscpl grahamd]$ sudo /usr/sbin/lsof -p 3625 | grep expat
     httpd   3625 root  mem    REG     253,0   123552    6409040
     /usr/lib/libexpat.so.0.5.0
-    
+
     [grahamd@dscpl grahamd]$ strings /usr/lib/libexpat.so.0.5.0 | grep expat_
     expat_1.95.8
-
 
 Expat Version Used By Python
 ----------------------------
@@ -183,9 +163,7 @@ Expat Version Used By Python
 To determine the version of the "expat" library which is embedded in the
 Python "pyexpat" module, the module should be imported and the version
 information extracted from the module. This can be done by executing
-"python" on the command line and entering the necessary code directly.
-
-::
+"python" on the command line and entering the necessary code directly::
 
     [grahamd@dscpl grahamd]$ python
     Python 2.3.3 (#1, May  7 2004, 10:31:40) 
@@ -194,7 +172,6 @@ information extracted from the module. This can be done by executing
     >>> import pyexpat 
     >>> pyexpat.version_info
     (1, 95, 7)
-
 
 Combining Python And Apache
 ---------------------------
@@ -206,9 +183,7 @@ startup the version of the "expat" library which it is linked against. That
 this occurs can be seen by using the ability of Linux to forcibly preload a
 shared library into a program when run, even though that program wasn't
 linked against the library orginally. This is achieved using the
-"LD_PRELOAD" environment variable.
-
-::
+"LD_PRELOAD" environment variable::
 
     [grahamd@dscpl grahamd]$ LD_PRELOAD=/usr/lib/libexpat.so.0.5.0 python
     Python 2.3.3 (#1, May  7 2004, 10:31:40) 
@@ -217,7 +192,6 @@ linked against the library orginally. This is achieved using the
     >>> import pyexpat
     >>> pyexpat.version_info
     (1, 95, 8)
-
 
 As can be seen, although the "pyexpat" module for this version of Python
 embedded version 1.95.7 of the "expat" library, when the same version of

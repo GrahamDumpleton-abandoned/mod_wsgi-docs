@@ -1,4 +1,3 @@
-
 ======================
 How to contribute back
 ======================
@@ -7,7 +6,7 @@ Who Are The Developers
 ----------------------
 
 The mod_wsgi package is a solo effort by
-[http://blog.dscpl.com.au Graham Dumpleton].
+`Graham Dumpleton <http://blog.dscpl.com.au>`_.
 
 The package is developed purely in the author's spare time and is not
 funded in any way by a company, nor is it developed for a specific
@@ -20,17 +19,17 @@ How To Make A Donation
 ----------------------
 
 Donations can be made via
-[https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=636842 PayPal]
+`PayPal <https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=636842>`_
 or by selecting items from the author's Amazon
-[http://www.amazon.com/gp/registry/wishlist/1ENAXIJG1G044/ref=wl_web/ wish list].
+`wish list <http://www.amazon.com/gp/registry/wishlist/1ENAXIJG1G044/ref=wl_web/>`_.
 
 A suggested formula for how much to donate is:
 
-  * If using mod_wsgi for personal use, then consider donating what you would pay for one month worth of web hosting services for your own site.
+* If using mod_wsgi for personal use, then consider donating what you would pay for one month worth of web hosting services for your own site.
 
-  * If using mod_wsgi for a company web site, then consider donating what you would pay for two months worth of web hosting services for that site.
+* If using mod_wsgi for a company web site, then consider donating what you would pay for two months worth of web hosting services for that site.
 
-  * If using mod_wsgi as part of a web hosting service which you then charge other people for using, then consider donating what you would charge a customer for three months worth of web hosting services.
+* If using mod_wsgi as part of a web hosting service which you then charge other people for using, then consider donating what you would charge a customer for three months worth of web hosting services.
 
 In other words, be somewhat reasonable, and donate an amount commensurate
 with how much benefit you are getting from mod_wsgi. On that basis,
@@ -66,7 +65,7 @@ server.
 
 At the minimum, at least consider helping to push up the author's kudos
 ranking on
-[http://www.ohloh.net/accounts/5497/kudos Ohloh] by giving kudos or adding
+`Ohloh <http://www.ohloh.net/accounts/5497/kudos>`_ by giving kudos or adding
 mod_wsgi to your Ohloh project stack.
 
 What Do You Get In Return

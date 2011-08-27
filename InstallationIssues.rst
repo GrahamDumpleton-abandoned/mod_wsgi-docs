@@ -1,5 +1,3 @@
-
-
 ===================
 Installation Issues
 ===================
@@ -17,8 +15,8 @@ arise regarding installation, including workarounds if available.
 If you are having a problem which doesn't seem to be covered by this
 document, also make sure you see:
 
-  * [ConfigurationIssues Configuration Issues]
-  * [ApplicationIssues Application Issues]
+* :doc:`ConfigurationIssues`
+* :doc:`ApplicationIssues`
 
 Missing Python Header Files
 ---------------------------
@@ -29,9 +27,7 @@ where binary Python packages are split into a runtime package and a
 developer package, the developer package is often not installed by default.
 This means that you will be missing the header files required to compile
 mod_wsgi from source code. An example of the error messages you will see
-if the developer package is not installed are:
-
-::
+if the developer package is not installed are::
 
     mod_wsgi.c:113:20: error: Python.h: No such file or directory
     mod_wsgi.c:114:21: error: compile.h: No such file or directory
@@ -39,7 +35,6 @@ if the developer package is not installed are:
     mod_wsgi.c:116:20: error: osdefs.h: No such file or directory
     mod_wsgi.c:119:2: error: #error Sorry, mod_wsgi requires at least Python 2.3.0.
     mod_wsgi.c:123:2: error: #error Sorry, mod_wsgi requires that Python supporting thread.
-
 
 To remedy the problem, install the developer package for Python
 corresponding to the Python runtime package you have installed. What the
@@ -79,9 +74,7 @@ being used and which options, the amount of additional memory used can be
 To determine whether the compiled mod_wsgi module is making use of a
 shared library for Python, many UNIX systems provide the 'ldd'
 program. The output from running this on the 'mod_wsgi.so' file would
-be something like:
-
-::
+be something like::
 
     $ ldd mod_wsgi.so
      linux-vdso.so.1 =>  (0x00007fffeb3fe000)
@@ -92,7 +85,6 @@ be something like:
      libc.so.6 => /lib/libc.so.6 (0x00002adec02dd000)
      libm.so.6 => /lib/libm.so.6 (0x00002adec0635000)
      /lib64/ld-linux-x86-64.so.2 (0x0000555555554000)
-
 
 Note how there is a dependency listed on the '.so' file for Python. If
 this is not present then mod_wsgi is using a static Python library.
@@ -112,9 +104,7 @@ understood that the Python build process may not actually do this, so you
 may have to do it by hand.
 
 To check, go to the Python 'config' directory of your Python installation
-and do a directory listing.
-
-::
+and do a directory listing::
 
     $ ls -las
     
@@ -131,18 +121,14 @@ and do a directory listing.
        4 -rw-r--r--  1 root staff     368 2007-11-29 23:26 Setup.config
        4 -rw-r--r--  1 root staff      41 2007-11-29 23:26 Setup.local
 
-
 If you only see a '.a' file for Python library, then either Python wasn't
 installed with the shared library, or the shared library was placed
 elsewhere. What appears to normally happen is that the shared library is
 actually placed in the 'lib' directory two levels above the Python 'config'
 directory. In that case you need to create a symlink in the 'config'
-directory to where the shared library is actually installed.
-
-::
+directory to where the shared library is actually installed::
 
     $ ln -s ../../libpython2.5.so .
-
 
 Apart from the additional memory consumption when using a static library,
 it is also preferable that a shared library be used where it is possible
@@ -160,12 +146,9 @@ Multiple Python Versions
 
 Where there are multiple versions of Python installed on a system and it is
 necessary to ensure that a specific version is used, the '--with-python'
-option can be supplied to 'configure' when installing mod_wsgi.
-
-::
+option can be supplied to 'configure' when installing mod_wsgi::
 
     ./configure --with-python=/usr/local/bin/python2.5
-
 
 This may be necessary where for example the default Python version supplied
 with the system is an older version of Python. More specifically, it would
@@ -194,12 +177,9 @@ Apache when it is started. As such, rather than find
 '/usr' rather than the directory '/usr/local/' as the installation prefix.
 
 When this occurs, if under '/usr' there was no Python installation of the
-same version number as Python which should be used, then normally:
-
-::
+same version number as Python which should be used, then normally::
 
     'import site' failed; use -v for traceback
-
 
 would appear in the Apache error log file when Python is first being
 initialised within Apache. Any attempt to make a request against a WSGI
@@ -218,61 +198,49 @@ party module and they are different versions and so API is different.
 
 In this situation it will be necessary to explicitly tell mod_wsgi
 where the Python executable for the version of Python which should be
-used, is located. This can be done using the WSGIPythonHome directive.
-
-::
+used, is located. This can be done using the WSGIPythonHome directive::
 
     WSGIPythonHome /usr/local
-
 
 The value given to the WSGIPythonHome directive should be a normalised
 path corresponding to that defined by the Python ``sys.prefix`` variable
 for the version of Python being used and passed to the '--with-python'
-option when configuring mod_wsgi.
-
-::
+option when configuring mod_wsgi::
 
     >>> import sys
     >>> sys.prefix
     '/usr/local'
 
-
 An alternative, although less desirable way of achieving this is to set the
 'PATH' environment variable in the startup scripts for Apache. For a standard
 Apache installation using ASF structure, this can be done by editing the
 'envvars' file in same directory as the Apache executable and adding the
-alternate bin directory to the head of the 'PATH':
-
-::
+alternate bin directory to the head of the 'PATH'::
 
     PATH=/usr/local/bin:$PATH
     export PATH
 
-
 If there are any concerns over what Python installation directory is being
 used and you want to verify what it is, then use a small test WSGI script
-which outputs the values of 'sys.prefix' and 'sys.path'. For example:
-
-::
+which outputs the values of 'sys.prefix' and 'sys.path'. For example::
 
     import sys
-    
+
     def application(environ, start_response):
         status = '200 OK'
         output = 'Hello World!'
-    
+
         response_headers = [('Content-type', 'text/plain'),
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
+
         print >> sys.stderr, 'sys.prefix = %s' % repr(sys.prefix)
         print >> sys.stderr, 'sys.path = %s' % repr(sys.path)
-    
+
         return [output]
 
-
-Using !ModPython and !ModWsgi
------------------------------
+Using ModPython and ModWsgi
+---------------------------
 
 Although mod_python and mod_wsgi both provide the ability to work using
 Python under Apache, the way in which mod_wsgi has been implemented is such
@@ -314,13 +282,10 @@ If it is not possible to rebuild Python so as to use a shared library, a
 workaround is to fiddle with the Makefile for building mod_wsgi after
 having run 'configure' but before running 'make'. The change required is to
 modify the 'LDLIBS' definition so that the Python library is not actually
-linked with the mod_wsgi module. For example:
-
-::
+linked with the mod_wsgi module. For example::
 
     #LDLIBS = -lpython2.3 -lpthread -ldl  -lutil
     LDLIBS = -lpthread -ldl  -lutil
-
 
 The result of doing this is that a copy of the objects from the Python
 static library will not be embedded in the mod_wsgi module. Having done
@@ -340,13 +305,10 @@ will happen is that mod_wsgi will allow mod_python to perform the initial
 initialisation of the Python interpreter.
 
 One problem which can arise though with this scenario is that when Apache
-is started you will see error messages of the form:
-
-::
+is started you will see error messages of the form::
 
     mod_wsgi: Compiled for Python/2.5.1.
     mod_wsgi: Runtime using Python/2.2.3.
-
 
 This can occur even though both versions of Python are installed under the
 same root directory.
@@ -379,13 +341,10 @@ Python Patch Level Mismatch
 
 If the Python package is upgraded to a newer patch level revision, one
 will likely see the following warning messages in the Apache error log
-when Python is being initialised.
-
-::
+when Python is being initialised::
 
     mod_wsgi: Compiled for Python/2.4.1.
     mod_wsgi: Runtime using Python/2.4.2.
-
 
 The warning is indicating that a newer version of Python is now being
 used than what mod_wsgi was originally compiled for.
@@ -407,8 +366,8 @@ Thus, if a shared library is not being used for Python it will be necessary
 to rebuild mod_wsgi against the newer patch level revision of mod_wsgi and
 reinstall it.
 
-Incompatible !ModPython Versions
---------------------------------
+Incompatible ModPython Versions
+-------------------------------
 
 The dual loading of mod_python and mod_wsgi together has only been tested
 and verified as working for mod_python 3.3.1. It is possible that
@@ -433,9 +392,7 @@ Mixing 32 Bit And 64 Bit Packages
 ---------------------------------
 
 When attempting to compile mod_wsgi on a Linux system using an X86 64 bit
-processor, the following error message can arise:
-
-::
+processor, the following error message can arise::
 
     /bin/sh /usr/lib64/apr/build/libtool --silent --mode=link gcc -o \
       mod_wsgi.la -I/usr/local/include/python2.4 -DNDEBUG  -rpath \
@@ -449,7 +406,6 @@ processor, the following error message can arise:
     apxs:Error: Command failed with rc=65536
     .
     make: *** [mod_wsgi.la] Error 1
-
 
 This error is believed to be result of the version of Python being used
 having been originally compiled for the generic X86 32 bit architecture
@@ -485,13 +441,10 @@ When mod_wsgi is built against a version of Python providing a shared
 library, the Python shared library must be in a directory which is searched
 for libraries at runtime by Apache. If this isn't the case the Python
 shared library will not be able to be found when loading the mod_wsgi
-module in to Apache. The error in this situation will be similar to:
-
-::
+module in to Apache. The error in this situation will be similar to::
 
     error while loading shared libraries: libpython2.4.so.1.0: \
      cannot open shared object file: No such file or directory
-
 
 A number of alternatives exist for resolving this problem. The preferred
 solution would be to copy the Python shared library into a directory which
@@ -530,12 +483,10 @@ GNU C Stack Smashing Extensions
 
 Various Linux distributions are starting to ship with a version of the GNU
 C compiler which incorporates an extension which implements protection for
-[http://en.wikipedia.org/wiki/Stack-smashing_protector stack-smashing].
+`stack-smashing <http://en.wikipedia.org/wiki/Stack-smashing_protector>`_.
 In some instances where such a compiler is used to build mod_wsgi, the
 module is unable to then be loaded by Apache. The specific problem is that
-the symbol ``__stack_chk_fail_local`` is being flagged as undefined.
-
-::
+the symbol ``__stack_chk_fail_local`` is being flagged as undefined::
 
     $ invoke-rc.d apache2 reload
     apache2: Syntax error on line 190 of /etc/apache2/apache2.conf: \
@@ -544,18 +495,14 @@ the symbol ``__stack_chk_fail_local`` is being flagged as undefined.
      undefined symbol: __stack_chk_fail_local failed!
     invoke-rc.d: initscript apache2, action "reload" failed.
 
-
 The exact reason for this is not known but it is speculated to be caused
 when the system libraries or Apache itself has not been compiled with a
 version of the GNU C compiler incorporating the extension.
 
 To workaround the problem, modify the 'Makefile' for mod_wsgi and change
-the value of 'CFLAGS' to:
-
-::
+the value of 'CFLAGS' to::
 
     CFLAGS = -Wc,-fno-stack-protector
-
 
 Perform a 'clean' in the directory and then rebuild and reinstall the
 mod_wsgi module.
@@ -567,14 +514,11 @@ On Fedora 7, the provided binary version of Apache is not linked against
 the 'libutil' system library. This causes problems when Python is initialised
 and the 'posix' module imported for the first time. This is because the
 'posix' module requires functions from 'libutil' but they will not be present.
-The error encountered would be similar to:
-
-::
+The error encountered would be similar to::
 
     httpd: Syntax error on line 54 of /etc/httpd/conf/httpd.conf: Cannot \
      load /etc/httpd/modules/mod_wsgi.so into server: \
      /etc/httpd/modules/mod_wsgi.so: undefined symbol: forkpty 
-
 
 This problem can be fixed by adding '-lutil' to the list of libraries to
 link mod_wsgi against when it is being built. This can be done by adding
@@ -583,13 +527,10 @@ run 'configure'.
 
 An alternative method which may work is to edit the 'envvars' file, if it
 exists and is used, located in the same directory as the Apache 'httpd'
-executable, or the Apache startup script, and add:
-
-::
+executable, or the Apache startup script, and add::
 
     LD_PRELOAD=/usr/lib/libutil.so
     export LD_PRELOAD
-
 
 Missing Include Files On SUSE
 -----------------------------
@@ -602,9 +543,7 @@ does indirectly include the MPM specific header file "mpm.h". Because the
 header file is MPM specific, when configuring mod_wsgi, it is necessary to
 reference the version of "apxs" from the MPM specific "dev" package else
 the "mpm.h" header file will not be found at compile time. These errors
-are:
-
-::
+are::
 
     In file included from mod_wsgi.c:4882: /usr/include/apache2/mpm_common.h:46:17: error: mpm.h: No such file or directory 
     ...
@@ -614,22 +553,15 @@ are:
     mod_wsgi.c:5200: error: for each function it appears in.) 
     apxs:Error: Command failed with rc=65536 
 
-
 To avoid this problem, when configuring mod_wsgi, it is necessary to use
 the "--with-apxs" option to designate that either "apxs2-worker" or
-"apxs2-prefork" should be used. Thus:
-
-::
+"apxs2-prefork" should be used. Thus::
 
     ./configure --with-apxs=/usr/sbin/apxs2-worker
 
-
-or:
-
-::
+or::
 
     ./configure --with-apxs=/usr/sbin/apxs2-prefork
-
 
 Although which is used is not important, since mod_wsgi when compiled isn't
 specific to either, best to use that which corresponds to the version of
@@ -641,16 +573,13 @@ Apache Maintainer Mode
 When building mod_wsgi from source code, on UNIX systems there should be
 minimal if no compiler warnings. If you see a lot of warnings, especially
 complaints about ``ap_strstr``, then your Apache installation has been
-configured for maintainer mode.
-
-::
+configured for maintainer mode::
 
     mod_wsgi.c: In function 'wsgi_process_group':
     mod_wsgi.c:722: warning: passing argument 1 of 'ap_strstr' discards
     qualifiers from pointer target type
     mod_wsgi.c:740: warning: passing argument 1 of 'ap_strstr' discards
     qualifiers from pointer target type
-
 
 Specifically, whoever built the version of Apache being used supplied the
 option '--enable-maintainer-mode' when configuring Apache prior to
@@ -663,13 +592,10 @@ maintainer mode.
 
 A further reason for not running Apache in maintainer mode is that certain
 situations can cause Apache to fail an internal assertion check when using
-mod_wsgi. The specific error message is:
-
-::
+mod_wsgi. The specific error message is::
 
     [crit] file http_filters.c, line 346, assertion "readbytes > 0" failed
     [notice] child pid 18551 exit signal Aborted (6)
-
 
 This occurs because the Apache code has an overly agressive assertion
 check, which is arguably incorrect. This particular assertion check will

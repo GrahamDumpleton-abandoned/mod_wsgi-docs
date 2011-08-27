@@ -9,9 +9,14 @@ Contents:
    release-notes/index
    configuration-directives/index
 
+To Be Restructured
+==================
+
+.. toctree::
+   :maxdepth: 1
+
    AccessControlMechanisms
    ApplicationIssues
-
    CheckingYourInstallation
    ConfigurationGuidelines
    ConfigurationIssues

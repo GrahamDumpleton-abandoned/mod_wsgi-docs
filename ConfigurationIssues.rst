@@ -1,5 +1,3 @@
-
-
 ====================
 Configuration Issues
 ====================
@@ -16,8 +14,8 @@ arise in respect of configuration.
 If you are having a problem which doesn't seem to be covered by this
 document, also make sure you see:
 
-  * [InstallationIssues Installation Issues]
-  * [ApplicationIssues Application Issues]
+* :doc:`InstallationIssues`
+* :doc:`ApplicationIssues`
 
 Location Of UNIX Sockets
 ------------------------
@@ -38,14 +36,11 @@ permissions to access the directory to be able to connect to the sockets.
 
 When this occurs, a '503 Service Temporarily Unavailable' error response
 would be received by the client. The Apache error log file would show
-messages of the form:
-
-::
+messages of the form::
 
     (13)Permission denied: mod_wsgi (pid=26962): Unable to connect to WSGI \
      daemon process '<process-name>' on '/etc/httpd/logs/wsgi.26957.0.1.sock' \
      after multiple attempts. 
-
 
 To resolve the problem, the WSGISocketPrefix directive should be defined to
 point at an alternate location. The value may be a location relative to the
@@ -55,23 +50,17 @@ On systems which restrict access to the standard Apache runtime directory,
 they normally provide an alternate directory for placing sockets and lock
 files used by Apache modules. This directory is usually called 'run' and
 to make use of this directory the WSGISocketPrefix directive would be set
-as follows:
-
-::
+as follows::
 
     WSGISocketPrefix run/wsgi
-
 
 Although this may be present, do be aware that some Linux distributions,
 notably RedHat, also lock down the permissions of this directory as well so
 not readable to processes running as a non root user. In this situation you
 will be forced to use the operating system level '/var/run' directory
-rather than the HTTP specific directory.
-
-::
+rather than the HTTP specific directory::
 
     WSGISocketPrefix /var/run/wsgi
-
 
 Note, do not put the sockets in the system temporary working directory.
 That is, do not go making the prefix '/tmp/wsgi'. The directory should be
@@ -87,24 +76,21 @@ its directives should be interpreted. This means that it is possible to
 define that mod_alias directives such as Alias should be given precedence
 over directives implemented by mod_wsgi. This is important where the
 WSGIScriptAlias directive applies to  '/' and the Alias directive is used
-to denote a sub directory which contains static media files. For example:
-
-::
+to denote a sub directory which contains static media files. For example::
 
     Alias /media/ /usr/local/django/mysite/media/
-    
+
     <Directory /usr/local/django/mysite/media>
     Order deny,allow
     Allow from all
     </Directory>
-    
+
     WSGIScriptAlias / /usr/local/django/mysite/apache/django.wsgi
-    
+
     <Directory /usr/local/django/mysite/apache>
     Order deny,allow
     Allow from all
     </Directory>
-
 
 If the directives are interpreted in the wrong order, the WSGIScriptAlias
 would get precedence and the media files would not be accessible.
@@ -112,23 +98,20 @@ would get precedence and the media files would not be accessible.
 When Apache 1.3 is being used, it is not possible for the code for the
 Apache module to specify this ordering, instead the order in which the
 directives pertaining to different Apache modules are applied is dictated
-by the order in which the !LoadModule/!AddModule directives are listed
+by the order in which the LoadModule/AddModule directives are listed
 in the Apache configuration file.
 
 Therefore, to ensure the directives are applied in the correct order when
 using Apache 1.3, it is necessary that mod_wsgi be loaded prior to the
-mod_alias module.
-
-::
+mod_alias module::
 
     LoadModule wsgi_module     libexec/httpd/mod_wsgi.so
     ...
     LoadModule alias_module    libexec/httpd/mod_alias.so
     ...
-    
+
     ClearModuleList
     AddModule mod_wsgi.c
     ...
     AddModule mod_alias.c
     ...
-

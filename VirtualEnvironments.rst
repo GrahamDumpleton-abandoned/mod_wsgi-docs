@@ -1,12 +1,10 @@
-
-
 ====================
 Virtual Environments
 ====================
 
 This document contains information about how to make use of Python virtual
 environments such as created by Ian Bicking's
-[http://pypi.python.org/pypi/virtualenv virtualenv] with mod_wsgi.
+`virtualenv <http://pypi.python.org/pypi/virtualenv>`_ with mod_wsgi.
 
 The purpose of such Python virtual environments is to allow one to create
 multiple distinct Python environments for the same version of Python, but
@@ -43,16 +41,13 @@ there is no possibility of conflicts between modules and packages in a users
 individual Python virtual environment and the baseline environment.
 
 To create a virgin environment using the 'virtualenv' program, the
-'--no-site-packages' option should be supplied when creating the environment.
-
-::
+'--no-site-packages' option should be supplied when creating the environment::
 
     $ cd /usr/local/pythonenv
-    
+
     $ virtualenv --no-site-packages BASELINE
     New python executable in BASELINE/bin/python
     Installing setuptools............done.
-
 
 Note that the version of Python from which this baseline environment is
 created must be the same version of Python that mod_wsgi was compiled for.
@@ -62,12 +57,9 @@ versions of Python.
 Once the baseline Python environment has been created, the WSGIPythonHome
 directive should be defined within the global part of the main Apache
 configuration files. The directive should refer to the top level directory
-for the baseline environment created by the 'virtualenv' script.
-
-::
+for the baseline environment created by the 'virtualenv' script::
 
     WSGIPythonHome /usr/local/pythonenv/BASELINE
-
 
 This Python environment will now be used as the baseline environment for
 all WSGI applications running under mod_wsgi, whether they be run in
@@ -86,39 +78,33 @@ this virtual environment should also be initially created as a virgin
 environment.
 
 For example, to create a virtual environment dedicated to developing Pylons
-applications the following would be used.
-
-::
+applications the following would be used::
 
     $ virtualenv --no-site-packages PYLONS-1
     New python executable in
     PYLONS-1/bin/python
     Installing setuptools............done.
-    
-    $ source PYLONS-1/bin/activate 
-    
+
+    $ source PYLONS-1/bin/activate
+
     (PYLONS-1)$ easy_install Pylons
     Searching for Pylons
     .......
-
 
 The Pylons instructions for creating a Pylons application would then be
 followed and the application tested using the Pylons inbuilt web server.
 
 Once the application is ready for deployment under mod_wsgi, the
-instructions for [IntegrationWithPylons Integration With Pylons] would be
+instructions for :doc:`IntegrationWithPylons` would be
 followed.
 
 As an additional step however, the WSGI script file described in the
 instructions would be modified to overlay the virtual environment for the
 application on top of the baseline environment. This would be done by
-adding at the very start of the WSGI script file the following:
-
-::
+adding at the very start of the WSGI script file the following::
 
     import site
     site.addsitedir('/usr/local/pythonenv/PYLONS-1/lib/python2.5/site-packages')
-
 
 Note that in this case the full path to the 'site-packages' directory for
 the virtual environment needs to be specified and not just the root of
@@ -156,38 +142,32 @@ that they take precedence over those in the main Python installation.
 As explained, because 'activate_this.py' is doing other things which may
 not be appropriate in the context of mod_wsgi, if unable to set WSGIPythonHome
 to point mod_wsgi at a virgin baseline environment, instead of just calling
-'site.addsitedir()' you should use the code:
-
-::
+'site.addsitedir()' you should use the code::
 
     ALLDIRS = ['usr/local/pythonenv/PYLONS-1/lib/python2.5/site-packages']
-    
-    import sys 
-    import site 
-    
+
+    import sys
+    import site
+
     # Remember original sys.path.
-    prev_sys_path = list(sys.path) 
-    
+    prev_sys_path = list(sys.path)
+
     # Add each new site-packages directory.
     for directory in ALLDIRS:
       site.addsitedir(directory)
-    
+
     # Reorder sys.path so new directories at the front.
-    new_sys_path = [] 
-    for item in list(sys.path): 
-        if item not in prev_sys_path: 
-            new_sys_path.append(item) 
-            sys.path.remove(item) 
-    sys.path[:0] = new_sys_path 
+    new_sys_path = []
+    for item in list(sys.path):
+        if item not in prev_sys_path:
+            new_sys_path.append(item)
+            sys.path.remove(item)
+    sys.path[:0] = new_sys_path
 
-
-If you still want to use the activation script from virtualenv, then use:
-
-::
+If you still want to use the activation script from virtualenv, then use::
 
     activate_this = '/usr/local/pythonenv/PYLONS-1/bin/activate_this.py'
     execfile(activate_this, dict(__file__=activate_this))
-
 
 If the fact that 'sys.prefix' has been modified doesn't give an issue, then
 great. If you see subtle unexplained problems that may be linked to the
@@ -211,22 +191,16 @@ file for all applications.
 
 Alternatively, if using mod_wsgi 2.0 and embedded mode, the WSGIPythonPath
 directive can be used to setup the virtual environment for all Python
-interpreters created within the process in one step.
-
-::
+interpreters created within the process in one step::
 
     WSGIPythonPath /usr/local/pythonenv/PYLONS-1/lib/python2.5/site-packages
 
-
 Similarly, if using mod_wsgi 2.0 or later and daemon mode, the
 'python-path' option to the WSGIDaemonProcess directive can be used to
-setup the virtual environment.
-
-::
+setup the virtual environment::
 
     WSGIDaemonProcess pylons \
      python-path=/usr/local/pythonenv/PYLONS-1/lib/python2.5/site-packages
-
 
 Note that WSGIPythonPath does not have this effect for mod_wsgi prior to
 version 2.0. This is because in older versions WSGIPythonPath merely added

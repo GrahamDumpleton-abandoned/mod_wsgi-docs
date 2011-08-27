@@ -1,4 +1,3 @@
-
 =====================
 Download The Software
 =====================
@@ -19,26 +18,27 @@ If you are philosophically against the idea of contributing back to Open
 Source projects in a monetary way and find it obnoxious that any Open
 Source project would solicit donations, then it is suggested that you use
 one of the alternatives to mod_wsgi such as
-[http://en.wikipedia.org/wiki/Common_Gateway_Interface CGI].
+`CGI <http://en.wikipedia.org/wiki/Common_Gateway_Interface>`_.
 
 Source Code Downloads
 ---------------------
 
 The most up to date and recommended version of mod_wsgi is 3.3.
 
-  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-3.3.tar.gz mod_wsgi-3.3.tar.gz - Source Code]
+* `mod_wsgi-3.3.tar.gz - Source Code
+  <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-3.3.tar.gz>`_
 
 For a list of changes made in this version see:
 
-  * [ChangesInVersion0303 Changes In Version 3.3]
+* :doc:`release-notes/version-3.3`
 
 For a list of changes in all versions of mod_wsgi see:
 
-  * [ChangesInAllVersions Changes In All Versions]
+* :doc:`release-notes/index`
 
 For details on how to install from the source code see:
 
-  * [QuickInstallationGuide Quick Installation Guide]
+* :doc:`QuickInstallationGuide`
 
 Windows Binary Downloads
 ------------------------
@@ -47,17 +47,19 @@ Variations of precompiled binaries currently available for Windows are as
 follows. You need to make sure you select the correct one for the version
 of Python and Apache that is being used:
 
-  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-win32-ap22py26-3.3.so mod_wsgi-win32-ap22py26-3.3.so - Apache 2.2 / Python 2.6]
-  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-win32-ap22py27-3.3.so mod_wsgi-win32-ap22py27-3.3.so - Apache 2.2 / Python 2.7]
+* `mod_wsgi-win32-ap22py26-3.3.so - Apache 2.2 / Python 2.6
+  <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-win32-ap22py26-3.3.so>`_
+* `mod_wsgi-win32-ap22py27-3.3.so - Apache 2.2 / Python 2.7
+  <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-win32-ap22py27-3.3.so>`_
 
 For details on how to install these files see:
 
-  * [InstallationOnWindows Installation On Windows]
+* :doc:`InstallationOnWindows`
 
 Note that these binaries will only work for 32 bit Python and 32 bit Apache.
 If you need to use 64 bit Python and 64 bit Apache and can't compile mod_wsgi
 yourself from source code, you may look at the Windows binaries available
-for [http://code.activestate.com/pypm/modwsgi-apache2.2/ ActivateState Python].
+for `ActivateState Python <http://code.activestate.com/pypm/modwsgi-apache2.2/>`_.
 It is presumed that you have to be using ActivateState Python installation
 for them to work. It is not known where you would however get 64 bit Apache
 from as believe ASF only provides a 32 bit installer.
@@ -70,20 +72,25 @@ This is specifically for the Apple supplied Apache 2.2.X and Python 2.6.X
 and should not be used with MacPort or fink Apache/Python packages, or self
 compiled Apache/Python packages.
 
-  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-macosx106-ap22py26-3.3.so mod_wsgi-macosx106-ap22py26-3.3.so - Apache 2.2 / Python 2.6]
+* `mod_wsgi-macosx106-ap22py26-3.3.so - Apache 2.2 / Python 2.6
+  <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-macosx106-ap22py26-3.3.so>`_
 
 Conference Presentations
 ------------------------
 
 The following presentations are also available.
 
-  * [http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf PyCon Conference Slides - Sydney 2010]
-  * [http://pyconau.blip.tv/file/3840484/ PyCon Conference Video - Sydney 2010]
+* `PyCon Conference Slides - Sydney 2010
+  <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf>`_
+* `PyCon Conference Video - Sydney 2010
+  <http://pyconau.blip.tv/file/3840484/>`_
 
 Other Available Downloads
 -------------------------
 
 For additional downloads see:
 
-  * [http://code.google.com/p/modwsgi/downloads/list List Of Current Downloads]
-  * [http://code.google.com/p/modwsgi/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount List All Available Downloads]
+* `List Of Current Downloads 
+  <http://code.google.com/p/modwsgi/downloads/list>`_
+* `List All Available Downloads
+  <http://code.google.com/p/modwsgi/downloads/list?can=1&q=&colspec=Filename+Summary+Uploaded+Size+DownloadCount>`_

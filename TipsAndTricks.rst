@@ -1,5 +1,3 @@
-
-
 ===============
 Tips And Tricks
 ===============
@@ -32,16 +30,13 @@ request is being handled.
 The simplest way of detecting if mod_wsgi is being used is to import the
 'mod_wsgi' module. This is a special embedded mode which is installed
 automatically by the Apache/mod_wsgi module into set of imported modules,
-ie., sys.modules. You can thus do:
-
-::
+ie., sys.modules. You can thus do::
 
     try:
         import mod_wsgi
         # Put code here which should only run when mod_wsgi is being used.
     except:
         pass
-
 
 Do note however that although this is an embedded mode added automatically,
 the way mod_wsgi has been implemented allows in the future for there to be
@@ -58,16 +53,13 @@ The potential existance of this distinct Python package/module means that
 importing 'mod_wsgi' could one day actually succeed outside of code being
 run under the Apache/mod_wsgi module.
 
-A more correct test therefore is:
-
-::
+A more correct test therefore is::
 
     try:
         from mod_wsgi import version
         # Put code here which should only run when mod_wsgi is being used.
     except:
         pass
-
 
 This is different because the 'version' attribute will only be present when
 running under the Apache/mod_wsgi module as that version relates to the
@@ -85,13 +77,10 @@ code is loaded into the Python interpreter.
 The normal situation where one would check the value of '__name__' is where
 wanting to do something different when a Python code file is executed
 directly against the Python interpreter as opposed to being imported. For
-example:
-
-::
+example::
 
     if __name__ == '__main__':
         ...
-
 
 In contrast, were a Python code file is imported, the '__name__' attribute
 would be the dotted path which would be used to import the code file.
@@ -103,13 +92,10 @@ name. Instead they have a magic name built from a md5 hash of the path to the
 WSGI script file.
 
 So as to at least identify this as being related to mod_wsgi, it has the
-prefix '_mod_wsgi_'. This means a WSGI script file could use:
-
-::
+prefix '_mod_wsgi_'. This means a WSGI script file could use::
 
     if __name__.startswith('_mod_wsgi_'):
         ...
-
 
 if it needed to execute different code based on whether the WSGI script
 file was actually being loaded by the Apache/mod_wsgi module as opposed to
@@ -121,9 +107,7 @@ elsewhere.
 A final method that can be used within the context of the WSGI application
 handling the request is to interrogate the WSGI environ dictionary passed
 to the WSGI application. In this case code can look for the presence of
-the 'mod_wsgi.version' key within the WSGI environ dictionary.
-
-::
+the 'mod_wsgi.version' key within the WSGI environ dictionary::
 
     def application(environ, start_response):
         status = '200 OK'
@@ -137,4 +121,3 @@ the 'mod_wsgi.version' key within the WSGI environ dictionary.
         start_response(status, response_headers)
     
         return [output]
-

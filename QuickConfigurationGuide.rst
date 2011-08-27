@@ -1,5 +1,3 @@
-
-
 =========================
 Quick Configuration Guide
 =========================
@@ -26,15 +24,13 @@ WSGI Application Script File
 
 WSGI is a specification of a generic API for mapping between an underlying
 web server and a Python web application. WSGI itself is described by Python
-[http://www.python.org/dev/peps/pep-0333/ PEP 0333]. The purpose of the
+`PEP 0333 <http://www.python.org/dev/peps/pep-0333/>`_. The purpose of the
 WSGI specification is to provide a common mechanism for hosting a Python
 web application on a range of different web servers supporting the Python
 programming language.
 
 A very simple WSGI application, and the one which should be used for the
-examples in this document, is as follows:
-
-::
+examples in this document, is as follows::
 
     def application(environ, start_response):
         status = '200 OK'
@@ -45,7 +41,6 @@ examples in this document, is as follows:
         start_response(status, response_headers)
     
         return [output]
-
 
 This sample application will need to be placed into what will be referred
 to as the WSGI application script file. For the examples presented here,
@@ -73,17 +68,14 @@ only being able to be made by modifying the main Apache configuration and
 restarting Apache.
 
 When using mod_cgi to host CGI applications, this would be done using the
-!ScriptAlias directive. For mod_wsgi, the directive is instead called
-WSGIScriptAlias.
-
-::
+ScriptAlias directive. For mod_wsgi, the directive is instead called
+WSGIScriptAlias::
 
     WSGIScriptAlias /myapp /usr/local/www/wsgi-scripts/myapp.wsgi
 
-
 This directive can only appear in the main Apache configuration files. The
 directive can be used at server scope but would normally be placed within
-the !VirtualHost container for a particular site. It cannot be used within
+the VirtualHost container for a particular site. It cannot be used within
 either of the Location, Directory or Files container directives, nor can it
 be used within a ".htaccess" file.
 
@@ -106,18 +98,15 @@ still be applied to indicate who can actually access the WSGI application.
 Because the Apache access controls will apply, if the WSGI application is
 located outside of any directories already configured to be accessible to
 Apache, it will be necessary to tell Apache that files within that
-directory can be used. To do this the Directory directive must be used.
-
-::
+directory can be used. To do this the Directory directive must be used::
 
     <Directory /usr/local/www/wsgi-scripts>
     Order allow,deny
     Allow from all
     </Directory>
 
-
 Note that it is highly recommended that the WSGI application script file in
-this case NOT be placed within the existing !DocumentRoot for your main
+this case NOT be placed within the existing DocumentRoot for your main
 Apache installation, or the particular site you are setting it up for. This
 is because if that directory is otherwise being used as a source of static
 files, the source code for your application might be able to be downloaded.
@@ -132,32 +121,29 @@ other directories and that the only thing in that directory be the WSGI
 application script file, and if necessary any support files it requires.
 
 A complete virtual host configuration for this type of setup would
-therefore be something like:
-
-::
+therefore be something like::
 
     <VirtualHost *:80>
-    
+
         ServerName www.example.com
         ServerAlias example.com
         ServerAdmin webmaster@example.com
-    
+
         DocumentRoot /usr/local/www/documents
-    
+
         <Directory /usr/local/www/documents>
         Order allow,deny
         Allow from all
         </Directory>
-    
+
         WSGIScriptAlias /myapp /usr/local/www/wsgi-scripts/myapp.wsgi
-    
+
         <Directory /usr/local/www/wsgi-scripts>
         Order allow,deny
         Allow from all
         </Directory>
-    
-    </VirtualHost>
 
+    </VirtualHost>
 
 After appropriate changes have been made Apache will need to be restarted.
 For this example, the URL 'http://www.example.com/myapp' would then be used
@@ -171,60 +157,51 @@ Mounting At Root Of Site
 
 If instead you want to mount a WSGI application at the root of a site,
 simply list '/' as the mount point when configuring the WSGIScriptAlias
-directive.
-
-::
+directive ::
 
     WSGIScriptAlias / /usr/local/www/wsgi-scripts/myapp.wsgi
 
-
 Do note however that doing so will mean that any static files contained in
-the !DocumentRoot will be hidden and requests against URLs pertaining to
+the DocumentRoot will be hidden and requests against URLs pertaining to
 the static files will instead be processed by the WSGI application.
 
 In this situation it becomes necessary to remap using the Alias directive,
-any URLs for static files to the directory containing them.
-
-::
+any URLs for static files to the directory containing them::
 
     Alias /robots.txt /usr/local/www/documents/robots.txt
     Alias /favicon.ico /usr/local/www/documents/favicon.ico
-    
+
     Alias /media/ /usr/local/www/documents/media/
 
-
 A complete virtual host configuration for this type of setup would
-therefore be something like:
-
-::
+therefore be something like::
 
     <VirtualHost *:80>
-    
+
         ServerName www.example.com
         ServerAlias example.com
         ServerAdmin webmaster@example.com
-    
+
         DocumentRoot /usr/local/www/documents
-    
+
         Alias /robots.txt /usr/local/www/documents/robots.txt
         Alias /favicon.ico /usr/local/www/documents/favicon.ico
-    
+
         Alias /media/ /usr/local/www/documents/media/
-    
+
         <Directory /usr/local/www/documents>
         Order allow,deny
         Allow from all
         </Directory>
-    
+
         WSGIScriptAlias / /usr/local/www/wsgi-scripts/myapp.wsgi
-    
+
         <Directory /usr/local/www/wsgi-scripts>
         Order allow,deny
         Allow from all
         </Directory>
-    
-    </VirtualHost>
 
+    </VirtualHost>
 
 After appropriate changes have been made Apache will need to be restarted.
 For this example, the URL 'http://www.example.com/' would then be used
@@ -262,49 +239,43 @@ application script file as modified by using the 'touch' command.
 To make use of daemon mode for WSGI applications hosted within a specific
 site, the WSGIDaemonProcess and WSGIProcessGroup directives would need to
 be defined. For example, to setup a daemon process group containing two
-multithreaded process one could use:
-
-::
+multithreaded process one could use::
 
     WSGIDaemonProcess example.com processes=2 threads=15
     WSGIProcessGroup example.com
 
-
 A complete virtual host configuration for this type of setup would
-therefore be something like:
-
-::
+therefore be something like::
 
     <VirtualHost *:80>
-    
+
         ServerName www.example.com
         ServerAlias example.com
         ServerAdmin webmaster@example.com
-    
+
         DocumentRoot /usr/local/www/documents
-    
+
         Alias /robots.txt /usr/local/www/documents/robots.txt
         Alias /favicon.ico /usr/local/www/documents/favicon.ico
-    
+
         Alias /media/ /usr/local/www/documents/media/
-    
+
         <Directory /usr/local/www/documents>
         Order allow,deny
         Allow from all
         </Directory>
-    
+
         WSGIDaemonProcess example.com processes=2 threads=15 display-name=%{GROUP}
         WSGIProcessGroup example.com
-    
+
         WSGIScriptAlias / /usr/local/www/wsgi-scripts/myapp.wsgi
-    
+
         <Directory /usr/local/www/wsgi-scripts>
         Order allow,deny
         Allow from all
         </Directory>
-    
-    </VirtualHost>
 
+    </VirtualHost>
 
 After appropriate changes have been made Apache will need to be restarted.
 For this example, the URL 'http://www.example.com/' would then be used
@@ -336,12 +307,9 @@ being returned, but more importantly one should look at the Apache error
 logs for more detailed descriptions of a specific problem.
 
 Being new to mod_wsgi it is highly recommended that the default Apache
-!LogLevel be increased from 'warn' to 'info'.
-
-::
+LogLevel be increased from 'warn' to 'info'::
 
     LogLevel info
-
 
 When this is done mod_wsgi will output additional information regarding
 when daemon processes are created, when Python sub interpreters related
@@ -349,16 +317,16 @@ to a group of WSGI applications are created and when WSGI application
 script files are loaded and/or reloaded. This information can be quite
 valuable in determining what problem may be occuring.
 
-Note that where the !LogLevel directive may have been defined both in and
-outside of a !VirualHost directive, due to the !VirtualHost declaring its
-own error logs, both instances of the !LogLevel directive should be changed.
+Note that where the LogLevel directive may have been defined both in and
+outside of a VirualHost directive, due to the VirtualHost declaring its
+own error logs, both instances of the LogLevel directive should be changed.
 
 This is because although the virtual host may have its own error log, some
-information is still logged to the main Apache error log and the !LogLevel
+information is still logged to the main Apache error log and the LogLevel
 directive outside of the virtual host context needs to be changed for that
 additional information to be recorded.
 
-In other words, even if the !VirtualHost has its own error log file, also
+In other words, even if the VirtualHost has its own error log file, also
 look in the main Apache error log file for information as well.
 
 Further Configuration Information
@@ -367,19 +335,19 @@ Further Configuration Information
 For further details on how to configure mod_wsgi to run your specific WSGI
 application, see:
 
-  * [ConfigurationGuidelines Configuration Guidelines]
-  * [ConfigurationDirectives Configuration Directives]
+* :doc:`ConfigurationGuidelines`
+* :doc:`configuration-directives/index`
 
 Documentation is also provided for using mod_wsgi with some of the common
 Python web frameworks and applications:
 
-  * [IntegrationWithCherryPy Integration With CherryPy]
-  * [IntegrationWithDjango Integration With Django]
-  * [IntegrationWithMoinMoin Integration With MoinMoin]
-  * [IntegrationWithPylons Integration With Pylons]
-  * [IntegrationWithRepozeBFG Integration With Repoze BFG]
-  * [IntegrationWithTrac Integration With Trac]
-  * [IntegrationWithTurboGears Integration With TurboGears]
-  * [IntegrationWithWebPy Integration With web.py]
-  * [IntegrationWithWeb2Py Integration With web2py]
-  * [IntegrationWithWerkzeug Integration With Werkzeug]
+* :doc:`IntegrationWithCherryPy`
+* :doc:`IntegrationWithDjango`
+* :doc:`IntegrationWithMoinMoin`
+* :doc:`IntegrationWithPylons`
+* :doc:`IntegrationWithRepozeBFG`
+* :doc:`IntegrationWithTrac`
+* :doc:`IntegrationWithTurboGears`
+* :doc:`IntegrationWithWebPy`
+* :doc:`IntegrationWithWeb2Py`
+* :doc:`IntegrationWithWerkzeug`

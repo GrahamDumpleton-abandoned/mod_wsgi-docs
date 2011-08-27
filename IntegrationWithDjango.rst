@@ -1,23 +1,19 @@
-
-
 =======================
 Integration With Django
 =======================
 
-_Note: This is not intended as a basic tutorial on how to setup mod_wsgi.
+Note: This is not intended as a basic tutorial on how to setup mod_wsgi.
 It is recommended you first read more introductory material for mod_wsgi.
 Start by reading through various documents linked off
-[InstallationInstructions Installation Instructions]. If wanting to know
+:doc:`InstallationInstructions`. If wanting to know
 about source code reloading issues when running Django under Apache and
-mod_wsgi then ensure you read [ReloadingSourceCode Reloading Source Code]._
+mod_wsgi then ensure you read :doc:`ReloadingSourceCode`.
 
-The [http://www.djangoproject.com/ Django] framework provides the
+The `Django <http://www.djangoproject.com/>`_ framework provides the
 ``django.core.handlers.wsgi.WSGIHandler()`` function for constructing a
 WSGI application corresonding to a Django application. Using this function,
 a script file for a Django application which is compatible with mod_wsgi
-would be constructed as follows:
-
-::
+would be constructed as follows::
 
     import os, sys
     sys.path.append('/usr/local/django')
@@ -27,14 +23,10 @@ would be constructed as follows:
     
     application = django.core.handlers.wsgi.WSGIHandler()
 
-
 The directory added to ``sys.path`` would be the directory containing the
-package for the Django site created by running:
-
-::
+package for the Django site created by running::
 
     django-admin.py startproject mysite
-
 
 In other words, it should be the directory you were in when
 'django-admin.py' was run. It also equates to the parent
@@ -52,27 +44,21 @@ name of your project.
 If you get an error of the following form in the Apache error logs, where
 'mysite.settings' is what ever value you ended up using in
 'DJANGO_SETTINGS_MODULE', then you haven't used the correct directory when
-setting up ``sys.path``.
-
-::
+setting up ``sys.path``::
 
     [Tue May 05 19:10:51 2009] [error] [client 127.0.0.1] \
      raise ImportError, "Could not import mysite.settings '%s' \
      (Is it on sys.path? Does it have syntax errors?): %s" \
      % (self.SETTINGS_MODULE, e)
 
-
 If you have been using the Django development server and have made use of
 the fact that it is possible when doing explicit imports, or when
 referencing modules in 'urls.py', to leave out the name of the site and use
 a relative module path, you will also need to add to ``sys.path`` the
-path to the site package directory itself.
-
-::
+path to the site package directory itself::
 
     sys.path.append('/usr/local/django')
     sys.path.append('/usr/local/django/mysite')
-
 
 In other words, you would have the path to the directory containing the
 'settings.py' file created by 'django-admin.py startproject', as well as
@@ -103,9 +89,7 @@ Based on that, you can try the alternate WSGI script file outlined at the
 end of that post.
 
 As to the Apache configuration itself, one example of how Apache could be
-configured would be:
-
-::
+configured would be::
 
     Alias /media/ /usr/local/django/mysite/media/
     
@@ -120,7 +104,6 @@ configured would be:
     Order deny,allow
     Allow from all
     </Directory>
-
 
 The configuration shown presumes that media files have been copied into a
 subdirectory of the 'mysite' package called 'media'. Note that you do not
@@ -157,27 +140,24 @@ daemon mode should instead be used.
 
 To enable daemon mode for a specific application the configuration need
 only be augmented with directives to define the daemon process and delegate
-the application to that process.
-
-::
+the application to that process::
 
     WSGIDaemonProcess site-1 user=user-1 group=user-1 threads=25
     WSGIProcessGroup site-1
-    
+
     Alias /media/ /usr/local/django/mysite/media/
-    
+
     <Directory /usr/local/django/mysite/media>
     Order deny,allow
     Allow from all
     </Directory>
-    
+
     WSGIScriptAlias / /usr/local/django/mysite/apache/django.wsgi
-    
+
     <Directory /usr/local/django/mysite/apache>
     Order deny,allow
     Allow from all
     </Directory>
-
 
 The default number of processes created when using WSGIDaemonProcess is
 one. More processes can be defined using the 'processes' option to the
@@ -206,44 +186,38 @@ environment variable, instead ignoring it and expecting the full request
 URI to be in ``PATH_INFO``.
 
 This issue and the problems it causes has been raised in Django ticket
-[http://code.djangoproject.com/ticket/285 #285]. Related problems that
+`#285 <http://code.djangoproject.com/ticket/285>`_. Related problems that
 effectively stem from the same issue have also been raised in Django
-tickets [http://code.djangoproject.com/ticket/2407 #2407] and
-[http://code.djangoproject.com/ticket/1516 #1516].
+tickets `#2407 <http://code.djangoproject.com/ticket/2407>`_ and
+`#1516 <http://code.djangoproject.com/ticket/1516>`_.
 
 A change to Django which addresses this issue and which has been incorporated
 into Django 1.0 is described in Django ticket
-[http://code.djangoproject.com/changeset/8015 #8015]. For older versions,
+`#8015 <http://code.djangoproject.com/changeset/8015>`_. For older versions,
 the workaround presented in Django ticket
-[http://code.djangoproject.com/ticket/2407 #2407] can be used with the
-script file being written as:
-
-::
+`#2047 <http://code.djangoproject.com/ticket/2407>`_ can be used with the
+script file being written as::
 
     import os, sys
     sys.path.append('/usr/local/django')
     os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-    
+
     import django.core.handlers.wsgi
-    
+
     _application = django.core.handlers.wsgi.WSGIHandler()
-    
+
     def application(environ, start_response):
         environ['PATH_INFO'] = environ['SCRIPT_NAME'] + environ['PATH_INFO']
         return _application(environ, start_response)
 
-
 With this change however, it will be necessary to ensure that any paths
 listed in the Django ``urls.py`` file be prefixed with the value of
 ``SCRIPT_NAME`` minus the leading slash. For example where the mount
-point is '/mysite' the URL patterns would need to be listed as:
-
-::
+point is '/mysite' the URL patterns would need to be listed as::
 
     urlpatterns = patterns('',
          (r'^mysite/admin/', include('django.contrib.admin.urls')),
     )
-
 
 As long as these changes are made however, it would then be possible to
 host multiple Django applications at different mount points within the one
@@ -256,32 +230,26 @@ versions does not apply to mod_wsgi and is only necessary with mod_python,
 due to mod_python not setting ``SCRIPT_NAME`` correctly.
 
 When setting up the Apache configuration for a site mounted at a sub URL,
-the mount point must not have a trailing slash.
-
-::
+the mount point must not have a trailing slash::
 
     WSGIScriptAlias /mysite /usr/local/django/mysite/apache/django.wsgi
 
-
 A mass hosting like arrangement could also be set up using an Apache
-configuration like the following:
-
-::
+configuration like the following::
 
     AliasMatch ^/([^/]+)/media/(.*) /usr/local/django/$1/media/$2
-    
+
     <DirectoryMatch ^/usr/local/django/([^/]+)/media>
     Order deny,allow
     Allow from all
     </DirectoryMatch>
-    
+
     WSGIScriptAliasMatch ^/([^/]+) /usr/local/django/$1/apache/django.wsgi
-    
+
     <DirectoryMatch ^/usr/local/django/([^/]+)/apache>
     Order deny,allow
     Allow from all
     </DirectoryMatch>
-
 
 When a new Django instance needs to be added, its package directory should
 be created along with the 'media' and 'apache' directories as described.
@@ -296,31 +264,28 @@ session cookie for all sites. Thus it will be necessary to override the
 ``SESSION_COOKIE_NAME`` setting. It would be preferable that the
 ``path`` of the session cookie could be set through a
 ``SESSION_COOKIE_PATH`` setting as described in Django ticket
-[http://code.djangoproject.com/ticket/4724 #4724]. This would for example
+`#4724 <http://code.djangoproject.com/ticket/4724>`_. This would for example
 allow the cookie scope to be restricted to the mount point of the site.
 
 Note that prior to revision
-[http://code.djangoproject.com/changeset/6428 #6428] of Django, the HTTPS
+`#6428 <http://code.djangoproject.com/changeset/6428>`_ of Django, the HTTPS
 detection done by Django was wrong for WSGI and the internal
 ``is_secure()`` function returned the wrong result in some configurations
 of Apache. To work around this problem you should use a WSGI application
-wrapper to setup the WSGI environment how Django was expecting it.
-
-::
+wrapper to setup the WSGI environment how Django was expecting it::
 
     import os, sys
     sys.path.append('/usr/local/django')
     os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'
-    
+
     import django.core.handlers.wsgi
-    
+
     _application = django.core.handlers.wsgi.WSGIHandler()
-    
+
     def application(environ, start_response):
         if environ['wsgi.url_scheme'] == 'https':
             environ['HTTPS'] = 'on'
         return _application(environ, start_response)
-
 
 Now, traditional wisdom in respect of Django has been that it should
 perferably only be used on single threaded servers. This would mean for
@@ -356,20 +321,17 @@ using mod_wsgi in embedded mode be advisable when Apache is using the
 'worker' MPM on UNIX. In this later case though, daemon mode of mod_wsgi
 could be used to delegate the Django application to a separate set of
 daemon processes running in a multi process, but not multithreaded
-configuration.
-
-::
+configuration::
 
     WSGIDaemonProcess site-1 user=user-1 group=user-1 processes=5 threads=1
     WSGIProcessGroup site-1
-    
+
     WSGIScriptAlias / /usr/local/django/mysite/apache/django.wsgi
-    
+
     <Directory /usr/local/django/mysite/apache>
     Order deny,allow
     Allow from all
     </Directory>
-
 
 Note that it is believed that any multithreading issues have been resolved
 in Django 1.0 and so that version should be be safe to use in a multithread

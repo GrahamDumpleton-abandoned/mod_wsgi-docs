@@ -1,5 +1,3 @@
-
-
 =====================
 Performance Estimates
 =====================
@@ -36,9 +34,7 @@ performance to the other mechanisms than a definitive indicator of
 performance for the specific mechanism.
 
 In all cases, the particular WSGI application which was used for testing
-was as follows:
-
-::
+was as follows::
 
     def application(environ, start_response):
         status = '200 OK'
@@ -49,7 +45,6 @@ was as follows:
         start_response(status, response_headers)
     
         return [output]
-
 
 Note that because of its simplicity, this in practice is not going to be a
 realistic indicator of overall performance of a WSGI application. A real
@@ -77,19 +72,16 @@ Test Of mod_cgi Adapter
 
 For the CGI test, the WSGI adapter listed in the WSGI PEP was used. This
 was placed in the same file as the actual WSGI application. The Apache
-configuration used was:
-
-::
+configuration used was::
 
     ScriptAlias /mod_cgi/hello /usr/local/wsgi/scripts/hello.py
-    
+
     <Directory /usr/local/wsgi/scripts>
     AllowOverride None
     Options None
     Order deny,allow
     Allow from all
     </Directory>
-
 
 The result of the test gave an adjusted figure of 10 requests/sec. In other
 words, static files could be served up 100 times quicker than running the
@@ -104,9 +96,7 @@ Test Of mod_python Adapter
 --------------------------
 
 For the mod_python test, the WSGI adapter provided with Paste was used. The
-Apache configuration used was:
-
-::
+Apache configuration used was::
 
     <Location "/mod_python/hello">
     SetHandler mod_python
@@ -116,7 +106,6 @@ Apache configuration used was:
     PythonOption wsgi.application hello::application
     PythonOption SCRIPT_NAME /mod_python/hello
     </Location>
-
 
 Module reloading in mod_python was explicitly turned off, however, even if on
 it would not have changed the results because the root module specified by
@@ -129,12 +118,10 @@ Test Of mod_wsgi Adapter
 ------------------------
 
 For the mod_wsgi adapter, the mod_wsgi equivalent to the mod_cgi
-``ScriptAlias`` directive is used. The Apache configuration for this was:
-
-::
+``ScriptAlias`` directive is used. The Apache configuration for this was::
 
     WSGIScriptAlias /mod_wsgi/hello /usr/local/wsgi/scripts/hello.py
-    
+
     <Directory /usr/local/wsgi/scripts>
     AllowOverride None
     Options None
@@ -142,19 +129,15 @@ For the mod_wsgi adapter, the mod_wsgi equivalent to the mod_cgi
     Allow from all
     </Directory>
 
-
 The result of the test gave an adjusted figure of 900 requests/sec.
 
 Because the ``WSGIScriptAlias`` directive can only be used in the main
 Apache configuration file, it cannot be used to enable mod_wsgi from within
 a '.htaccess' file. For this the ``SetHandler/AddHandler`` directives can
 instead be used. The Apache configuration within the '.htaccess' file when
-``SetHandler`` is used would be:
-
-::
+``SetHandler`` is used would be::
 
     SetHandler wsgi-script
-
 
 The result of a test where a ".htaccess" file is used gives an adjusted
 figure of 850 requests/sec. This reflects the additional overhead of Apache
@@ -168,14 +151,12 @@ can be used to setup the daemon process and delegate the WSGI application
 to that process group.
 
 The Apache configuration for the most basic scenario with a single daemon
-process with only one thread being used would be:
-
-::
+process with only one thread being used would be::
 
     WSGIDaemonProcess daemon processes=1 threads=1
-    
+
     WSGIScriptAlias /mod_wsgi/hello /usr/local/wsgi/scripts/hello.py
-    
+
     <Directory /usr/local/wsgi/scripts>
     WSGIProcessGroup daemon
     AllowOverride None
@@ -183,7 +164,6 @@ process with only one thread being used would be:
     Order deny,allow
     Allow from all
     </Directory>
-
 
 The result of a test running with this configuration gave an adjusted
 figure of 700 requests/sec. The extra overhead in this circumstance is due
@@ -201,13 +181,12 @@ Summary Of Results
 
 The results can be summarised as follows:
 
-|| *Mechanism* || *Requests/sec* ||
-||mod_cgi (``ScriptAlias``)||10||
-||mod_python (``PythonHandler``)||400||
-||mod_wsgi (``WSGIDaemonProcess``)||700||
-||mod_wsgi (``.htaccess/SetHandler``)||850||
-||mod_wsgi (``WSGIScriptAlias``)||900||
-||static (``DocumentRoot``)||1000||
+:mod_cgi (``ScriptAlias``): 10
+:mod_python (``PythonHandler``): 400
+:mod_wsgi (``WSGIDaemonProcess``): 700
+:mod_wsgi (``.htaccess/SetHandler``): 850
+:mod_wsgi (``WSGIScriptAlias``): 900
+:static (``DocumentRoot``): 1000
 
 Basic guidance would thus be that the overhead of mod_wsgi when running in
 its most efficient mode is half that of mod_python and significantly less
@@ -215,7 +194,7 @@ than when using CGI.
 
 Do note though that any gain in performance over mod_python will be
 immediately swallowed up as soon as you load up one of the large Python web
-frameworks such as Django or !TurboGears. This will especially be the case
+frameworks such as Django or TurboGears. This will especially be the case
 where a database backend is being used and is because most of the overhead
 will then derive from the Python web framework and any bottlenecks in
 accessing the database. Any overhead from mod_wsgi will be a very small

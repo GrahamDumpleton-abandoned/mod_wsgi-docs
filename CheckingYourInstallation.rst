@@ -1,5 +1,3 @@
-
-
 ===============================
 How To Check Your Installation 
 ===============================
@@ -31,9 +29,7 @@ option is the '-V' option.
 
 On most systems the standard Apache executable supplied with the operating
 system is located at '/usr/sbin/httpd'. On MacOS X, for the operating system
-supplied Apache the output from this is:
-
-::
+supplied Apache the output from this is::
 
     $ /usr/sbin/httpd -V
     Server version: Apache/2.2.14 (Unix)
@@ -65,11 +61,10 @@ supplied Apache the output from this is:
      -D AP_TYPES_CONFIG_FILE="/private/etc/apache2/mime.types"
      -D SERVER_CONFIG_FILE="/private/etc/apache2/httpd.conf"
 
-
 The most important details here are:
 
-  * The version of Apache from the 'Server version' entry.
-  * The MPM which Apache has been compiled to use from the 'Server MPM' entry.
+* The version of Apache from the 'Server version' entry.
+* The MPM which Apache has been compiled to use from the 'Server MPM' entry.
 
 Although this has a section which appears to indicate what preprocessor
 options the server was compiled with, it is a massaged list. What is often
@@ -78,14 +73,12 @@ command when Apache was built.
 
 To determine this information you need to do the following.
 
-  # Work out where 'apxs2' or 'apxs' is installed.
-  # Open this file and find setting for '$installbuilddir'.
-  # Open the 'config.nice' file in the directory specified for build directory.
+1. Work out where 'apxs2' or 'apxs' is installed.
+2. Open this file and find setting for '$installbuilddir'.
+3. Open the 'config.nice' file in the directory specified for build directory.
 
 On MacOS X, for the operating system supplied Apache this file is located at
-'/usr/share/httpd/build/config.nice'. The contents of the file is:
-
-::
+'/usr/share/httpd/build/config.nice'. The contents of the file is::
 
     #! /bin/sh
     #
@@ -107,7 +100,6 @@ On MacOS X, for the operating system supplied Apache this file is located at
     "--enable-disk-cache" \
     "$@"
 
-
 Not only does this indicate what features of Apache have been compiled in,
 it also indicates by way of the '--enable-layout' option what custom Apache
 installation layout has been used.
@@ -124,9 +116,7 @@ To verify what exactly what is compiled in statically, you can use the '-l'
 option to the Apache executable.
 
 On MacOS X, for the operating system supplied Apache the output from
-running '-l' option is:
-
-::
+running '-l' option is::
 
     $ /usr/sbin/httpd -l
     Compiled in modules:
@@ -145,9 +135,7 @@ will be loaded dynamically by using the '-M' option for the Apache executable.
 
 On MacOS X, for the operating system supplied Apache the output from
 running '-M' option, where the only additional module added is mod_wsgi,
-is:
-
-::
+is::
 
     $ /usr/sbin/httpd -M
     Loaded Modules:
@@ -218,8 +206,7 @@ is:
      wsgi_module (shared)
     Syntax OK
 
-
-The names reflect that which would have been used with the !LoadModule line
+The names reflect that which would have been used with the LoadModule line
 in the Apache configuration and not the name of the module file itself.
 
 The order in which modules are listed can be important in some cases where
@@ -246,11 +233,11 @@ Apache child processes.
 The list of mechanisms which might be used to implement the cross process
 mutex are as follows:
 
-  * flock
-  * fcntl
-  * sysvsem
-  * posixsem
-  * pthread
+* flock
+* fcntl
+* sysvsem
+* posixsem
+* pthread
 
 In the event that there are issues which communicating between the Apache
 child processes and the mod_wsgi daemon process in particular, it can be
@@ -268,45 +255,39 @@ previously. The particular entries of interest are those with 'SERIALIZE'
 in the name of the macro.
 
 On MacOS X, using operating system supplied Apache, the entries of interest
-are:
+are::
 
-::
-
-     -D APR_USE_FLOCK_SERIALIZE
-     -D APR_USE_PTHREAD_SERIALIZE
-
+    -D APR_USE_FLOCK_SERIALIZE
+    -D APR_USE_PTHREAD_SERIALIZE
 
 As the entries are used in order, what this indicates is that Apache will by
 default use the 'flock' mechanism to implement the cross process mutex.
 
-In comparison, on a Linux system, the entries of interest may be:
+In comparison, on a Linux system, the entries of interest may be::
 
-::
-
-     -D APR_USE_SYSVSEM_SERIALIZE
-     -D APR_USE_PTHREAD_SERIALIZE
-
+    -D APR_USE_SYSVSEM_SERIALIZE
+    -D APR_USE_PTHREAD_SERIALIZE
 
 which indicates that 'sysvsem' mechanism is instead used.
 
 This mechanism is also what would be used by mod_wsgi by default as well for
 the cross process mutex for daemon process groups.
 
-This mechanism will be different where the !AcceptMutex and WSGIAcceptMutex
+This mechanism will be different where the AcceptMutex and WSGIAcceptMutex
 directives are used.
 
-If the !AcceptMutex directive is defined in the Apache configuration file,
+If the AcceptMutex directive is defined in the Apache configuration file,
 then what ever mechanism is specified will be used instead for Apache child
 processes. Provided that Apache 2.2 or older is used, and WSGIAcceptMutex
-is not specified, then when !AcceptMutex is used, that will also then be used
+is not specified, then when AcceptMutex is used, that will also then be used
 by mod_wsgi daemon processes as well.
 
-In the case of Apache 2.4 and later, !AcceptMutex will no longer override the
+In the case of Apache 2.4 and later, AcceptMutex will no longer override the
 default for mod_wsgi daemon process groups, and instead WSGIAcceptMutex must
 be specified seperately if it needs to be overridden for both.
 
 Either way, you should check the Apache configuration files as to whether
-either !AcceptMutex or WSGIAcceptMutex directives are used as they will
+either AcceptMutex or WSGIAcceptMutex directives are used as they will
 override the defaults calculated above. Under normal circumstances neither
 should be set as default would always be used.
 
@@ -320,9 +301,7 @@ similar to the 'USE' macros above. You will also find 'HAS' entries. In this
 case we are interested in the 'HAS' entries.
 
 On MacOS X, with the operating system supplied APR library, the entries in
-'apr.h' are:
-
-::
+'apr.h' are::
 
     #define APR_HAS_FLOCK_SERIALIZE           1
     #define APR_HAS_SYSVSEM_SERIALIZE         1
@@ -330,47 +309,34 @@ On MacOS X, with the operating system supplied APR library, the entries in
     #define APR_HAS_FCNTL_SERIALIZE           1
     #define APR_HAS_PROC_PTHREAD_SERIALIZE    0
 
-
 The available mechanisms are those defined to be '1'.
 
 Finding where the right 'apr.h' is located may be tricky, so an easier way
 is to trick Apache into generating an error message to list what the available
 mechanisms are. To do this, in turn, add entries into the Apache configuration
-files, at global scope of:
-
-::
+files, at global scope of::
 
     AcceptMutex xxx
 
-
-and:
-
-::
+and::
 
     WSGIAcceptMutex xxx
 
-
 For each run the '-t' option on the Apache program executable.
 
-On MacOS X, with the operating system supplied APR library, this yields:
-
-::
+On MacOS X, with the operating system supplied APR library, this yields::
 
     $ /usr/sbin/httpd -t
     Syntax error on line 501 of /private/etc/apache2/httpd.conf:
     xxx is an invalid mutex mechanism; Valid accept mutexes for this platform \
      and MPM are: default, flock, fcntl, sysvsem, posixsem.
 
-
-for !AcceptMutex and for WSGIAcceptMutex:
-
-::
+for AcceptMutex and for WSGIAcceptMutex::
 
     $ /usr/sbin/httpd -t
     Syntax error on line 501 of /private/etc/apache2/httpd.conf:
     Accept mutex lock mechanism 'xxx' is invalid. Valid accept mutex mechanisms \
      for this platform are: default, flock, fcntl, sysvsem, posixsem.
-
 
 The list of available mechanisms should normally be the same in both cases.
 
@@ -386,9 +352,7 @@ library, various issues can arise. These include additional memory usage,
 plus conflicts with mod_python if it is also loaded in same Apache.
 
 To validate that 'mod_wsgi.so' is using a shared library for Python, on most
-UNIX systems the 'ldd' command is used. For example:
-
-::
+UNIX systems the 'ldd' command is used. For example::
 
     $ ldd mod_wsgi.so
      linux-vdso.so.1 =>  (0x00007fffeb3fe000)
@@ -399,7 +363,6 @@ UNIX systems the 'ldd' command is used. For example:
      libc.so.6 => /lib/libc.so.6 (0x00002adec02dd000)
      libm.so.6 => /lib/libm.so.6 (0x00002adec0635000)
      /lib64/ld-linux-x86-64.so.2 (0x0000555555554000)
-
 
 What you want to see is a reference to an instance of 'libpythonX.Y.so'.
 Normally the operating system shared library version suffix would always be
@@ -428,9 +391,7 @@ modules for Python being used which were compiled against that installation.
 For example, if 'LD_LIBRARY_PATH' contained the directory '/usr/local/lib'
 and you obtained the results above, but when you unset it, it picked up
 shared library from '/usr/lib' instead, then you may end up with problems
-if for a different installation. In this case you would see:
-
-::
+if for a different installation. In this case you would see::
 
     $ unset LD_LIBRARY_PATH
     $ ldd mod_wsgi.so
@@ -443,10 +404,7 @@ if for a different installation. In this case you would see:
      libm.so.6 => /lib/libm.so.6 (0x00002adec0635000)
      /lib64/ld-linux-x86-64.so.2 (0x0000555555554000)
 
-
-Similarly, if not found at all, you would see:
-
-::
+Similarly, if not found at all, you would see::
 
     $ unset LD_LIBRARY_PATH
     $ ldd mod_wsgi.so
@@ -459,7 +417,6 @@ Similarly, if not found at all, you would see:
      libm.so.6 => /lib/libm.so.6 (0x00002adec0635000)
      /lib64/ld-linux-x86-64.so.2 (0x0000555555554000)
 
-
 If you have this problem, then it would be necessary to set 'LD_RUN_PATH'
 environment variable to include directory containing where Python library
 resides when building mod_wsgi, or set 'LD_LIBRARY_PATH' in startup file
@@ -469,17 +426,14 @@ directory as Apache program executable. For some Linux installations would
 need to be done in init scripts for Apache.
 
 Note that MacOS X doesn't use 'LD_LIBRARY_PATH' nor have 'ldd'. On MacOS X,
-instead of 'ldd' you can use 'otool -L'
-
-::
+instead of 'ldd' you can use 'otool -L'::
 
     $ otool -L mod_wsgi.so 
     mod_wsgi.so:
       /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 125.2.0)
       /System/Library/Frameworks/Python.framework/Versions/2.6/Python (compatibility version 2.6.0, current version 2.6.1)
 
-
-If using standard MacOS X compilers and not using Fink or !MacPorts, there
+If using standard MacOS X compilers and not using Fink or MacPorts, there
 generally should not ever be any issues with whether it is a shared library
 or not as everything should just work.
 
@@ -523,34 +477,28 @@ you are using a Python installation in a non standard location, then it may
 not properly find the location of that installation.
 
 The easiest way to validate which Python installation is being used is to
-use a test WSGI script to output the value of 'sys.prefix'.
-
-::
+use a test WSGI script to output the value of 'sys.prefix'::
 
     import sys 
-    
+
     def application(environ, start_response):
         status = '200 OK'
-    
+
         output = ''
         output += 'sys.version = %s\n' % repr(sys.version)
         output += 'sys.prefix = %s\n' % repr(sys.prefix)
-    
+
         response_headers = [('Content-type', 'text/plain'),
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
+
         return [output]
 
-
 For standard Python installation on a Linux system, this would produce
-something like:
-
-::
+something like::
 
     sys.version = "'2.6.1 (r261:67515, Feb 11 2010, 00:51:29) \\n[GCC 4.2.1 (Apple Inc. build 5646)]'"
     sys.prefix = '/usr'
-
 
 Thus, if you were expecting to pick up a separate Python installation
 located under '/usr/local' or elsewhere, this would be indicative of a
@@ -558,22 +506,19 @@ problem.
 
 It can also be worthwhile to check that the Python module search path also
 looks correct. This can be done by using a test WSGI script to output the
-value of 'sys.path'.
-
-::
+value of 'sys.path'::
 
     import sys
-    
+
     def application(environ, start_response):
         status = '200 OK'
         output = 'sys.path = %s' % repr(sys.path)
-    
+
         response_headers = [('Content-type', 'text/plain'),
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
-        return [output]
 
+        return [output]
 
 In both cases, even if incorrect location is being used for Python
 installation and even if there is no actual Python installation of the
@@ -588,21 +533,15 @@ directory, the subdirectory which you would want to look for is
 If the calculated directory is wrong, then you will need to use the
 WSGIPythonHome directory to set the location to the correct value. The value
 to use is what 'sys.prefix' is set to when the correct Python is run from
-the command line and 'sys.prefix' output.
-
-::
+the command line and 'sys.prefix' output::
 
     >>> import sys
     >>> print sys.prefix
     /usr/local
 
-
-Thus for case where installed under '/usr/local', would use:
-
-::
+Thus for case where installed under '/usr/local', would use::
 
     WSGIPythonHome /usr/local
-
 
 Embedded Or Daemon Mode
 -----------------------
@@ -613,36 +552,27 @@ processes themselves. In the case of daemon mode, they run within a
 separate set of processes managed by mod_wsgi.
 
 To determine what mode a WSGI application is running under, replace its
-WSGI script with the test WSGI script as follows:
-
-::
+WSGI script with the test WSGI script as follows::
 
     import sys
-    
+
     def application(environ, start_response):
         status = '200 OK'
         output = 'mod_wsgi.process_group = %s' % repr(environ['mod_wsgi.process_group']) 
         response_headers = [('Content-type', 'text/plain'),
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
+
         return [output]
 
-
 If the configuration is such that the WSGI application is running in embedded
-mode, then you will see:
-
-::
+mode, then you will see::
 
     mod_wsgi.process_group = ''
 
-
-This actually corresponds to the directive:
-
-::
+This actually corresponds to the directive::
 
     WSGIProcessGroup %{GLOBAL}
-
 
 having being used, or the same value being used to the 'process-group'
 directive of WSGIScriptAlias. Do note though that these are also actually
@@ -660,37 +590,28 @@ embedded mode or daemon mode, within the process it ends up running in, it
 can be delegated to a specific Python sub interpreter.
 
 To determine which Python sub interpreter is being used within the process
-the WSGI application is being run use the test WSGI script of:
-
-::
+the WSGI application is being run use the test WSGI script of::
 
     import sys
-    
+
     def application(environ, start_response):
         status = '200 OK'
         output = 'mod_wsgi.application_group = %s' % repr(environ['mod_wsgi.application_group'])
-    
+
         response_headers = [('Content-type', 'text/plain'),
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
+
         return [output]
 
-
 If being run in the main interpreter, ie., the first interpreter created by
-Python, this will output:
-
-::
+Python, this will output::
 
     mod_wsgi.application_group = ''
 
-
-This actually corresponds to the directive:
-
-::
+This actually corresponds to the directive::
 
     WSGIApplicationGroup %{GLOBAL}
-
 
 having being used, or the same value being used to the 'application-group'
 directive of WSGIScriptAlias.
@@ -700,12 +621,9 @@ be a value made up from the name of the virtual host or server, the port
 on which connection was accepted and the mount point of the WSGI application.
 The port however is actually dropped where port is 80 or 443.
 
-An example of what you would expect to see is:
-
-::
+An example of what you would expect to see is::
 
     mod_wsgi.application_group = 'tests.example.com|/interpreter.wsgi'
-
 
 This corresponds to server name of 'tests.example.com' with connection
 received on either port 80 or 443 and where WSGI application was mounted at
@@ -729,29 +647,23 @@ is important to know. If it is, then you need to ensure that your own code
 and any framework you are using is also thread safe.
 
 A test WSGI script for validating whether WSGI application running in
-multithread configuration is as follows.
-
-::
+multithread configuration is as follows::
 
     import sys
-    
+
     def application(environ, start_response):
         status = '200 OK'
         output = 'wsgi.multithread = %s' % repr(environ['wsgi.multithread'])
-    
+
         response_headers = [('Content-type', 'text/plain'),
                             ('Content-Length', str(len(output)))]
         start_response(status, response_headers)
-    
+
         return [output]
 
-
-If multithreaded, this will yield:
-
-::
+If multithreaded, this will yield::
 
     wsgi.multithread = True
-
 
 Multithreaded would usually be true on Windows, on UNIX if running in embedded
 mode and worker MPM is used by Apache, or if using daemon mode and number of

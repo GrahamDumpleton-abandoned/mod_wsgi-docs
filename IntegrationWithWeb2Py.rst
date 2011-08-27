@@ -1,5 +1,3 @@
-
-
 =======================
 Integration With web2py
 =======================
@@ -16,7 +14,7 @@ Downloadable version of the web2py book also available from:
 
 Do note though, that the example configuration in the book has failed to
 use a line continuation character when wrapping Apache configuration lines.
-You should ensure that WSGIDaemonProcess and !AliasMatch directive options
+You should ensure that WSGIDaemonProcess and AliasMatch directive options
 are all on the same line as the directive, or end the first line with
 a backslash to continue the line.
 

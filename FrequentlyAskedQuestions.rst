@@ -1,5 +1,3 @@
-
-
 ==========================
 Frequently Asked Questions
 ==========================
@@ -9,26 +7,26 @@ properly. If you are having problems, you are highly encouraged to at least
 read the following documents, which cover basic setup as well as common
 problems.
 
-  * [QuickInstallationGuide Quick Installation Guide]
-  * [QuickConfigurationGuide Quick Configuration Guide]
+* :doc:`QuickInstallationGuide`
+* :doc:`QuickConfigurationGuide`
 
-  * [InstallationIssues Installation Issues]
-  * [ConfigurationIssues Configuration Issues]
-  * [ApplicationIssues Application Issues]
+* :doc:`InstallationIssues`
+* :doc:`ConfigurationIssues`
+* :doc:`ApplicationIssues`
 
 If you still don't find a solution, then use the
-[http://groups.google.com/group/modwsgi mod_wsgi user group] to post details
+`mod_wsgi user group <http://groups.google.com/group/modwsgi>`_ to post details
 of your problem. Although IRC forums related to Python, WSGI and the various
 Python web frameworks may give instant answers, more often than not they will
 not know enough about mod_wsgi to actually help. Thus it is suggested that
 the mod_wsgi user group always be used if possible.
 
-Comparison to !ModPython
+Comparison to ModPython
 ------------------------
 
-*Q*: Is mod_wsgi faster than mod_python?
+**Q**: Is mod_wsgi faster than mod_python?
 
-*A*: Yes, [PerformanceEstimates testing] indicates that both embedded mode
+**A**: Yes, :doc:`PerformanceEstimates` indicates that both embedded mode
 and daemon mode of mod_wsgi can maintain a greater request throughput than
 mod_python.
 
@@ -41,11 +39,11 @@ Do understand though that raw performance is unlikely to be where the
 bottleneck will be in your web application. As a result, the performance
 gains in using mod_wsgi may not be significantly noticeable when running a
 heavy weight Python web application based on Python web frameworks such as
-Django, !TurboGears or Pylons.
+Django, TurboGears or Pylons.
 
-*Q*: Does mod_wsgi use less memory than mod_python?
+**Q**: Does mod_wsgi use less memory than mod_python?
 
-*A*: Yes, mod_wsgi has a smaller memory footprint than mod_python.
+**A**: Yes, mod_wsgi has a smaller memory footprint than mod_python.
 
 The memory footprint is smaller as mod_wsgi is written entirely in C code
 and is purpose built for hosting WSGI applications. The mod_python code in
@@ -67,10 +65,10 @@ in a small number of multithreaded daemon processes.
 Apache Process Crashes
 ----------------------
 
-*Q*: Why when the mod_wsgi module is initially being loaded by Apache, do
+**Q**: Why when the mod_wsgi module is initially being loaded by Apache, do
 the Apache server processes crash with a 'segmentation fault'?
 
-*A*: This is nearly always caused due to mod_python also being loaded by
+**A**: This is nearly always caused due to mod_python also being loaded by
 Apache at the same time as mod_wsgi and the Python installation not
 providing a shared library, or mod_python having originally being built
 against a static Python library. This is especially a problem with older
@@ -78,13 +76,13 @@ Linux distributions before they started shipping with Python as a shared
 library.
 
 Further information on these problems can be found in various sections of
-[InstallationIssues Installation Issues].
+:doc:`InstallationIssues`.
 
-*Q*: Why when first request is made against a WSGI application does the
+**Q**: Why when first request is made against a WSGI application does the
 Apache server process handling the request crash with a 'segmentation
 fault'?
 
-*A*: This is nearly always caused due to a shared library version conflict.
+**A**: This is nearly always caused due to a shared library version conflict.
 That is, Apache or some Apache module is linked against a different version
 of a library than that which is being used by a particular Python module
 that the WSGI application makes use of. The most common culprits are the
@@ -99,14 +97,13 @@ correctly if the WSGI application is forced to run within the first
 interpreter instance created by Python.
 
 Further information on these problems can be found in various sections of
-[ApplicationIssues Application Issues]. The problems with the expat library
-are also gone into in more detail in
-[IssuesWithExpatLibrary Issues With Expat Library].
+:doc:`ApplicationIssues`. The problems with the expat library
+are also gone into in more detail in :doc:`IssuesWithExpatLibrary`.
 
-*Q*: Why am I seeing the error message 'premature end of script headers' in
+**Q**: Why am I seeing the error message 'premature end of script headers' in
 the Apache error logs.
 
-*A*: If using daemon mode, this is a symptom of the mod_wsgi daemon process
+**A**: If using daemon mode, this is a symptom of the mod_wsgi daemon process
 crashing when handling a request. You would probably also see the message
 'segmentation fault'. See answer for question about 'segmentation fault'
 above.
@@ -117,39 +114,39 @@ and your WSGI script file is being executed as a CGI script instead.
 HTTP Error Responses
 --------------------
 
-*Q*: When I try to use mod_wsgi daemon mode I get the error response '503
+**Q**: When I try to use mod_wsgi daemon mode I get the error response '503
 Service Temporarily Unavailable'.
 
-*A*: The standard Apache runtime directory has restricted access and the
+**A**: The standard Apache runtime directory has restricted access and the
 Apache child process cannot access the daemon process sockets. You will
 need to use the WSGISocketPrefix directive to specify an alternative
 location for storing of runtime files such as sockets.
 
 For further information see section 'Location Of UNIX Sockets' of
-[ConfigurationIssues Configuration Issues].
+:doc:`ConfigurationIssues`.
 
-*Q*: I am getting a HTTP 500 error response and I can't find any error in
+**Q**: I am getting a HTTP 500 error response and I can't find any error in
 the Apache error logs.
 
-*A*: Some users of mod_wsgi 1.3/2.0 and older minor revisions, are finding
+**A**: Some users of mod_wsgi 1.3/2.0 and older minor revisions, are finding
 that mod_wsgi error messages are going missing, or ending up in the main
 Apache error log file rather than a virtual host specific error log file.
-Specifically, this is occurring when Apache !ErrorLog directive is being
-used inside of a !VirtualHost container.
+Specifically, this is occurring when Apache ErrorLog directive is being
+used inside of a VirtualHost container.
 
 It is not known exactly what operating system setup and/or Apache
 configuration is the trigger for this problem. To avoid the problem, use
 a newer version of mod_wsgi or apply the patch related to initialisation
 of request status described in mod_wsgi issue
-[http://code.google.com/p/modwsgi/issues/detail?id=79 #79].
+`#79 <http://code.google.com/p/modwsgi/issues/detail?id=79>`_.
 
 HTTP Error Log Messages
 -----------------------
 
-*Q*: Why do I get the error 'IOError: client connection closed' appearing
+**Q**: Why do I get the error 'IOError: client connection closed' appearing
 in the error logs?
 
-*A*: This occurs when the HTTP client making the request closes the
+**A**: This occurs when the HTTP client making the request closes the
 connection before the complete response for a request has been written.
 
 This can occur where a user force reloads a web page before it had been
@@ -160,15 +157,15 @@ number has been reached.
 
 In general this error message can be ignored. For more information see
 mod_wsgi issue
-[http://code.google.com/p/modwsgi/issues/detail?id=29 #29].
+`#29 <http://code.google.com/p/modwsgi/issues/detail?id=29>`_.
 
 Application Reloading
 ---------------------
 
-*Q*: Do I have to restart Apache every time I make a change to the Python
+**Q**: Do I have to restart Apache every time I make a change to the Python
 code for my WSGI application?
 
-*A*: If your WSGI application is contained totally within the WSGI script
+**A**: If your WSGI application is contained totally within the WSGI script
 file and it is that file that you are changing, then no you don't. In this
 case the WSGI script file will be automatically reloaded when a change is
 made provided that script reloading hasn't been disabled.
@@ -177,7 +174,7 @@ If the code you are changing lies outside of the WSGI script file then what
 you may need to do will depend on how mod_wsgi is being used.
 
 If embedded mode of mod_wsgi is being used, the only option is to restart
-Apache. You could set Apache configuration directive !MaxRequestsPerChild
+Apache. You could set Apache configuration directive MaxRequestsPerChild
 to 1 to force a reload of the application on every request, but this is not
 recommended because it will perform as bad as or as worse as CGI and will
 also affect serving up of static files and other applications being hosted
@@ -197,12 +194,12 @@ Use of daemon mode and the process reload mechanism is the preferred
 mechanism for handling automatic reloading of code after changes.
 
 More details on how source code reloading works with mod_wsgi can be
-found in [ReloadingSourceCode Reloading Source Code].
+found in :doc:`ReloadingSourceCode`.
 
-*Q*: Why do requests against my application seem to take forever, but
+**Q**: Why do requests against my application seem to take forever, but
 then after a bit they all run much quicker?
 
-*A*: This is because mod_wsgi by default performs lazy loading of any
+**A**: This is because mod_wsgi by default performs lazy loading of any
 application. That is, an application is only loaded the first time that a
 request arrives which targets that WSGI application. This means that those
 initial requests will incur the overhead of loading all the application code
@@ -231,7 +228,7 @@ correctly the results would be better than is shown by those benchmarks.
 For some cases, such as when WSGIScriptAlias is being used, it is actually
 possible to preload the application code when the processes first starts,
 rather than when the first request arrives. To preload an application see the
-[ConfigurationDirectives#WSGIImportScript WSGIImportScript] directive.
+:doc:`configuration-directives/WSGIImportScript` directive.
 
 By preloading the application code you would not normally see delays in
 requests being handled. The only exception to this would be when running
@@ -245,10 +242,10 @@ requests.
 Execution Environment
 ---------------------
 
-*Q*: Why do I get the error 'IOError: sys.stdout access restricted by
+**Q**: Why do I get the error 'IOError: sys.stdout access restricted by
 mod_wsgi'?
 
-*A*: A portable WSGI application or application component should not
+**A**: A portable WSGI application or application component should not
 output anything to standard output. This is because some WSGI hosting
 mechanisms use standard output to communicate with the web server. If
 a WSGI application outputs anything to standard output it will thus
@@ -261,21 +258,21 @@ purposes can cause this error.
 
 For more details about this issue, including how applications should do
 logging and how to disable this restriction see section 'Writing To Standard
-Output' in [ApplicationIssues Application Issues] and section 'Apache Error
-Log Files' in [DebuggingTechniques Debugging Techniques].
+Output' in :doc:`ApplicationIssues` and section 'Apache Error
+Log Files' in :doc:`DebuggingTechniques`.
 
-*Q*: Can mod_wsgi be used with Python virtual environments created using
+**Q**: Can mod_wsgi be used with Python virtual environments created using
 Ian Bicking's 'virtualenv' package?
 
-*A*: Yes. For more details see [VirtualEnvironments Virtual Environments].
+**A**: Yes. For more details see :doc:`VirtualEnvironments`.
 
 Access Control Mechanisms
 -------------------------
 
-*Q*: Why are client user credentials not being passed through to the WSGI
+**Q**: Why are client user credentials not being passed through to the WSGI
 application in the 'HTTP_AUTHORIZATION' variable of the WSGI environment?
 
-*A*: User credentials are not passed by default as doing so is insecure and
+**A**: User credentials are not passed by default as doing so is insecure and
 could expose a users password to WSGI applications which shouldn't be
 permitted to see it. Such a situation might occur within a corporate
 setting where HTTP authentication mechanisms were used to control access to
@@ -287,16 +284,16 @@ As a result, the passing of HTTP authentication credentials must be
 explicitly enabled by the web server administrator. This can only be done
 using directives placed in the main Apache confguration file.
 
-For further information see [AccessControlMechanisms Access Control Mechanisms]
+For further information see :doc:`AccessControlMechanisms`
 and the documentation for the WSGIPassAuthorization directive within the
-[ConfigurationDirectives Configuration Directives] documentation.
+:doc:`configuration-directives/index` documentation.
 
-*Q*: Is there a way of having a WSGI application provide user authentication
+**Q**: Is there a way of having a WSGI application provide user authentication
 for resources outside of the application such as static files, CGI scripts
 or even a distinct application. In other words, something akin to being able
 to define access, authentication and authorisation handlers in mod_python?
 
-*A*: Providing you are using Apache 2.0 or later, version 2.0 of mod_wsgi
+**A**: Providing you are using Apache 2.0 or later, version 2.0 of mod_wsgi
 provides support for hooking into the Apache access, authentication and
 authorisation handler phases. This doesn't allow full control of how the
 Apache handler is implemented, but does allow control over how user
@@ -306,4 +303,4 @@ than sufficient and makes the task somewhat simpler than needing to
 implement a full handler like in mod_python as Apache and mod_wsgi do all
 the hard work.
 
-For further information see [AccessControlMechanisms Access Control Mechanisms].
+For further information see :doc:`AccessControlMechanisms`.

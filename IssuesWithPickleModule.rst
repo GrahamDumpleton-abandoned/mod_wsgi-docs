@@ -1,5 +1,3 @@
-
-
 =========================
 Issues With Pickle Module
 =========================
@@ -24,9 +22,7 @@ automatically reload WSGI application script files. The particular types of
 data which are known to be affected are function objects and class objects.
 
 To illustrate the problems and where they arise, consider the following
-output from an interactive Python session.
-
-::
+output from an interactive Python session::
 
     >>> import pickle
     >>> def a(): pass
@@ -37,22 +33,18 @@ output from an interactive Python session.
     >>> pickle.dumps(z)
     'c__main__\na\np0\n.'
 
-
 As can be seen, it is possible to pickle a function object. This can be
 done even through a copy of the function object by reference, although in
 that case the pickled object still refers to the original function object.
 
 If now the original function object is deleted however, and the copy of the
-function object is pickled, a failure will occur.
-
-::
+function object is pickled, a failure will occur::
 
     >>> del a
     >>> pickle.dumps(z)
     Traceback (most recent call last):
     ... <deleted>
     pickle.PicklingError: Can't pickle <function a at 0x612b0>: it's not found as __main__.a
-
 
 The exception has been raised because the original function object was
 deleted from where it was created. It occurs because the copy of the
@@ -63,9 +55,7 @@ exists. If it doesn't exist, it will refuse to serialise the object.
 
 Creating a new function object in place of the original function object
 does not eliminate the problem, although it does result in a different sort
-of exception.
-
-::
+of exception::
 
     >>> def a(): pass
     ... 
@@ -73,7 +63,6 @@ of exception.
     Traceback (most recent call last):
     ... <deleted>
     pickle.PicklingError: Can't pickle <function a at 0x612b0>: it's not the same object as __main__.a
-
 
 In this case, the "pickle" serialisation routine recognises that "a" exists
 but realises that it is actually a different function object from which the
@@ -89,9 +78,7 @@ function object which had been copied from will have been replaced by a new
 one when the script was reloaded.
 
 This sort of problem, although it will not occur for an instance of a
-class, will occur for the class object itself.
-
-::
+class, will occur for the class object itself::
 
     >>> class B: pass
     ... 
@@ -114,12 +101,9 @@ class, will occur for the class object itself.
     ... <deleted>
     pickle.PicklingError: Can't pickle <class __main__.B at 0x53ab0>: it's not found as __main__.B
 
-
 Note though that for the case of a class instance, an appropriate class
 object must exist at the same location when the serialised object is being
-restored.
-
-::
+Restored::
 
     >>> class B: pass
     ... 
@@ -131,7 +115,6 @@ restored.
     Traceback (most recent call last):
     ... <delete>
     AttributeError: 'module' object has no attribute 'B'
-
 
 Unpacking And Module Names
 --------------------------
@@ -156,9 +139,7 @@ module automatically if the module isn't already loaded will not be
 able to load the WSGI application script file.
 
 The problem can be seen in the following output from an interactive Python
-session.
-
-::
+session::
 
     >>> exec "class C: pass" in m.__dict__
     >>> c = m.C()
@@ -171,7 +152,6 @@ session.
     Traceback (most recent call last):
     ... <deleted>
     ImportError: No module named m
-
 
 Summary Of Limitations
 ----------------------
