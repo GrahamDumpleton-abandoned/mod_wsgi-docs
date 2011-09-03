@@ -1,12 +1,4 @@
 This package contains documentation for mod_wsgi.
 
-It is based on a snapshot of mod_wsgi documentation from Google code site
-for mod_wsgi made on 22nd August 2011. This original documentation can be
-found in the 'originals' subdirectory.
-
-The intent now is to convert this documentation to RestructuredText and
-build up a structure suitable for publishing the documentation on the
-Read The Docs site. 
-
-Eventually the documentation will be hosted at www.modwsgi.org and the
-existing mod_wsgi documentation on the Google code site will be shutdown.
+It will eventually replace what is on the mod_wsgi wiki on Google Code and
+will be hosted on ReadTheDocs instead.
