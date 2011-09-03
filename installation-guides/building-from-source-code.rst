@@ -1,18 +1,9 @@
-========================
-Quick Installation Guide
-========================
+=========================
+Building From Source Code
+=========================
 
 This document describes the steps for installing mod_wsgi on a UNIX system
 from the original source code.
-
-Getting Further Help
---------------------
-
-If you have problems following the instructions in this document, or
-something doesn't work and the documentation doesn't help, post your
-questions to the mod_wsgi mailing list hosted on Google Groups at:
-
-  http://groups.google.com/group/modwsgi
 
 Apache Requirements
 -------------------
@@ -44,11 +35,12 @@ just "apache".
 Python Requirements
 -------------------
 
-And Python 2.X version from Python 2.3 onwards can be used. Python 3.0 and
-later will only be able be used with mod_wsgi 3.0 when released.
+And Python 2.X version from Python 2.3 onwards can be used. Python 3.1 and
+later can be used with mod_wsgi 3.0 or later.
 
 The version of Python being used must have been compiled with support for
-threading.
+threading even if you intend to only run mod_wsgi with prefork MPM or a
+single thread daemon mode configuration.
 
 On Linux systems, if Python has been installed from a package repository,
 you must have installed the corresponding Python "dev" package as well.
@@ -118,19 +110,6 @@ Once the package has been configured, it can be built by running::
 
     make
 
-If the mod_wsgi source code does not build successfully, see:
-
-* :doc:`InstallationIssues`
-
-Documentation is also provided for installing mod_wsgi on a range of
-different operating systems. These following documents may also list issues
-specific to those plaforms:
-
-* :doc:`InstallationOnLinux`
-* :doc:`InstallationOnMacOSX`
-* :doc:`InstallationOnSolaris`
-* :doc:`InstallationOnFreeBSD`
-
 If successful, the only product of the build process that needs to be
 installed is the Apache module itself. There are no separate Python code
 files as everything is done within C code compiled into the Apache module.
@@ -183,7 +162,7 @@ With Apache 1.3, it is also necessary to add a line of the form::
 
     AddModule mod_wsgi.c
 
-For Apache 1.3, the !LoadModule and !AddModule lines related to mod_wsgi
+For Apache 1.3, the LoadModule and AddModule lines related to mod_wsgi
 must appear prior to those for the Apache code module called mod_alias.
 
 Restart Apache Web Server
@@ -225,7 +204,7 @@ as::
 
 For Apache 2.X, the service name would instead be called 'apache2'.
 
-On !RedHat derived distributions, restarting Apache is usually done via the
+On RedHat derived distributions, restarting Apache is usually done via the
 'service' command::
 
     service httpd stop
@@ -246,7 +225,7 @@ script which performs additional actions.
 
 If all is okay, you should see a line of the form::
 
-    Apache/2.2.2 (Unix) mod_wsgi/1.0 Python/2.3 configured
+    Apache/2.2.2 (Unix) mod_wsgi/3.3 Python/2.6 configured
 
 in the Apache error log file.
 
@@ -257,45 +236,10 @@ To cleanup after installation, run::
 
     make clean
 
-If you need to build the module for a different version of Apache, you
-should run::
+If you need to build the module for a different version of Apache and/or
+Python, you should run::
 
     make distclean
 
-and then rerun "configure" against the alternate version of Apache before
-attempting to run "make" again.
-
-Debugging Any Problems
-----------------------
-
-If you have any problems trying to install mod_wsgi, see:
-
-* :doc:`InstallationIssues`
-* :doc:`ConfigurationIssues`
-
-Configuring An Application
---------------------------
-
-For details on how to configure mod_wsgi to run a basic WSGI application,
-and thus verify that your mod_wsgi configurationn is working, see:
-
-* :doc:`QuickConfigurationGuide`
-
-For more in depth information on configuring mod_wsgi see:
-
-* :doc:`ConfigurationGuidelines`
-* :doc:`configuration-directives/index`
-
-Documentation is also provided for using mod_wsgi with some of the common
-Python web frameworks and applications:
-
-* :doc:`IntegrationWithCherryPy`
-* :doc:`IntegrationWithDjango`
-* :doc:`IntegrationWithMoinMoin`
-* :doc:`IntegrationWithPylons`
-* :doc:`IntegrationWithRepozeBFG`
-* :doc:`IntegrationWithTrac`
-* :doc:`IntegrationWithTurboGears`
-* :doc:`IntegrationWithWebPy`
-* :doc:`IntegrationWithWeb2Py`
-* :doc:`IntegrationWithWerkzeug`
+and then rerun "configure" against the alternate version of Apache and/or
+Python before attempting to run "make" again.

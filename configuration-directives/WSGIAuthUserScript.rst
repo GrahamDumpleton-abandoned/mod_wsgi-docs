@@ -20,7 +20,7 @@ authentication mechanisms can also make use of the authentication provider
 if they are using the corresponding Apache C API for accessing them.
 
 More detailed information on using the WSGIAuthUserScript directive can be
-found in :doc:`../AccessControlMechanisms`.
+found in :doc:`../configuration-guides/access-control-mechanisms`.
 
 The options which can be supplied to the WSGIAuthUserScript directive are:
 

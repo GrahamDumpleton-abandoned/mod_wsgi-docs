@@ -10,33 +10,24 @@ and configured Apache to load it. If you haven't completed both these steps
 and are after information on how to build mod_wsgi and/or configure Apache
 to load the mod_wsgi module, then consult the following documents:
 
-* :doc:`QuickInstallationGuide`
+* :doc:`../installation-guides/building-from-source-code`
 
 It is also presumed that you have already got a basic WSGI application
 working and are only now after additional ways of configuring mod_wsgi.
 If you haven't done that, then see:
 
-* :doc:`QuickConfigurationGuide`
+* :doc:`running-a-basic-application`
 
 If you are after more detailed information on the mod_wsgi specific
 configuration directives, consult the following documents:
 
-* :doc:`configuration-directives/index`
+* :doc:`../configuration-directives/index`
 
 For further examples on configuring mod_wsgi, also refer to the guides for
 integrating mod_wsgi with some of the more commonly used Python web
 frameworks and applications:
 
-* :doc:`IntegrationWithCherryPy`
-* :doc:`IntegrationWithDjango`
-* :doc:`IntegrationWithMoinMoin`
-* :doc:`IntegrationWithPylons`
-* :doc:`IntegrationWithRepozeBFG`
-* :doc:`IntegrationWithTrac`
-* :doc:`IntegrationWithTurboGears`
-* :doc:`IntegrationWithWebPy`
-* :doc:`IntegrationWithWeb2Py`
-* :doc:`IntegrationWithWerkzeug`
+* :doc:`../integration-guides/index`
 
 If you need further assistance in configuring mod_wsgi for a specific
 purpose, then ask any questions you have on the

@@ -223,8 +223,9 @@ application is running is where you intended it to run.
 The set of WSGI request environment variables will also show the WSGI
 variables indicating whether process is multithreaded and whether the
 process group is multiprocess or not. For a more complete explanation
-of what that means see documentation of
-:doc:`ProcessesAndThreading`.
+of what that means see:
+
+* :doc:`processes-and-threading`
 
 Tracking Request and Response
 -----------------------------

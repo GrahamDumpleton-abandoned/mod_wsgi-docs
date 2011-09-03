@@ -4,32 +4,35 @@ Where To Get Help
 
 If you are having problems with installing or using mod_wsgi, then ensure
 you read this first. It will give you some pointers on what you can do to
-resolve the problem yourself.
+resolve the problem yourself before having to go off and ask someone else.
 
 Read The Documentation
 ----------------------
 
 First thing you should do is make sure you have read the actual mod_wsgi
-documentation on the mod_wsgi site. The documentation on the mod_wsgi site
-goes into much more detail than anything else you will find elsewhere on
-the Internet. It certainly is going to be better to be relying on the
-official documentation rather than some obscure personal blog site. Even
+documentation on this site. The official documentation goes into much more
+detail than anything else you will find elsewhere on the Internet. It
+certainly is going to be better to be relying on this documentation rather
+than some obscure blog site owned by someone who jotted down a few notes
+after spending just a short period of time getting it working. Even
 integration guides in official documentation for the major Python web
-frameworks are quite sparse and in some cases inaccurate or incomplete.
+frameworks are in some cases quite sparse and in some cases contain
+inaccurate or data information.
 
-The key document you should start with is:
+The key documents you should start with are:
 
-* :doc:`InstallationInstructions`
+* :doc:`installation-guides/index`
+* :doc:`configuration-guides/index`
 
-This has pointers to other documents covering installation, configuration
-and subsequent setup issues. Also references documents on how to go about
+These have pointers to documents covering installation, configuration and
+subsequent setup issues. Also references documents on how to go about
 debugging any issues.
 
 If you have been successful in getting mod_wsgi running and your questions
 are more about how mod_wsgi works or how more complicated features are used,
 then you should start with:
 
-* :doc:`DeveloperGuidelines`
+* :doc:`developer-guides/index`
 
 Although this is labelled as being for developers, that is referring to you
 as a user of mod_wsgi and a developer of your own web application. It isn't
@@ -38,10 +41,6 @@ information for people developing mod_wsgi itself.
 You will find pointers to documentation in there about how mod_wsgi
 processes and threading works, use of virtual environments, source code
 reloading and much more.
-
-For a list of all available documentation see:
-
-* :doc:`table-of-contents`
 
 Also check the authors `blog site <http://blog.dscpl.com.au/>`_ as various
 useful posts have been made there which have never made there way back into
@@ -56,21 +55,31 @@ framework or application, then step back for a moment and try and get a
 basic hello world program running first.
 
 In other words, lets just make sure mod_wsgi itself is working before you
-complicate matters by introducing some third party software into the picture.
+complicate matters by introducing some third party framework, a virtual
+environment or application configuration mechanism into the picture.
 
 You can find a simple hello world program in:
 
-* :doc:`QuickConfigurationGuide`
+* :doc:`configuration-guides/running-a-basic-application`
 
 Conference Presentations
 ------------------------
 
-The author has also done a number of presentations in the past. The main one for which information is available online is as follows:.
+The author has also done a number of presentations in the past. The main
+one for which information is available online is:
 
-* `PyCon Conference Slides - Sydney 2010 <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf>`_
-* `PyCon Conference Video - Sydney 2010 <[http://pyconau.blip.tv/file/3840484/>`_
+* `Slides for 'Getting started with Apache/mod_wsgi - Sydney 2010' <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf>`_
+* `Video of 'Getting started with Apache/mod_wsgi - Sydney 2010' <[http://pyconau.blip.tv/file/3840484/>`_
 
-Ensure you watch the presentatIon as it details many of the common pitfalls for new users.
+Ensure you watch the presentation as it details many of the common pitfalls
+for new users. It presents a hello world application as well as describing
+a basic Django installation.
+
+If you want to get some context of how mod_wsgi compares with other hosting
+mechanisms for Python, then watch:
+
+* `Slides for 'Python web hosting options - Sydney 2011' <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2011.pdf>`_
+* `Video of 'Python web hosting options - Sydney 2011' <http://www.youtube.com/watch?v=PWIvm-uloMg>`_
 
 Asking Your Questions
 ---------------------
@@ -110,12 +119,11 @@ user base of sometimes knowledgeable people. You might also try IRC
 channels related to any third party package or the more general #wsgi and
 #python.web channels.
 
-Do be aware though that the only forum that is now monitored by mod_wsgi
-developers is the mod_wsgi mailing list. Questions about mod_wsgi will no
-longer be answered on sites such as StackOverflow and ServerFault, on
-IRC, or even mailing lists for other packages. So, it is much preferable to
-use the mod_wsgi mailing list if you want an informed answer for a mod_wsgi
-specific question.
+Do be aware though that StackOveflow, ServerFault and IRC are not very good
+places to try and carry out a complex or long discussion, especially when
+debugging issues. You may get lucky if someone knows the exact answer for
+your issue, but anything more and it is much preferable to use the mod_wsgi
+mailing list
 
 As a general rule, if you have never participated in public forums
 previously to seek answers to technical questions, including about Open

@@ -7,8 +7,9 @@ following standard installation instructions. Alternatively you can install
 from FreeBSD ports as detailed below.
 
 For descriptions of general problems that may be encountered during
-installation on FreeBSD, see the documentation on
-:doc:`InstallationIssues`.
+installation on FreeBSD, see the documentation:
+
+* :doc:`../installation-issues/index`
 
 Installation From FreeBSD Ports
 -------------------------------

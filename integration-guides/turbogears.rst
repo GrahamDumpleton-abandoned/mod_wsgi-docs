@@ -5,12 +5,12 @@ Integration With TurboGears
 Note: Requires TurboGears 1.X. Instructions may not be applicable
 to TurboGears 2.0. For TurboGears 2.0, because it is based on Pylons
 you may actually need to refer to
-:doc:`IntegrationWithPylons`.
+:doc:`pylons`.
 
 _Note: This is not intended as a basic tutorial on how to setup mod_wsgi.
 It is recommended you first read more introductory material for mod_wsgi.
 Start by reading through various documents linked off
-:doc:`InstallationInstructions`.
+:doc:`../installation-guides/index`.
 
 The `TurboGears <http://www.turbogears.org/>`_ framework is built on top of
 CherryPy and inherits its ability to be used on top of a WSGI server from

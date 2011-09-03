@@ -1,6 +1,6 @@
-====================
-Developer Guidelines
-====================
+================
+Developer Guides
+================
 
 After having installed and configured mod_wsgi you will want to know how to
 get the most out of it. This document links to documentation on this site
@@ -32,21 +32,21 @@ rather than the WSGI specification or mod_wsgi.
 If on the other hand your problems do appear to relate more to mod_wsgi,
 first off ensure that you read the following documents.
 
-* :doc:`InstallationIssues`
-* :doc:`ConfigurationIssues`
-* :doc:`ApplicationIssues`
+* :doc:`../installation-issues/index`
+* :doc:`../configuration-issues/index`
+* :doc:`../application-issues/index`
 
 If none of the common issues match up with the problem you are seeing and
 you have the need to perform more low level debugging, check out the
 following documents.
 
-* :doc:`DebuggingTechniques`
+* :doc:`../developer-guides/debugging-techniques`
 
 You can also do some basic checking of your installation and configuration
 to validate that how it is setup is how you expect it to be. See the
 following documents.
 
-* :doc:`CheckingYourInstallation`
+* :doc:`../installation-guides/checking-your-installation`
 
 If you are still having no joy and need further assistance then ask any
 questions you have on the mod_wsgi mailing list at:
@@ -57,20 +57,19 @@ If you want to know more about some of the inner workings of mod_wsgi,
 how it is implemented and how it interacts with Apache read the following
 documents.
 
-* :doc:`ProcessesAndThreading`
-* :doc:`VirtualEnvironments`
+* :doc:`processes-and-threading`
+* :doc:`virtual-environments`
 
-* :doc:`ReloadingSourceCode`
-* :doc:`RegisteringCleanupCode`
+* :doc:`reloading-source-code`
+* :doc:`registering-cleanup-code`
 
-* :doc:`FileWrapperExtension`
-* :doc:`AccessControlMechanisms`
+* :doc:`file-wrapper-extension`
 
-* :doc:`TipsAndTricks`
+* :doc:`tips-and-tricks`
 
 If you want to know more detail about some of the problems that can arise
 when running WSGI applications on top of mod_wsgi read the following
 documents.
 
-* :doc:`IssuesWithExpatLibrary`
-* :doc:`IssuesWithPickleModule`
+* :doc:`../installation-issues/expat-library`
+* :doc:`../application-issues/pickle-module`

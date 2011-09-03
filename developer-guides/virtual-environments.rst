@@ -95,7 +95,7 @@ The Pylons instructions for creating a Pylons application would then be
 followed and the application tested using the Pylons inbuilt web server.
 
 Once the application is ready for deployment under mod_wsgi, the
-instructions for :doc:`IntegrationWithPylons` would be
+instructions for :doc:`../integration-guides/pylons` would be
 followed.
 
 As an additional step however, the WSGI script file described in the

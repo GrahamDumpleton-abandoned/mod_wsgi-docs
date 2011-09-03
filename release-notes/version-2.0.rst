@@ -73,7 +73,7 @@ just the script file will apply.
 
 For more details see:
 
-* :doc:`../ReloadingSourceCode`
+* :doc:`../developer-guides/reloading-source-code`
 
 2. When application is running in embedded mode, and WSGIApacheExtensions
 directive is set to On, then a Python CObject reference is added to the
@@ -269,7 +269,7 @@ the auth provider::
 
 For more details see:
 
-* :doc:`../AccessControlMechanisms`
+* :doc:`../configuration-guides/access-control-mechanisms`
 
 4. When Apache 2.2 is being used, now possible to provide a script file
 containing a callable which returns the groups that a user is a member of.
@@ -305,7 +305,7 @@ and 'groups_for_user()' function with a sample as shown below::
 
 For more details see:
 
-* :doc:`../AccessControlMechanisms`
+* :doc:`../configuration-guides/access-control-mechanisms`
 
 5. Implemented WSGIDispatchScript directive. This directive can be used
 to designate a script file in which can be optionally defined any of the
@@ -444,7 +444,7 @@ file itself.
 
 For more details see:
 
-* :doc:`../VirtualEnvironments`
+* :doc:`../developer-guides/virtual-environments`
 
 11. Added WSGIPythonEggs directive and corresponding 'python-eggs' option
 for WSGIDaemonProcess directive. These allow the location of the Python

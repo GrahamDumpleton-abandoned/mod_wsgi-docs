@@ -1,6 +1,6 @@
-=========================
-Quick Configuration Guide
-=========================
+===========================
+Running A Basic Application
+===========================
 
 This document describes the steps for configuring mod_wsgi for a basic
 WSGI application.
@@ -335,19 +335,10 @@ Further Configuration Information
 For further details on how to configure mod_wsgi to run your specific WSGI
 application, see:
 
-* :doc:`ConfigurationGuidelines`
-* :doc:`configuration-directives/index`
+* :doc:`../configuration-guides/index`
+* :doc:`../configuration-directives/index`
 
 Documentation is also provided for using mod_wsgi with some of the common
 Python web frameworks and applications:
 
-* :doc:`IntegrationWithCherryPy`
-* :doc:`IntegrationWithDjango`
-* :doc:`IntegrationWithMoinMoin`
-* :doc:`IntegrationWithPylons`
-* :doc:`IntegrationWithRepozeBFG`
-* :doc:`IntegrationWithTrac`
-* :doc:`IntegrationWithTurboGears`
-* :doc:`IntegrationWithWebPy`
-* :doc:`IntegrationWithWeb2Py`
-* :doc:`IntegrationWithWerkzeug`
+* :doc:`../integration-guides/index`

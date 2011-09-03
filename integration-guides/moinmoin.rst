@@ -7,7 +7,7 @@ Note: Requires MoinMoin 1.5 or later.
 Note: This is not intended as a basic tutorial on how to setup mod_wsgi.
 It is recommended you first read more introductory material for mod_wsgi.
 Start by reading through various documents linked off
-:doc:`InstallationInstructions`.
+:doc:`../installation-guides/index`.
 
 The `MoinMoin <http://moinmoin.wikiwikiweb.de/>`_ application provides the
 ``MoinMoin.server.wsgi.moinmoinApp()`` function for running MoinMoin as a

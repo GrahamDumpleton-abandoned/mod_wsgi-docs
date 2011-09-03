@@ -24,8 +24,8 @@ the problems by using daemon mode.
 If you are having a problem which doesn't seem to be covered by this
 document, also make sure you see:
 
-* :doc:`InstallationIssues`
-* :doc:`ConfigurationIssues`
+* :doc:`../installation-issues/index`
+* :doc:`../configuration-issues/index`
 
 Access Rights Of Apache User
 ----------------------------
@@ -152,7 +152,9 @@ allow that memory relocations in static code to work, or you would need to
 make sure that you reinstall Python such that it provides a shared library
 and rebuild mod_wsgi. Other issues around only having a static variant of
 the Python library available are described in section 'Lack Of Python
-Shared Library' of :doc:`InstallationIssues`.
+Shared Library' of:
+
+* :doc:`../installation-issues/index`
 
 Even where a shared library is used, SELinux has also resulted in similar
 memory related errors when loading C extension modules at run time for
@@ -495,7 +497,9 @@ magic to determine whether that is the case or not.
 
 For further information about options for logging error messages and other
 debugging information from a WSGI application running under mod_wsgi see
-section 'Apache Error Log Files' of :doc:`DebuggingTechniques`.
+section 'Apache Error Log Files' of:
+
+* :doc:`../developer-guides/debugging-techniques`
 
 WSGI applications which are known to write data to standard output in their
 default configuration are CherryPy and TurboGears. Some plugins for Trac
@@ -568,7 +572,9 @@ be shutdown and then the ``httpd`` program run explicitly::
     httpd -X
 
 For more details on using interactive debuggers in the context of mod_wsgi
-see documentation on :doc:`DebuggingTechniques`.
+see documentation on:
+
+* :doc:`../developer-guides/debugging-techniques`
 
 Note that the restrictions on reading from stdin were removed in mod_wsgi
 3.0 because it was found that people couldn't be bothered to fix their
@@ -641,7 +647,8 @@ defined code associated with it.
 
 The technical reasons for the limitations in the use of the "pickle" module
 in conjunction with WSGI application script files are further discussed in
-the document :doc:`IssuesWithPickleModule`. Note that the limitations do
+the document :doc:`issues with pickle module
+<../application-issues/pickle-module>`. Note that the limitations do
 not apply to standard Python modules and packages imported from within a
 WSGI application script file from directories on the standard Python module
 search path.
@@ -671,7 +678,7 @@ problem.
 
 For further technical discussion of this issue and how to determine which
 version of the 'expat' library both Apache and Python use, see the document
-:doc:`IssuesWithExpatLibrary`.
+:doc:`issues with expat library <../installation-issues/expat-library>`.
 
 MySQL Shared Library Conflicts
 ------------------------------

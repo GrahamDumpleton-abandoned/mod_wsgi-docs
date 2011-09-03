@@ -200,8 +200,9 @@ This is because in order to interject the cleanup actions triggered on the
 'close()' method of the iterable object it has to replace the existing
 iterable object with another which wraps the first, with the outer
 providing its own 'close()' method. An example of a middleware which
-replaces the 'close()' method in this way can be found in
-:doc:`RegisteringCleanupCode`.
+replaces the 'close()' method in this way can be found in:
+
+* :doc:`registering-cleanup-code`
 
 It is thus quite easy for a WSGI application stack to inadvertantly defeat
 completely any attempts to return file contents in an optimised way using

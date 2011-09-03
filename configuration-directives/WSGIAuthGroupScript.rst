@@ -11,7 +11,7 @@ The WSGIAuthGroupScript directive provides a mechanism for implementing
 group authorisation using the Apache 'Require' directive.
 
 More detailed information on using the WSGIAuthGroupScript directive can be
-found in :doc:`../AccessControlMechanisms`.
+found in :doc:`../configuration-guides/access-control-mechanisms`.
 
 The options which can be supplied to the WSGIAuthGroupScript directive are:
 

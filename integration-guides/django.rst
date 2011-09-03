@@ -5,9 +5,9 @@ Integration With Django
 Note: This is not intended as a basic tutorial on how to setup mod_wsgi.
 It is recommended you first read more introductory material for mod_wsgi.
 Start by reading through various documents linked off
-:doc:`InstallationInstructions`. If wanting to know
+:doc:`../installation-guides/index`. If wanting to know
 about source code reloading issues when running Django under Apache and
-mod_wsgi then ensure you read :doc:`ReloadingSourceCode`.
+mod_wsgi then ensure you read :doc:`../developer-guides/reloading-source-code`.
 
 The `Django <http://www.djangoproject.com/>`_ framework provides the
 ``django.core.handlers.wsgi.WSGIHandler()`` function for constructing a

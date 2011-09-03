@@ -7,8 +7,9 @@ against the standard versions of Python and Apache supplied with MacOS X.
 The GNU C compiler from the MacOS X Developer Toolkit bundle is required.
 
 For descriptions of general problems that may be encountered during
-installation on MacOS X, see the documentation on
-:doc:`InstallationIssues`.
+installation on MacOS X, see the documentation:
+
+* :doc:`../installation-issues/index`.
 
 The following MacOS X specific issues can also arise.
 

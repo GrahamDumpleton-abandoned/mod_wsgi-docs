@@ -11,7 +11,7 @@ The WSGIAccessScript directive provides a mechanism for implementing host
 access controls.
 
 More detailed information on using the WSGIAccessScript directive can be
-found in :doc:`../AccessControlMechanisms`.
+found in :doc:`../configuration-guides/access-control-mechanisms`.
 
 The options which can be supplied to the WSGIAccessScript directive are:
 

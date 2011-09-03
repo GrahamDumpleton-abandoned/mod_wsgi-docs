@@ -6,8 +6,9 @@ If using a Solaris system, mod_wsgi can be compiled from source code by
 following standard installation instructions.
 
 For descriptions of general problems that may be encountered during
-installation on Solaris, see the documentation on
-"[InstallationIssues Installation Issues]".
+installation on Solaris, see the documentation:
+
+* :doc:`../installation-issues/index`
 
 The following Solaris specific issues can also arise.
 

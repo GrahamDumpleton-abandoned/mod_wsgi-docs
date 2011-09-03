@@ -5,8 +5,9 @@ Installation On Linux
 If using a Linux system, mod_wsgi can be installed direct from source code.
 
 For descriptions of general problems that may be encountered during
-installation on Linux, see the documentation on
-:doc:`InstallationIssues`.
+installation on Linux, see the documentation:
+
+* :doc:`../installation-issues/index`.
 
 If however you prefer to use packages specific to your Linux distribution,
 details of known packages are listed given below.

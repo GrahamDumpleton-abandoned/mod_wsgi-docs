@@ -15,8 +15,8 @@ arise regarding installation, including workarounds if available.
 If you are having a problem which doesn't seem to be covered by this
 document, also make sure you see:
 
-* :doc:`ConfigurationIssues`
-* :doc:`ApplicationIssues`
+* :doc:`../configuration-issues/index`
+* :doc:`../application-issues/index`
 
 Missing Python Header Files
 ---------------------------

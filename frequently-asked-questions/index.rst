@@ -7,12 +7,12 @@ properly. If you are having problems, you are highly encouraged to at least
 read the following documents, which cover basic setup as well as common
 problems.
 
-* :doc:`QuickInstallationGuide`
-* :doc:`QuickConfigurationGuide`
+* :doc:`../installation-guides/building-from-source-code`
+* :doc:`../configuration-guides/running-a-basic-application`
 
-* :doc:`InstallationIssues`
-* :doc:`ConfigurationIssues`
-* :doc:`ApplicationIssues`
+* :doc:`../installation-issues/index`
+* :doc:`../configuration-issues/index`
+* :doc:`../application-issues/index`
 
 If you still don't find a solution, then use the
 `mod_wsgi user group <http://groups.google.com/group/modwsgi>`_ to post details
@@ -26,7 +26,8 @@ Comparison to ModPython
 
 **Q**: Is mod_wsgi faster than mod_python?
 
-**A**: Yes, :doc:`PerformanceEstimates` indicates that both embedded mode
+**A**: Yes, the document :doc:`performance estimates
+<../performance-estimates>` indicates that both embedded mode
 and daemon mode of mod_wsgi can maintain a greater request throughput than
 mod_python.
 
@@ -75,8 +76,9 @@ against a static Python library. This is especially a problem with older
 Linux distributions before they started shipping with Python as a shared
 library.
 
-Further information on these problems can be found in various sections of
-:doc:`InstallationIssues`.
+Further information on these problems can be found in various sections of:
+
+* :doc:`../installation-issues/index`.
 
 **Q**: Why when first request is made against a WSGI application does the
 Apache server process handling the request crash with a 'segmentation
@@ -96,9 +98,13 @@ Subversion are a particular example, with the Python module only working
 correctly if the WSGI application is forced to run within the first
 interpreter instance created by Python.
 
-Further information on these problems can be found in various sections of
-:doc:`ApplicationIssues`. The problems with the expat library
-are also gone into in more detail in :doc:`IssuesWithExpatLibrary`.
+Further information on these problems can be found in various sections of:
+
+* :doc:`../application-issues/index`
+  
+The problems with the expat library are also gone into in more detail in:
+
+* :doc:`../installation-issues/expat-library`.
 
 **Q**: Why am I seeing the error message 'premature end of script headers' in
 the Apache error logs.
@@ -122,8 +128,9 @@ Apache child process cannot access the daemon process sockets. You will
 need to use the WSGISocketPrefix directive to specify an alternative
 location for storing of runtime files such as sockets.
 
-For further information see section 'Location Of UNIX Sockets' of
-:doc:`ConfigurationIssues`.
+For further information see section 'Location Of UNIX Sockets' of:
+
+* :doc:`../configuration-issues/index`.
 
 **Q**: I am getting a HTTP 500 error response and I can't find any error in
 the Apache error logs.
@@ -194,7 +201,9 @@ Use of daemon mode and the process reload mechanism is the preferred
 mechanism for handling automatic reloading of code after changes.
 
 More details on how source code reloading works with mod_wsgi can be
-found in :doc:`ReloadingSourceCode`.
+found in:
+
+* :doc:`../developer-guides/reloading-source-code`
 
 **Q**: Why do requests against my application seem to take forever, but
 then after a bit they all run much quicker?
@@ -228,7 +237,7 @@ correctly the results would be better than is shown by those benchmarks.
 For some cases, such as when WSGIScriptAlias is being used, it is actually
 possible to preload the application code when the processes first starts,
 rather than when the first request arrives. To preload an application see the
-:doc:`configuration-directives/WSGIImportScript` directive.
+:doc:`../configuration-directives/WSGIImportScript` directive.
 
 By preloading the application code you would not normally see delays in
 requests being handled. The only exception to this would be when running
@@ -258,13 +267,20 @@ purposes can cause this error.
 
 For more details about this issue, including how applications should do
 logging and how to disable this restriction see section 'Writing To Standard
-Output' in :doc:`ApplicationIssues` and section 'Apache Error
-Log Files' in :doc:`DebuggingTechniques`.
+Output' in:
+
+* :doc:`../application-issues/index`
+  
+and section 'Apache Error Log Files' in:
+
+* :doc:`../developer-guides/debugging-techniques`
 
 **Q**: Can mod_wsgi be used with Python virtual environments created using
 Ian Bicking's 'virtualenv' package?
 
-**A**: Yes. For more details see :doc:`VirtualEnvironments`.
+**A**: Yes. For more details see:
+
+* :doc:`../developer-guides/virtual-environments`
 
 Access Control Mechanisms
 -------------------------
@@ -284,9 +300,12 @@ As a result, the passing of HTTP authentication credentials must be
 explicitly enabled by the web server administrator. This can only be done
 using directives placed in the main Apache confguration file.
 
-For further information see :doc:`AccessControlMechanisms`
-and the documentation for the WSGIPassAuthorization directive within the
-:doc:`configuration-directives/index` documentation.
+For further information see:
+
+* :doc:`../configuration-guides/access-control-mechanisms`
+
+and the documentation for the
+:doc:`../configuration-directives/WSGIPassAuthorization` directive.
 
 **Q**: Is there a way of having a WSGI application provide user authentication
 for resources outside of the application such as static files, CGI scripts
@@ -303,4 +322,6 @@ than sufficient and makes the task somewhat simpler than needing to
 implement a full handler like in mod_python as Apache and mod_wsgi do all
 the hard work.
 
-For further information see :doc:`AccessControlMechanisms`.
+For further information see:
+
+* :doc:`../configuration-guides/access-control-mechanisms`

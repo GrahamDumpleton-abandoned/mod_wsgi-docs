@@ -5,7 +5,7 @@ Integration With Pylons
 Note: This is not intended as a basic tutorial on how to setup mod_wsgi.
 It is recommended you first read more introductory material for mod_wsgi.
 Start by reading through various documents linked off
-:doc:`InstallationInstructions`.
+:doc:`../installation-guides/index`.
 
 The `Pylons <http://pylonshq.com/>`_ framework provides the
 ``paste.deploy.loadapp()`` function for constructing a WSGI application

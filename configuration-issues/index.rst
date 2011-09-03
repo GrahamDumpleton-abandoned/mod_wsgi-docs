@@ -14,8 +14,8 @@ arise in respect of configuration.
 If you are having a problem which doesn't seem to be covered by this
 document, also make sure you see:
 
-* :doc:`InstallationIssues`
-* :doc:`ApplicationIssues`
+* :doc:`../installation-issues/index`
+* :doc:`../application-issues/index`
 
 Location Of UNIX Sockets
 ------------------------

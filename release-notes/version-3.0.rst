@@ -126,7 +126,7 @@ Features Added
 
 What constitutes support for Python 3.X is described in:
 
-* :doc:`../SupportForPython3X`
+* :doc:`../support-for-python3x`
 
 Note that Python 3.0 is not supported and cannot be used. You must use
 Python 3.1 or later as mod_wsgi relies on features only added in Python 3.1.

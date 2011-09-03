@@ -38,7 +38,7 @@ For a list of changes in all versions of mod_wsgi see:
 
 For details on how to install from the source code see:
 
-* :doc:`QuickInstallationGuide`
+* :doc:`installation-guides/building-from-source-code`
 
 Windows Binary Downloads
 ------------------------
@@ -54,7 +54,7 @@ of Python and Apache that is being used:
 
 For details on how to install these files see:
 
-* :doc:`InstallationOnWindows`
+* :doc:`installation-guides/installation-on-windows`
 
 Note that these binaries will only work for 32 bit Python and 32 bit Apache.
 If you need to use 64 bit Python and 64 bit Apache and can't compile mod_wsgi

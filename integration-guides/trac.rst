@@ -7,7 +7,7 @@ Note: Requires Trac 0.10 or later.
 Note: This is not intended as a basic tutorial on how to setup mod_wsgi.
 It is recommended you first read more introductory material for mod_wsgi.
 Start by reading through various documents linked off
-:doc:`InstallationInstructions`.
+:doc:`../installation-guides/index`.
 
 The `Trac <http://trac.edgewall.org/>`_ application provides the
 ``trac.web.main.dispatch_request()`` function for running Trac as a WSGI
