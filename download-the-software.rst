@@ -30,11 +30,11 @@ The most up to date and recommended version of mod_wsgi is 3.3.
 
 For a list of changes made in this version see:
 
-* :doc:`release-notes/version-3.3`
+* :doc:`package-release-notes/version-3.3`
 
 For a list of changes in all versions of mod_wsgi see:
 
-* :doc:`release-notes/index`
+* :doc:`package-release-notes/index`
 
 For details on how to install from the source code see:
 

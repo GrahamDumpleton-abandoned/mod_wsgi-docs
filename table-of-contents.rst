@@ -15,7 +15,7 @@ Contents:
    performance-estimates
    support-for-python3x
 
-   release-notes/index
+   package-release-notes/index
 
    installation-guides/index
    installation-guides/building-from-source-code
