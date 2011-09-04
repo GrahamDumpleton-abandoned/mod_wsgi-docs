@@ -17,7 +17,7 @@ than some obscure blog site owned by someone who jotted down a few notes
 after spending just a short period of time getting it working. Even
 integration guides in official documentation for the major Python web
 frameworks are in some cases quite sparse and in some cases contain
-inaccurate or data information.
+inaccurate or out dated information.
 
 The key documents you should start with are:
 
@@ -193,12 +193,26 @@ factors or simply a failure to read the documentation.
 Contacting The Author
 ---------------------
 
-It would be prefered that you use the mod_wsgi mailing list to ask questions.
-If however it involves revealing information which is confidential then you
-can always track down the author's email address and make contact direct. This
-really should be a last resort.
+It would be prefered that you use the mod_wsgi mailing list to ask
+questions. If however it involves revealing information which is
+confidential then you can always track down the author's email address and
+make contact direct. This really should be a last resort.
 
-If the question doesn't seem to warrant personal contact being made, you will
-be told to use the mod_wsgi mailing list like everyone else. That will be
-reconsidered if you want to pay some sort of support money for mod_wsgi or
-give a generous :doc:`donation <how-to-contribute-back>`.
+If the question doesn't seem to warrant personal contact being made, you
+will be told to use the mod_wsgi mailing list like everyone else. That will
+be reconsidered if you want to pay some sort of support money for mod_wsgi
+or give a generous :doc:`donation <how-to-contribute-back>`.
+
+How To Contribute Back
+----------------------
+
+Developing software as Open Source is more often than not a thankless task.
+If you are using mod_wsgi then please consider :doc:`how you might contribute
+back <how-to-contribute-back>`.
+
+Also please note that contrary to what is being reported in some forums,
+this project is in no way affiliated with Google or funded by Google (or
+any other company) in any way. The only connection with Google is that the
+project source code and documentation is hosted on the free and public
+Google code hosting site. All development on this project is done at my own
+cost in personal time.

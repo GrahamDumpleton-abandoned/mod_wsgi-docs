@@ -1,5 +1,5 @@
 ======================
-How to contribute back
+How To Contribute Back
 ======================
 
 Who Are The Developers
@@ -73,7 +73,3 @@ At the moment nothing extra can be offered in recognition of making a
 donation except the ability to ask questions related to a companies
 internal use, where confidential information is involved, via private email
 rather than in public on the mailing list.
-
-In the future, exclusive or priority access may be provided to better
-quality documentation. This will depend though on time being available to
-write such documentation.

@@ -7,6 +7,7 @@ Contents:
 .. toctree::
    :maxdepth: 1
 
+   what-is-mod_wsgi
    download-the-software
 
    where-to-get-help

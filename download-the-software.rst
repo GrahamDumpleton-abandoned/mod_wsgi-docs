@@ -59,8 +59,8 @@ For details on how to install these files see:
 Note that these binaries will only work for 32 bit Python and 32 bit Apache.
 If you need to use 64 bit Python and 64 bit Apache and can't compile mod_wsgi
 yourself from source code, you may look at the Windows binaries available
-for `ActivateState Python <http://code.activestate.com/pypm/modwsgi-apache2.2/>`_.
-It is presumed that you have to be using ActivateState Python installation
+for `ActiveState Python <http://code.activestate.com/pypm/modwsgi-apache2.2/>`_.
+It is presumed that you have to be using ActiveState Python installation
 for them to work. It is not known where you would however get 64 bit Apache
 from as believe ASF only provides a 32 bit installer.
 
