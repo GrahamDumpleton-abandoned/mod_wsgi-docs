@@ -2,23 +2,23 @@
 Download The Software
 =====================
 
-Nothing In Life Is Free
------------------------
-
-A significant amount of time and effort has gone into producing this
-software, the documentation and in providing support to users. So, although
-you are free to download it and do with it as you wish, it is not free from
-cost.
-
-If you are using mod_wsgi, please consider making a
-that mod_wsgi will continue to be developed and the documentation further
-improved.
-
-If you are philosophically against the idea of contributing back to Open
-Source projects in a monetary way and find it obnoxious that any Open
-Source project would solicit donations, then it is suggested that you use
-one of the alternatives to mod_wsgi such as
-`CGI <http://en.wikipedia.org/wiki/Common_Gateway_Interface>`_.
+.. Nothing In Life Is Free
+.. -----------------------
+.. 
+.. A significant amount of time and effort has gone into producing this
+.. software, the documentation and in providing support to users. So, although
+.. you are free to download it and do with it as you wish, it is not free from
+.. cost.
+.. 
+.. If you are using mod_wsgi, please consider making a
+.. that mod_wsgi will continue to be developed and the documentation further
+.. improved.
+.. 
+.. If you are philosophically against the idea of contributing back to Open
+.. Source projects in a monetary way and find it obnoxious that any Open
+.. Source project would solicit donations, then it is suggested that you use
+.. one of the alternatives to mod_wsgi such as
+.. `CGI <http://en.wikipedia.org/wiki/Common_Gateway_Interface>`_.
 
 Source Code Downloads
 ---------------------
@@ -74,16 +74,6 @@ compiled Apache/Python packages.
 
 * `mod_wsgi-macosx106-ap22py26-3.3.so - Apache 2.2 / Python 2.6
   <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-macosx106-ap22py26-3.3.so>`_
-
-Conference Presentations
-------------------------
-
-The following presentations are also available.
-
-* `PyCon Conference Slides - Sydney 2010
-  <http://code.google.com/p/modwsgi/downloads/detail?name=mod_wsgi-pycon-sydney-2010.pdf>`_
-* `PyCon Conference Video - Sydney 2010
-  <http://pyconau.blip.tv/file/3840484/>`_
 
 Other Available Downloads
 -------------------------
