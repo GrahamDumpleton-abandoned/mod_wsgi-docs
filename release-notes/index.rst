@@ -1,6 +1,6 @@
-=============
-Release Notes
-=============
+=====================
+Package Release Notes
+=====================
 
 .. toctree::
    :maxdepth: 2
